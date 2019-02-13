@@ -1,0 +1,4 @@
+Sitemap: https://leevanrell.com/sitemapindex.xml
+
+User-Agent: *
+Host: leevanrell.com
