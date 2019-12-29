@@ -1,1 +1,0 @@
-cd site && nikola build && cp -r output/ ../docs/ && cp CNAME docs/CNAME
