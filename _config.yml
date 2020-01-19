@@ -8,39 +8,34 @@ description: > # this means to ignore newlines until "show_exerpts:"
   Software Engineer attempt to write a blog. 
   Focused on programming, 3d printing and design, arduino's and more.
 show_excerpts: true # set to true to show excerpts on the homepage
-paginate: 1
 baseurl: ""
 permalink: pretty
 host: 0.0.0.0
 
-theme: plainwhite
+sass:
+  sass_dir: _sass
+  style: :compressed
 plainwhite:
   name: Lee Vanrell
   tagline: Software Engineer
   date_format: "%b %-d, %Y"
-  sitemap: true # set to true to generate sitemap.xml content
+  sitemap: true 
+  show_excerpts: true
+  analytics_id: UA-156487363-1
   social_links:
     twitter: lee_vanrell
     github:  leevanrell
     linkedIn: in/leevanrell
     rss: rss
+  # navigation:
+  #   - title: My Work
+  #     url: "/my-work"
+  #   - title: Resume
+  #     url: "/resume"
+#header_pages:
+# - about.md
 
-# defaults:
-#   - scope:
-#       path: "assets/img"
-#     values:
-#       image: true
-
-plugins:
-  - jekyll-seo-tag
-  - jekyll-scholar
-  - jekyll-gist
-  #- jekyll-coffeescript
-  #- jekyll-paginate
-
-scholar:
-  style: mla
-
+theme: plainwhite
 # Optimize Jekyll
 exclude:
   - .editorconfig
@@ -51,6 +46,13 @@ exclude:
   - LICENSE.md
   - README.md
 
-sass:
-  sass_dir: _sass
-  style: :compressed
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-scholar
+  - jekyll-gist
+  #- jekyll-coffeescript
+  #- jekyll-paginate
+
+scholar:
+  style: mla
