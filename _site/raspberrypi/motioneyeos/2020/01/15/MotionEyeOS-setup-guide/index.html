@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="shortcut icon" href="/assets/favicon.ico"/>
+<title>Setting a MotionEyeOS Webcam</title>
+<!-- Begin Jekyll SEO tag v2.1.0 -->
+<title>Setting a MotionEyeOS Webcam - Lee Vanrell</title>
+<meta property="og:title" content="Setting a MotionEyeOS Webcam" />
+<meta name="description" content="This guide is for anyone who wants to setup a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply." />
+<meta property="og:description" content="This guide is for anyone who wants to setup a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply." />
+<link rel="canonical" href="http://0.0.0.0:4000/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/" />
+<meta property="og:url" content="http://0.0.0.0:4000/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/" />
+<meta property="og:site_name" content="Lee Vanrell" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-01-15T20:12:12-06:00" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Setting a MotionEyeOS Webcam",
+"datePublished": "2020-01-15T20:12:12-06:00",
+"description": "This guide is for anyone who wants to setup a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply.",
+"url": "http://0.0.0.0:4000/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+  <body>
+    <main class="container">
+      <section class="about">
+        <a href="/"><img src="/assets/portfolio.png" alt="Lee Vanrell"></a>
+        <h2 id="title">
+          <a href="/">Lee Vanrell</a>
+        </h2>
+        <p class="tagline">Software Engineer</p>
+        <ul class="social"><a href="https://github.com/leevanrell">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/leevanrell">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="https://twitter.com/lee_vanrell">
+              <li>
+                <i class="icon-twitter-squared"></i>
+              </li>
+            </a></ul><p>&copy;
+          2020</p>
+      </section>
+      <section class="content">
+        <div class="post-container">
+  <a class="post-link" href="/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/">
+    <h2 class="post-title">Setting a MotionEyeOS Webcam</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>RaspberryPi</li><li>MotionEyeOS</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Jan 15, 2020</div>
+  </div>
+  <div class="post">
+    <p>This guide is for anyone who wants to setup a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply.</p>
+
+<p>For those who want a 3d printable case and camera holder, I recommend <a href="https://www.thingiverse.com/thing:4099543">this</a> case (because I designed it and use it myself). Otherwise there plenty of commercial <a href="https://amzn.to/2NFs7V3">options</a></p>
+
+<p>Besides that, the setup for MotionEyeOS is relatively easy. Although there are some tweaks that I find important to have a more functional surveillance system. We’ll talk about that later.</p>
+
+<p>First, go motioneye’s releases <a href="https://github.com/ccrisan/motioneyeos/releases">page</a>. Download the corresponding images for your board. Once, downloaded plug in your preferred image flashing utility, I prefer <a href="https://www.balena.io/etcher">balenaEtcher</a>.</p>
+
+<p>If you want to use wifi with the pi, you can drop wpa_supplicant.conf in the root directory of the sd card and paste this into the file:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    country=US
+    update_config=1
+    ctrl_interface=/var/run/wpa_supplicant
+    
+    network={
+        scan_ssid=1
+        ssid="MyWiFiSSID"
+        psk="S3cr3tp@$$w0rc|"
+    }
+</code></pre></div></div>
+<p>Be sure to replace the SSID and PSK with your SSID and password. If you have any questions or frustrations fuck off to the <a href="https://github.com/ccrisan/motioneyeos/wiki/Wifi-Preconfiguration">git</a>. Once this is finished, we’re now done with the sd card and you can plug it into the pi.</p>
+
+<p>Now for the camera. For the camera connector, usually the side with the metal contacts should face toward the camera. Lift the slide clamp of the connector to make it easier to slide the ribbon cable in. Slide in the ribbon cable. Now pull it out and put it back in. Repeat until climax. Once finished slide it in again and push the clamp back. Don’t use too much force. They’re gentle creatures. Now for the pi connector. The process is pretty much the same. The connector you want is the one closest to the USB/Ethernet ports. Don’t put it in the wrong hole. The metal contacts should face towards the HDMI port/away from the USB/Ethernet ports.</p>
+
+<p>Once this is complete, you’re set to turn on the pi. The boot process takes some time to complete. You can use a network tool to monitor once the pi has come online like angryIPscanner (Windows/normie) or nmap (linux/windows).</p>
+
+<p>The login is admin and the password should be left blank. If you’re not being prompted for an admin login the first time, click the person icon in the top left corner.</p>
+
+<p>The First thing you should do now is change the password to something a little more secure (try password123).</p>
+
+<p>For the settings, it’s important to note that this is all running on something that consumes less than 4 watts under load and has a full linux kernel and network stack. So it’s not going to be able to stream and capture 1920x1080@60fps easily (I’m sure this is gonna age well). Although maybe the newer pi’s can handle it better, IDGAF.</p>
+
+<p>Something I like to do is enable push notifications via <a href="https://pushover.net/">Pushover</a>. First, enable and configure Motion Detection like so <img src="/assets/img/screenshot.jpg" alt="MotionEye Config" />. You can set the mask to only trigger off of an area of interest like a door/entryway/shower/etc. The red-highlighted area is the area that is ignored by the camera. Also note that these settings might not work for everyone and aren’t set in stone. This just works for me.</p>
+
+<p>Now that motion detection is enabled go one tab down to ‘Motion Notifications’. Enable Run a Command and enter as follows:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python /root/notify.py
+</code></pre></div></div>
+
+<p>Next, enable ssh server in the services tab.
+Hit the annoying orange apply tab. The pi should reboot. Once the pi is back up, SSH into with a ssh client (if you’ve made it this far you probably know what your doing and don’t need help getting one). Since the creators are complete Nazis, the entire fs is read only so we’ll need to run:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mount -o remount,rw /
+mount -o remount,rw /boot
+
+</code></pre></div></div>
+<p>Next thing is to open /root/notify.py</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ nano /root/notify.py #they include nano tho?
+</code></pre></div></div>
+
+<p>Write the following python script:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import httplib, urllib, urllib2
+
+req = urllib2.Request('http://icanhazip.com', data=None) 
+response = urllib2.urlopen(req, timeout=5)
+response = response.read().strip('\n')
+port = 80
+
+conn = httplib.HTTPSConnection("api.pushover.net:443")
+conn.request("POST", "/1/messages.json",
+urllib.urlencode({
+    "token": "APP_TOKEN",                       # Insert app token here
+    "user": "USER_TOKEN",                       # Insert user token here
+    "html": "1",                                # 1 for HTML, 0 to disable
+    "title": "Motion Detected!",                # Title of the message
+    "message": "&lt;b&gt;Front Door&lt;/b&gt; camera!",     # Content of the message - include HTML if required
+    "url": "http://"+response+":"+str(port),         # Link to be included in message
+    "url_title": "View live stream",            # Text for the link
+    "sound": "siren",                           # Define the sound played on the receiving device
+}), { "Content-type": "application/x-www-form-urlencoded" })
+conn.getresponse()
+</code></pre></div></div>
+
+<p>To generate a user and app token head over to Pushover and they’ll get you set up. The service costs a few bucks for an account and provides a 7,500 messages/month. If your too cheap to pay that dunno why you wasted $50 on a shitty webcam. Once the tokens are added Ctrl^O and Ctrl^x and exit the ssh session. Now, download Pushover’s app and you should be set to receive messages. Now try and run the following command in the ssh shell.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ python /root/notify.py
+</code></pre></div></div>
+<p>With any luck you should receive a push notification.</p>
+
+<p>Other than that Motioneye also has Cloud storage option if you trust your data with Google/DropBox. Look at the File Storage tab if that interests you.</p>
+
+<p>To keep your pi from dying a slow death, I recommend disabling Video Streaming, and lowering the Movie/Still Quality to ~60-75%. I also have my video resolution set to 720p@10fps and am mildly satisfied with it.
+That’s it. You survived. Adorable.</p>
+
+  </div></div>
+
+      </section>
+    </main></body>
+</html>

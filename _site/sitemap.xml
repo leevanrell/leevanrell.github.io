@@ -9,8 +9,18 @@
             <lastmod>2019-06-07T00:00:00+00:00</lastmod>
             <priority>1.00</priority>
         </url><url>
-                <loc>http://0.0.0.0:4000/javascript/nodejs/2019/03/23/welcome-to-jekyll/</loc>
-                <lastmod>2019-03-23T10:33:36-05:00</lastmod>
+                <loc>http://0.0.0.0:4000/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/</loc>
+                <lastmod>2020-01-18T19:22:12-06:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
+                <loc>http://0.0.0.0:4000/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/</loc>
+                <lastmod>2020-01-15T20:12:12-06:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
+                <loc>http://0.0.0.0:4000/me/2020/01/14/What-I-did-in-2019/</loc>
+                <lastmod>2020-01-14T20:00:00-06:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url></urlset>

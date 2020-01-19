@@ -5,9 +5,8 @@ email: leegvanrell@gmail.com
 author: leeleegabriel
 url: https://leeleegabriel.github.io
 description: > # this means to ignore newlines until "show_exerpts:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Software Engineer attempt to write a blog. 
+  Focused on programming, 3d printing and design, arduino's and more.
 show_excerpts: true # set to true to show excerpts on the homepage
 paginate: 1
 baseurl: ""
@@ -20,15 +19,27 @@ plainwhite:
   tagline: Software Engineer
   date_format: "%b %-d, %Y"
   sitemap: true # set to true to generate sitemap.xml content
-  # generate social links in footer
   social_links:
     twitter: lee_vanrell
     github:  leevanrell
     linkedIn: in/leevanrell
     rss: rss
 
+# defaults:
+#   - scope:
+#       path: "assets/img"
+#     values:
+#       image: true
+
 plugins:
   - jekyll-seo-tag
+  - jekyll-scholar
+  - jekyll-gist
+  #- jekyll-coffeescript
+  #- jekyll-paginate
+
+scholar:
+  style: mla
 
 # Optimize Jekyll
 exclude:
@@ -39,6 +50,7 @@ exclude:
   - Gemfile.lock
   - LICENSE.md
   - README.md
+
 sass:
   sass_dir: _sass
   style: :compressed
