@@ -229,6 +229,12 @@ main {
       border-bottom: 0.5px solid $linkColor;
     }
   }
+  img {
+    display: block;
+    margin: 0 auto;
+    max-height: 80%;
+    max-width: 100%;
+  }
   h1,
   h2,
   h3,

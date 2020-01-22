@@ -12,8 +12,8 @@
 <meta property="og:title" content="Setting a MotionEyeOS Webcam" />
 <meta name="description" content="This guide is for anyone who wants to setup a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply." />
 <meta property="og:description" content="This guide is for anyone who wants to setup a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply." />
-<link rel="canonical" href="http://localhost:4000/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/" />
-<meta property="og:url" content="http://localhost:4000/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/" />
+<link rel="canonical" href="http://0.0.0.0:4000/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/" />
+<meta property="og:url" content="http://0.0.0.0:4000/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/" />
 <meta property="og:site_name" content="Lee Vanrell" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-01-15T20:12:12-06:00" />
@@ -23,7 +23,7 @@
 "headline": "Setting a MotionEyeOS Webcam",
 "datePublished": "2020-01-15T20:12:12-06:00",
 "description": "This guide is for anyone who wants to setup a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply.",
-"url": "http://localhost:4000/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/"}</script>
+"url": "http://0.0.0.0:4000/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/"}</script>
 <!-- End Jekyll SEO tag -->
 </head>
   <body>
@@ -90,7 +90,8 @@
 
 <p>For the settings, it’s important to note that this is all running on something that consumes less than 4 watts under load and has a full linux kernel and network stack. So it’s not going to be able to stream and capture 1920x1080@60fps easily (I’m sure this is gonna age well). Although maybe the newer pi’s can handle it better, IDGAF.</p>
 
-<p>Something I like to do is enable push notifications via <a href="https://pushover.net/">Pushover</a>. First, enable and configure Motion Detection like so <img src="/assets/img/screenshot.jpg" alt="MotionEye Config" />. You can set the mask to only trigger off of an area of interest like a door/entryway/shower/etc. The red-highlighted area is the area that is ignored by the camera. Also note that these settings might not work for everyone and aren’t set in stone. This just works for me.</p>
+<p>Something I like to do is enable push notifications via <a href="https://pushover.net/">Pushover</a>. First, enable and configure Motion Detection like so <img src="/assets/img/motioney_config.png" alt="MotionEye Config" />.
+You can set the mask to only trigger off of an area of interest like a door/entryway/shower/etc. The red-highlighted area is the area that is ignored by the camera. Also note that these settings might not work for everyone and aren’t set in stone. This just works for me.</p>
 
 <p>Now that motion detection is enabled go one tab down to ‘Motion Notifications’. Enable Run a Command and enter as follows:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python /root/notify.py
@@ -137,8 +138,8 @@ conn.getresponse()
 
 <p>Other than that Motioneye also has Cloud storage option if you trust your data with Google/DropBox. Look at the File Storage tab if that interests you.</p>
 
-<p>To keep your pi from dying a slow death, I recommend disabling Video Streaming, and lowering the Movie/Still Quality to ~60-75%. I also have my video resolution set to 720p@10fps and am mildly satisfied with it.
-That’s it. You survived. Adorable.</p>
+<p>To keep your pi from dying a slow death, I recommend lowering the Movie/Still Quality to ~60-75%. I also have my resolution set to 720p@15fps and am mildly satisfied with it.
+That’s it. You survived. Adorable.ssubl</p>
 
   </div></div>
 

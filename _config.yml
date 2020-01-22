@@ -10,7 +10,7 @@ description: > # this means to ignore newlines until "show_exerpts:"
 show_excerpts: true # set to true to show excerpts on the homepage
 baseurl: ""
 permalink: pretty
-#host: 0.0.0.0
+host: 0.0.0.0
 
 sass:
   sass_dir: _sass

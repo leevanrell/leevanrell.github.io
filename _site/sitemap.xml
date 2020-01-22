@@ -5,21 +5,31 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
-            <loc>http://localhost:4000</loc>
+            <loc>http://0.0.0.0:4000</loc>
             <lastmod>2019-06-07T00:00:00+00:00</lastmod>
             <priority>1.00</priority>
         </url><url>
-                <loc>http://localhost:4000/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/</loc>
+                <loc>http://0.0.0.0:4000/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/</loc>
+                <lastmod>2020-01-21T18:10:00-06:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
+                <loc>http://0.0.0.0:4000/investing/2020/01/20/Stocks-vs-Dividends-vs-Critical-Thought/</loc>
+                <lastmod>2020-01-20T19:50:12-06:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
+                <loc>http://0.0.0.0:4000/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/</loc>
                 <lastmod>2020-01-18T19:22:12-06:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>http://localhost:4000/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/</loc>
+                <loc>http://0.0.0.0:4000/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/</loc>
                 <lastmod>2020-01-15T20:12:12-06:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>http://localhost:4000/me/2020/01/14/What-I-did-in-2019/</loc>
+                <loc>http://0.0.0.0:4000/me/2020/01/14/What-I-did-in-2019/</loc>
                 <lastmod>2020-01-14T20:00:00-06:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>

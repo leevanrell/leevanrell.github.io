@@ -37,7 +37,8 @@ The First thing you should do now is change the password to something a little m
 
 For the settings, it's important to note that this is all running on something that consumes less than 4 watts under load and has a full linux kernel and network stack. So it's not going to be able to stream and capture 1920x1080@60fps easily (I'm sure this is gonna age well). Although maybe the newer pi's can handle it better, IDGAF.
 
-Something I like to do is enable push notifications via [Pushover](https://pushover.net/). First, enable and configure Motion Detection like so ![MotionEye Config](/assets/img/screenshot.jpg). You can set the mask to only trigger off of an area of interest like a door/entryway/shower/etc. The red-highlighted area is the area that is ignored by the camera. Also note that these settings might not work for everyone and aren't set in stone. This just works for me.
+Something I like to do is enable push notifications via [Pushover](https://pushover.net/). First, enable and configure Motion Detection like so ![MotionEye Config](/assets/img/motioney_config.png).
+You can set the mask to only trigger off of an area of interest like a door/entryway/shower/etc. The red-highlighted area is the area that is ignored by the camera. Also note that these settings might not work for everyone and aren't set in stone. This just works for me.
 
 Now that motion detection is enabled go one tab down to 'Motion Notifications'. Enable Run a Command and enter as follows:
 ```
@@ -89,5 +90,5 @@ With any luck you should receive a push notification.
 
 Other than that Motioneye also has Cloud storage option if you trust your data with Google/DropBox. Look at the File Storage tab if that interests you.
 
-To keep your pi from dying a slow death, I recommend disabling Video Streaming, and lowering the Movie/Still Quality to ~60-75%. I also have my video resolution set to 720p@10fps and am mildly satisfied with it.
-That's it. You survived. Adorable.
+To keep your pi from dying a slow death, I recommend lowering the Movie/Still Quality to ~60-75%. I also have my resolution set to 720p@15fps and am mildly satisfied with it.
+That's it. You survived. Adorable.ssubl 
