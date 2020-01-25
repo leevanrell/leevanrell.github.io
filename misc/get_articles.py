@@ -41,7 +41,7 @@ def getLinks():
 def readArticles():
 	stored = []
 	try:
-		with open("../_data/bookmarks.yml", "r") as f:
+		with open(store_file, "r") as f:
 			stored = yaml.load(f)
 	except:
 		stored = NULL
@@ -73,7 +73,7 @@ def mergeArticles(stored, out):
 def writeArticles(stored):
 	noalias_dumper = yaml.dumper.SafeDumper
 	noalias_dumper.ignore_aliases = lambda self, data: True
-	with open("../_data/bookmarks.yml", "w") as f:
+	with open(store_file, "w") as f:
 		yaml.dump(stored, f, Dumper=noalias_dumper)
 
 def main():
@@ -89,7 +89,7 @@ def main():
 
 	print(f"Failed to scrape {len(fails)} out of {len(links)}")
 	for f in fails:
-		print(f"\t-> {f}")
+		print(f"\t-> {f[:60]}")
 
 	c, stored = mergeArticles(readArticles(),out)
 

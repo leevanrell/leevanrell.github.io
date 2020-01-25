@@ -3,7 +3,7 @@ baseurl: ''
 description: 'Software Engineer attempt to write a blog.  Focused on programming,
   3d printing and design, arduino''s and more. '
 email: leegvanrell@gmail.com
-exclude: [.editorconfig, .git, .jekyll-cache, Gemfile, Gemfile.lock, LICENSE.md, README.md]
+exclude: [.editorconfig, .git, .jekyll-cache, Gemfile, Gemfile.lock, LICENSE.md, README.md, node_modules]
 host: 0.0.0.0
 permalink: pretty
 plainwhite:

@@ -2,3 +2,7 @@
 **/include
 **/lib
 **/local
+**/node_modules
+**/.jekyll-cache
+**/.sass-cache
+.jekyll-metadata
