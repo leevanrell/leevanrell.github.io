@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Balancing the benefit of deliberate jamming and the cost of self-interference in a software defined radio challenge</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/blog/assets/css/screen.css?v=981503f5f4" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+
+    <link rel="canonical" href="http://witestlab.poly.edu/blog/software-radio-design-challenge/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="http://witestlab.poly.edu/blog/software-radio-design-challenge/amp/" />
+    
+    <meta property="og:site_name" content="Run my experiment on GENI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Balancing the benefit of deliberate jamming and the cost of self-interference in a software defined radio challenge" />
+    <meta property="og:description" content="This experiment came out of a software radio design challenge used in coursework at New York University and the University of Thessaly. (See Report on university course based on DARPA Spectrum Challenge.) The goal of the project is to design a radio pair that delivers more data from transmitter to" />
+    <meta property="og:url" content="http://witestlab.poly.edu/blog/software-radio-design-challenge/" />
+    <meta property="article:published_time" content="2016-03-09T01:21:00.000Z" />
+    <meta property="article:modified_time" content="2016-03-14T19:41:28.000Z" />
+    <meta property="article:tag" content="project" />
+    <meta property="article:tag" content="software defined radio" />
+    <meta property="article:tag" content="wireless" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Balancing the benefit of deliberate jamming and the cost of self-interference in a software defined radio challenge" />
+    <meta name="twitter:description" content="This experiment came out of a software radio design challenge used in coursework at New York University and the University of Thessaly. (See Report on university course based on DARPA Spectrum Challenge.) The goal of the project is to design a radio pair that delivers more data from transmitter to" />
+    <meta name="twitter:url" content="http://witestlab.poly.edu/blog/software-radio-design-challenge/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Charalampos Manolidis" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="project, software defined radio, wireless" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Run my experiment on GENI",
+        "logo": "http://witestlab.poly.edu/blog/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Charalampos Manolidis",
+        "url": "http://witestlab.poly.edu/blog/author/charalampos/",
+        "sameAs": []
+    },
+    "headline": "Balancing the benefit of deliberate jamming and the cost of self-interference in a software defined radio challenge",
+    "url": "https://witestlab.poly.edu/blog/software-radio-design-challenge/",
+    "datePublished": "2016-03-09T01:21:00.000Z",
+    "dateModified": "2016-03-14T19:41:28.000Z",
+    "keywords": "project, software defined radio, wireless",
+    "description": "This experiment came out of a software radio design challenge used in coursework at New York University and the University of Thessaly. (See Report on university course based on DARPA Spectrum Challenge.) The goal of the project is to design a radio pair that delivers more data from transmitter to",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://witestlab.poly.edu/blog"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.10" />
+    <link rel="alternate" type="application/rss+xml" title="Run my experiment on GENI" href="https://witestlab.poly.edu/blog/rss/" />
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-25309460-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:300,400' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+<style>
+body,
+h1, h2, h3, h4, h5, h6,
+.main-nav a,
+.subscribe-button,
+.page-title,
+.post-meta,
+.read-next-story .post:before,
+.pagination,
+.site-footer {
+    font-family:"Fira Sans", sans-serif; /* Replace with your own font */
+}
+    
+.site-footer{
+    font-size: 1.2rem;
+}
+.main-header {
+   background-color:#0e7d8e!important; /*Replace with your own 6-digit hex color */
+}
+    
+ .nav {
+   background-color:#816c5d!important; /*Replace with your own 6-digit hex color */
+}
+    
+ .nav-opened .menu-button {
+	opacity: 0;
+   }
+h1, h2, h3{
+	color:#818790;
+}
+    
+ .post-title{
+     color:#4A4A4A;
+     margin-top: 20px;
+ }
+  .st-alert code{border:none;background:rgba(0,0,0,0.2);}.st-alert a{color:#2f8cde;}.st-alert-info a,.st-alert-info a:visited,.st-alert-info a:hover{color:#fff}
+.st-alert{padding:20px 30px;margin-bottom:20px;ttext-shadow:0 1px 0 rgba(255,255,255,0.3);background-color:#F4CCCC;position:relative;color:#484019;-webkit-border-radius:1px;-moz-border-radius:1px;border-radius:1px;}.st-alert-success{background-color:#0e7d8e;color:#445028;}.st-alert-danger,.st-alert-error{background-color:#0e7d8e;color:#fff;}.st-alert-info{background-color:#0e7d8e;color:#fff;}.st-alert span{position:absolute;left:0;top:0;padding:2px 8px;color:#fff;font-size:13px;background:rgba(0,0,0,0.2);-webkit-border-radius:1px 0 1px 0;-moz-border-radius:1px 0 1px 0;border-radius:1px 0 1px 0;}.st-alert.with_title{padding:40px 25px 30px 60px;}
+</style>
+
+<link href="/libraries/prism/prism.css" rel="stylesheet" />
+<script src="/libraries/prism/prism.js"></script>
+
+
+<script type="text/javascript" async  
+  src="/libs/js/MathJax-master/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head>
+<body class="post-template tag-project tag-software-defined-radio tag-wireless nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="https://witestlab.poly.edu/blog/">Home</a></li>
+            <li class="nav-about" role="presentation"><a href="https://witestlab.poly.edu/blog/about">About</a></li>
+            <li class="nav-topics" role="presentation"><a href="https://witestlab.poly.edu/blog/topics">Topics</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="https://witestlab.poly.edu/blog/rss/">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-project tag-software-defined-radio tag-wireless">
+
+        <header class="post-header">
+            <h1 class="post-title">Balancing the benefit of deliberate jamming and the cost of self-interference in a software defined radio challenge</h1>
+            <section class="post-meta">
+                    <a href="/blog/author/charalampos/">Charalampos Manolidis</a>
+                <br>
+                <time class="post-date" datetime="2016-03-08">08 March 2016</time>  on <a href="/blog/tag/project/">project</a>, <a href="/blog/tag/software-defined-radio/">software defined radio</a>, <a href="/blog/tag/wireless/">wireless</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>This experiment came out of a software radio design challenge used in coursework at New York University and the University of Thessaly. (See <a href="https://lists.gnu.org/archive/html/discuss-gnuradio/2015-02/msg00100.html">Report on university course based on DARPA Spectrum Challenge</a>.) The goal of the project is to design a radio pair that delivers more data from transmitter to receiver than an "opposing" radio pair, when both radio pairs are operating in the same frequency band. In this particular implementation, we seek to generate interference from our receiver to impede our opponent's ability to receive its own communication. However, we have to balance the benefit caused to us by interfering with our opponent's transmission, against the harm caused by self-interference on the adjacent channel.</p>
+
+<p>It should take about 60-120 minutes to run this experiment, but you will need to have <a href="http://geni.orbit-lab.org">reserved that time</a> in advance. This experiment uses wireless resources (specifically, parts of the grid testbed on <a href="http://geni.orbit-lab.org">ORBIT</a>), and you can only use wireless resources on GENI during a reservation.</p>
+
+<p>To reproduce this experiment on GENI, you will need an account on the <a href="http://groups.geni.net/geni/wiki/SignMeUp">GENI Portal</a>, and you will need to have <a href="http://groups.geni.net/geni/wiki/JoinAProject">joined a project</a>. You should have already <a href="http://groups.geni.net/geni/wiki/HowTo/LoginToNodes">uploaded your SSH keys to the portal</a>. The project lead of the project you belong to must have <a href="https://portal.geni.net/secure/wimax-enable.php">enabled wireless for the project</a>. Finally, you must have <a href="http://geni.orbit-lab.org">reserved time on the grid testbed at ORBIT</a>, and you must run this experiment during your reserved time.</p>
+
+<h2 id="background">Background</h2>
+
+<p>This experiment came out of a software radio design challenge used in coursework at New York University and the University of Thessaly. (See <a href="https://lists.gnu.org/archive/html/discuss-gnuradio/2015-02/msg00100.html">Report on university course based on DARPA Spectrum Challenge</a>.) The goal of the project is to design a radio pair that delivers more data from transmitter to receiver than an "opposing" radio pair, when both radio pairs are operating in the same frequency band. In this particular implementation, we seek to generate interference from our receiver to impede our opponent's ability to receive its own communication. This experiment came out of a software radio design challenge used in coursework at New York University and the University of Thessaly. (See <a href="https://lists.gnu.org/archive/html/discuss-gnuradio/2015-02/msg00100.html">Report on university course based on DARPA Spectrum Challenge</a>.) The goal of the project is to design a radio pair that delivers more data from transmitter to receiver than an "opposing" radio pair, when both radio pairs are operating in the same frequency band. </p>
+
+<p>We use an open source software-defined radio package called GNU Radio and a basic radio hardware component called the Universal Software Radio Peripheral (USRP).</p>
+
+<p>GNU is a project that was created to provide a Unix-like operating system environment that is comprised of free software. Building upon the GNU free software concept, GNU Radio is a free software implementation of actual radio hardware. It is includes a set of signal processing blocks that can be used to implement software defined radio transceivers together with external RF hardware.</p>
+
+<p>This project requires each "team" to transmit between a pair of nodes, on the same frequency band. We aim to maximize the throughput of our own communication, while simultaneously competing against the transmission of an opposing  pair of nodes. </p>
+
+<p>Our design focuses on receiving the maximum possible amount of packets correctly in our own receiving node, while reducing the number of packets that received correctly at the opponent channel. This is achieved by interfering on the opponent's channel (jamming). However, we have to balance the benefit caused to us by interfering with our opponent's transmission, against the harm caused to our own receiver by self-interference on the adjacent channel.</p>
+
+<h2 id="results">Results</h2>
+
+<p>First, we show how the throughput of the receiving channel, for a simultaneously transmitting and receiving Rx node, is affected as we vary the amplitude on its transmitting channel. We compare this behavior of the node’s receive channel for an adjoining and a non-adjoining transmitting channel to its receiving channel.</p>
+
+<p><img src="/blog/content/images/2016/03/Screen-Shot-2016-03-07-at-2-32-46-AM.png" alt="" />
+<a href="https://plot.ly/~Charalampos/4/?share_key=S9DDtChL4HLes7jMYNKuvN">Figure1</a></p>
+
+<p>Then, for a non-adjoining transmitting channel, we interfere to an opponent node’s receiving channel. In this occasion, we examine how varying the amplitude of the interferer affects its own and the opponent’s node receiving channel. <br />
+<img src="/blog/content/images/2016/03/Screen-Shot-2016-03-07-at-2-23-56-AM.png" alt="" />
+<a href="https://plot.ly/~Charalampos/6/?share_key=BqpiRiYzj8cdQolD7CZuVu">Figure2</a></p>
+
+<h2 id="runmyexperiment">Run my experiment</h2>
+
+<p>In order to run the experiment, we should have a reservation in ORBIT’s main grid. We need two pairs of USRP nodes to run this experiment. You can choose any USRP nodes to run on the experiment, but this time we will use the following pairs of nodes (1-1, 20-1) and (1-1, 20-2) respectively. <br />
+During your reservation, SSH into the testbed using your GENI wireless username and ssh key by typing: <br />
+<code>ssh username@console.grid.orbit-lab.org</code></p>
+
+<p>Once you are on the testbed console, load a baseline SDR disk image onto the nodes with the command:  </p>
+
+<pre><code>omf load -i el9043-2015.ndz -t node1-1.grid.orbit-lab.org,node1-2.grid.orbit-lab.org,node20-1.grid.orbit-lab.org,node20-2.grid.orbit-lab.org  
+</code></pre>
+
+<p>This might take some time. Next, you have to turn up the nodes:  </p>
+
+<pre><code>omf tell -a on -t node1-1.grid.orbit-lab.org,node1-2.grid.orbit-lab.org,node20-1.grid.orbit-lab.org,node20-2.grid.orbit-lab.org  
+</code></pre>
+
+<p>Wait for some time for nodes to turn on. Then, SSH in to the four nodes from separate consoles using the following commands:  </p>
+
+<pre><code>ssh root@node1-1  
+ssh root@node1-2  
+ssh root@node20-1  
+ssh root@node20-2  
+</code></pre>
+
+<p>Make sure that the USRP device is detected on each node by running: <br />
+<a href="http://www.orbit-lab.org/wiki/Tutorials/k0SDR/Tutorial00"><code>uhd_find_devices</code></a></p>
+
+<p>Load the experiment’s repository in each node:  </p>
+
+<pre><code>cd el9043s2015  
+git remote add origin https://cmanolidis@bitbucket.org/cmanolidis/el9043s2015-cmanolidis.git  
+git pull origin master  
+</code></pre>
+
+<p>Then, you have to compile GNU Radio code:  </p>
+
+<pre><code>cd /root/el9043s2015/build  
+make  
+make install  
+</code></pre>
+
+<p>The scripts that we use for this experiment are the following: <br />
+<code>benchmark_tx.py
+benchmark_rx.py</code></p>
+
+<p>You can check the parameters that can be passed for both scripts by executing:  </p>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_tx.py -h
+~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -h
+</code></pre>
+
+<p>Now, we run some experiments with one transmitting node and two receiving nodes. The transmitting node is 20-1 and the receiver nodes are 1-1 and 1-2. <br />
+Νode 1-1 uses only its receiving channel while node 1-2 uses both receiving and transmitting channels simultaneously.</p>
+
+<p>In all our experiments we will use GMSK modulation with 4 constellation points for the communication between Tx and the two Rx nodes while their communication channel’s central frequency is set at 1600Mhz, their channel bandwidth is 0.75Mhz (bitrate = 333325), their tx-amplitude is 1.00, their tx-gain is 87.00 and finally their rx-gain is 38.00. The node 1-2 in addition to 1-1 has a transmission channel with a bandwidth of 0.5625Mhz (bitrate = 249993.75) and tx-gain 35.0 while we will examine its behaviour for various transmitting amplitude values.</p>
+
+<p><img src="/blog/content/images/2016/03/Screen-Shot-2016-03-07-at-1-55-19-AM.png" alt="" /></p>
+
+<p>Before to run the first series of our experiments, we set the 1-1 node’s transmitting channel central frequency at 1600.5625Mhz next to it’s receiving channel (1600Mhz) like in the above picture and we run some experiments for several values on its transmitting amplitude. In order to run the experiment we first have to run the scripts on receiving nodes and then to the transmitter. We set he transmitting amplitude of node 1-2 at 0.03. On node’s 1-2 console we run the benchmark_rx script and wait for a few seconds:  </p>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1600.5625e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.030
+</code></pre>
+
+<p>Next, we do the same on 1-1 node, giving the following command:  </p>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0
+</code></pre>
+
+<p>Before starting the benchmark<em>tx script on 20-1 node, we check that the benchmark</em>rx scripts are running on 1-1 and 1-2 nodes. Having confirmed that, we are ready to start node’s 20-1 transmission:</p>
+
+<pre><code class="language- ">~/target/share/gnuradio/examples/digital/narrowband/benchmark_tx.py -m gmsk -p 4 -r 333325 --tx-freq 1600.0e6 --tx-gain 87.0 --tx-amplitude 1.00 --packets 5000
+</code></pre>
+
+<p>Node 20-1 will send 5000 packets at the frequency that nodes 1-1 and 1-2 share. As nodes 1-1 and 1-2 receiving packets they start printing messages like this:  </p>
+
+<pre><code class="language- ">ok = False  pktno = 3976  n_rcvd = 3973  n_right = 2270  
+ok = False  pktno = 3977  n_rcvd = 3974  n_right = 2270  
+ok =  True  pktno = 3978  n_rcvd = 3975  n_right = 2271  
+ok =  True  pktno = 3979  n_rcvd = 3976  n_right = 2272  
+ok = False  pktno = 3980  n_rcvd = 3977  n_right = 2272  
+</code></pre>
+
+<p>
+When node’s 20-1 transmission has finished, we get a message like this:  </p>
+
+<pre><code class="language- ">Packets sent: 5000  
+Transmission duration: 180.041602135sec  
+</code></pre>
+
+<p>
+Then we have to stop the execution of benchmark_rx scripts on 1-1 and 1-2 nodes by pressing <code>ctrl</code> + <code>c</code>.</p>
+
+<p>In the last line of each node (1-1 and 1-2) we can see the amount of packets that the node received correctly (n_right). We can use these values from Tx and Rx nodes scripts to calculate the channel’s throughput (note that default packet size is 1500B):</p>
+
+<p><code>Throughput in B/sec: packet size *
+correctly received packets / transmition duration</code></p>
+
+<p>Using this formula we collect the throughput data for every series of our experiments. <br />
+Finaly for each series we will plot its throughput curve in relation to the transmitting amplitude that we used in the 1-2 node.</p>
+
+<p>In the next experiments, in the nodes 20-1 and 1-1 we run the scripts with the same values as before. The only script’s that we run with different values is this of 1-2 node’s. <br />
+Following what was just described, we run the experiment for the following values of transmitting amplitude on 1-2 node.</p>
+
+<ul>
+<li>Transmitting amplitude value 0.035:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1600.5625e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.035
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude value 0.040:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1600.5625e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.040
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude value 0.045:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1600.5625e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.045
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude value 0.050:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1600.5625e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.050
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude value 0.055:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1600.5625e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.055
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude value 0.060:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1600.5625e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.060
+</code></pre>
+
+<p>We finally got throughput values for the following transmitting amplitude values 0.035, 0.040, 0.045, 0.050, 0.055, 0.060.</p>
+
+<p><img src="/blog/content/images/2016/03/Screen-Shot-2016-03-07-at-1-56-01-AM.png" alt="" /></p>
+
+<p>When we have obtained all the results, we start a new series of experiments but this time on node 1-2 we change the transmitting central frequency (--int-freq) to 1601.125Mhz. The transmitting signals are like the picture’s above.</p>
+
+<p>As in the last series of experiments the only script that we use different values compared with the first experiment’s scripts values is the script on 1-2 node. <br />
+We run the experiment for the following values of transmitting amplitude on 1-2 node and collect the.</p>
+
+<ul>
+<li>Transmitting amplitude 0.075:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.075
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.1:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.1
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.125:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.125
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.15:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.15
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.175:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.175
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.2</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.2
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.225:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.225
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.25:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.25
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.3:</li>
+</ul>
+
+<pre><code> ~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.3
+</code></pre>
+
+<p>When all experiments are finished we get results similar to Figure 1. We are now ready to start our last series of experiments.</p>
+
+<ul>
+<li>Transmitting amplitude 0.075:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.075
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.1:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.1
+</code></pre>
+
+<p>Transmitting amplitude 0.125:  </p>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.125
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.15:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.15
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.175:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.175
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.2</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.2
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.225:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.225
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.25:</li>
+</ul>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.25
+</code></pre>
+
+<ul>
+<li>Transmitting amplitude 0.3:</li>
+</ul>
+
+<pre><code> ~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.3
+</code></pre>
+
+<p>When all experiments are finished we get results similar to <em>Figure1</em>. We are now ready to start our last series of experiments.</p>
+
+<p>The previous experiments are used to discover how the transmitting channel of a node affects its receiving one. Now, let’s see what happens when we tune this channel and interfere to an opponent’s communication channel.</p>
+
+<p>This time we use two pairs of nodes. Namely, pair (20-1, 1-2) and pair (1-1, 20-2). The first pair uses the same central frequency (1600Mhz) for the communication channel as before, and nodes 20-1 and 1-2 act as a transmitter and receiver respectively. The other pair has a new communication channel, with a central frequency of 1601.125Mhz, where 1-1 is the transmitter node and 20-2 is the receiver node. Both pairs have bandwidth of 0.75Mhz. You can see the transmitting channel of both pairs in th next picture (avoid the signal at  1598.9Mhz).</p>
+
+<p><img src="/blog/content/images/2016/03/Screen-Shot-2016-03-07-at-1-56-33-AM.png" alt="" /></p>
+
+<p>The node 1-2 uses its transmitting channel with a bandwidth of 0.5625Mhz, to interfere with the communication channel between 1-1 and 20-2 nodes at 1601.125Mhz. We examine how the interferer (transmitting channel) of node 1-2 is affecting it’s own receiving channel and the opponent Rx node’s (20-2) channel for the following amplitude values:</p>
+
+<p><code>--int-amplitude 0.1</code>, 
+<code>--int-amplitude 0.1125</code>, 
+<code>--int-amplitude 0.125</code>, 
+<code>--int-amplitude 0.1375</code>, 
+<code>--int-amplitude 0.15</code> 
+<code>--int-amplitude 0.1625</code> 
+<code>--int-amplitude 0.175</code> 
+<code>--int-amplitude 0.1875</code> 
+<code>--int-amplitude 0.2</code></p>
+
+<p>Let’s start our last series of experiments with first amplitude value being 0.1. As before, we first have to run the scripts on Rx nodes, before Tx nodes start transmitting. On node 1-2 we type the command:  </p>
+
+<pre><code class="language- ">~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1600e6 --rx-gain 38.0 --interferer --int-freq 1601.125e6 --int-gain 35.0 --int-bitrate 249993.75 --int-amplitude 0.1
+</code></pre>
+
+<ul>
+<li>On node 20-2:</li>
+</ul>
+
+<pre><code class="language- ">~/target/share/gnuradio/examples/digital/narrowband/benchmark_rx.py -m gmsk -p 4 -r 333325 --rx-freq 1601.125e6 --rx-gain 38.0
+</code></pre>
+
+<p>When scripts on Rx nodes are running we are ready to start the respective scripts on Tx nodes. On node 1-1:  </p>
+
+<pre><code>~/target/share/gnuradio/examples/digital/narrowband/benchmark_tx.py -m gmsk -p 4 -r 333325 --tx-freq 1601.125e6 --tx-gain 87.0 --tx-amplitude 1.00 --packets 5000
+</code></pre>
+
+<ul>
+<li>On node 20-1:</li>
+</ul>
+
+<pre><code class="language- ">~/target/share/gnuradio/examples/digital/narrowband/benchmark_tx.py -m gmsk -p 4 -r 333325 --tx-freq 1600.0e6 --tx-gain 87.0 --tx-amplitude 1.00 --packets 5000
+</code></pre>
+
+<p>Following these steps we run the experiments for the rest of the transmitting amplitude values and get similar results like in <em>Figure2</em>.</p>
+
+<h2 id="resultsvisualization">Results visualization</h2>
+
+<p>For our figures we used <a href="https://plot.ly">plot.ly</a>. Plotly is an online analytics and data visualization tool. You can create an acount on plotly for free. As you logged into plotly you create a new grid project. Now you can fill your experiments data in the grid’s collumns. <br />
+When you are ready to plot your data, at the menu bar you select <code>CHOOSE PLOT TYPE</code> and then <code>Line plots</code>.</p>
+
+<p><img src="/blog/content/images/2016/03/Screen-Shot-2016-03-07-at-4-50-30-AM.png" alt="" /></p>
+
+<p>Next set your node’s 1-2 transmitting amplitude as <strong>x axis</strong> and your several throughput data as <strong>y axis</strong>. Then choose to plot all those data as a <code>Line plot</code> and plot your data by pressing <code>Line plot</code> on top left.</p>
+
+<p><img src="/blog/content/images/2016/03/Screen-Shot-2016-03-07-at-5-03-56-AM-1.png" alt="" /></p>
+
+<p>You can see the grids of the previous experiments series here: <br />
+<a href="https://plot.ly/~Charalampos/4/?share_key=S9DDtChL4HLes7jMYNKuvN">Figure1 data</a>, <a href="https://plot.ly/~Charalampos/6/?share_key=BqpiRiYzj8cdQolD7CZuVu">Figure2 data.</a></p>
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="/blog/author/charalampos/">Charalampos Manolidis</a></h4>
+
+                    <p>Read <a href="/blog/author/charalampos/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Balancing%20the%20benefit%20of%20deliberate%20jamming%20and%20the%20cost%20of%20self-interference%20in%20a%20software%20defined%20radio%20challenge&amp;url=https://witestlab.poly.edu/blog/software-radio-design-challenge/"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://witestlab.poly.edu/blog/software-radio-design-challenge/"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://witestlab.poly.edu/blog/software-radio-design-challenge/"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+<p>Did you reproduce this experiment? Have useful information to share with other intrepid researchers?
+Post it here! Comments are posted following moderation.</p>
+<script id="dsq-count-scr" src="//witestlab.disqus.com/count.js" async></script>
+<div id="disqus_thread"></div>
+<script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+/*
+var disqus_config = function () {
+this.page.url = https://witestlab.poly.edu/blog/software-radio-design-challenge/; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//witestlab.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+        </footer>
+
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story " style="background-image: url(/blog/content/images/2016/03/dl-mcs.svg)" href="/blog/adaptive-modulation-and-coding-in-cellular-networks/">
+        <section class="post">
+            <h2>Adaptive modulation and coding in cellular networks</h2>
+            <p>Note: This post is preserved for reference; however, the WiMAX base station at WITest is not currently operational, so&hellip;</p>
+        </section>
+    </a>
+    <a class="read-next-story prev " style="background-image: url(/blog/content/images/2016/03/Blockchain-1.svg)" href="/blog/get-rich-on-fake-bitcoins/">
+        <section class="post">
+            <h2>Bitcoin: reaching consensus in distributed systems</h2>
+            <p>This experiment explores the problem of consensus in distributed systems in the context of Bitcoin, a distributed currency. This&hellip;</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</section>
+
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="/blog/assets/js/jquery.fitvids.js?v=981503f5f4"></script>
+    <script type="text/javascript" src="/blog/assets/js/index.js?v=981503f5f4"></script>
+
+</body>
+</html>

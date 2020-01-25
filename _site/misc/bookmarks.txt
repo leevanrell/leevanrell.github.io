@@ -1,0 +1,10 @@
+https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545
+https://drewdevault.com/2019/09/02/Interactive-SSH-programs.html
+https://witestlab.poly.edu/blog/software-radio-design-challenge/
+https://blogs.vmware.com/apps/2018/09/using-gpus-with-virtual-machines-on-vsphere-part-2-vmdirectpath-i-o.html
+http://www.tldp.org/LDP/LG/issue23/flower/intro.html
+https://tech.davis-hansson.com/p/make/
+https://neilkakkar.com/unix.html
+https://antoinevastel.com/javascript/2019/09/09/improving-obfuscator.html
+https://magcius.github.io/xplain/article/index.html
+https://blog.hboeck.de/archives/898-include-etcshadow.html
