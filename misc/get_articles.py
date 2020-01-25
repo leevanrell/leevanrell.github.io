@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup
 
 user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
 
-store_file = "../_data/bookmarks.yml"
-bkmk_file = "bookmarks.txt"
+store_file = "/home/r3g3n7/git/leevanrell.github.io/_data/bookmarks.yml"
+bkmk_file = "/home/r3g3n7/git/leevanrell.github.io/misc/bookmarks.txt"
 
 def getArticle(link):
 	link = link.replace('\n','')

@@ -40,3 +40,15 @@ articles:
     \ doesn\u2019t make sense."
   title: 'How Unix Works: Become a Better Software Engineer'
   url: https://neilkakkar.com/unix.html
+- categories: [data science, deep learning]
+  excerpt: Build your own text generator in Python using OpenAI's GPT-2 framework!
+    GPT-2 is the world's most advanced framework for NLP tasks in Python.
+  title: 'OpenAI''s GPT-2: Build World''s Most Advanced Text Generator in Python'
+  url: https://www.analyticsvidhya.com/blog/2019/07/openai-gpt2-text-generator-python/
+- categories: []
+  excerpt: "This scene from The Social Network stuck with me for nearly a decade -\
+    \ how could someone be smart enough to use meteorology to predict oil futures?\
+    \ It wasn\u2019t until I stumbled upon Principles by Ray Dalio that it clicked\
+    \ - and that I realised it\u2019s a transferrable skill."
+  title: "...And then what? \u2014 Finn Shewell"
+  url: https://finnshewell.com/news-notes/2019/and-then-what
