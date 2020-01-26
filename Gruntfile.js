@@ -19,7 +19,7 @@ module.exports = function (grunt) {
                 }
             },
             jekyllBuild: {
-                command: "bundle exec jekyll build --draft --incremental JEKYLL_ENV=dev",
+                command: "bundle exec jekyll build",
                 options: {
                     callback: log
                 }

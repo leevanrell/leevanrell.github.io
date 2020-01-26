@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="shortcut icon" href="/assets/favicon.ico"/>
+<title>Turning GPT-2 into Alex Jones</title>
+<!-- Begin Jekyll SEO tag v2.1.0 -->
+<title>Turning GPT-2 into Alex Jones - Lee Vanrell</title>
+<meta property="og:title" content="Turning GPT-2 into Alex Jones" />
+<meta name="description" content="This post is me riding the coattails of the GPT-2 hype train. Now for those that don’t know, GPT-2 is a machine learning model that is very effective at text generation. It can maintain context over a long period of text making it more ‘human’ than previous algorithms." />
+<meta property="og:description" content="This post is me riding the coattails of the GPT-2 hype train. Now for those that don’t know, GPT-2 is a machine learning model that is very effective at text generation. It can maintain context over a long period of text making it more ‘human’ than previous algorithms." />
+<link rel="canonical" href="https://leeleegabriel.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/" />
+<meta property="og:url" content="https://leeleegabriel.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/" />
+<meta property="og:site_name" content="Lee Vanrell" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-01-24T20:02:32-06:00" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Turning GPT-2 into Alex Jones",
+"datePublished": "2020-01-24T20:02:32-06:00",
+"description": "This post is me riding the coattails of the GPT-2 hype train. Now for those that don’t know, GPT-2 is a machine learning model that is very effective at text generation. It can maintain context over a long period of text making it more ‘human’ than previous algorithms.",
+"url": "https://leeleegabriel.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+  <body>
+    <main class="container">
+      <section class="about">
+        <a href="/"><img src="/assets/portfolio.png" alt="Lee Vanrell"></a>
+        <h2 id="title">
+          <a href="/">Lee Vanrell</a>
+        </h2>
+        <p class="tagline">Software Engineer</p>
+        <ul class="social"><a href="https://github.com/leevanrell">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/leevanrell">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="https://twitter.com/lee_vanrell">
+              <li>
+                <i class="icon-twitter-squared"></i>
+              </li>
+            </a></ul><nav class="navigation">
+            <ul>
+              
+                <li>
+                  <a href="/about">About Me</a>
+                </li>
+              
+                <li>
+                  <a href="/bookmarks">Bookmarks</a>
+                </li>
+              
+            </ul>
+          </nav><p>&copy;
+          2020</p>
+      </section>
+      <section class="content">
+        <div class="post-container">
+  <a class="post-link" href="/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/">
+    <h2 class="post-title">Turning GPT-2 into Alex Jones</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Python</li><li>GPT-2</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Jan 24, 2020</div>
+  </div>
+  <div class="post">
+    <p>This post is me riding the coattails of the GPT-2 hype train. 
+Now for those that don’t know, GPT-2 is a machine learning model that is very effective at text generation. It can maintain context over a long period of text making it more ‘human’ than previous algorithms.</p>
+
+<p>For those that are interested read <a href="https://towardsdatascience.com/transformers-141e32e69591">this</a> article on transformers
+and of course openai’s <a href="https://openai.com/blog/better-language-models/">site</a></p>
+
+<p>Now for the memes. To get GPT-2 talking like Alex Jones, we need text and a lot of it. Unfortunately, Alex Jones was largely purged from social media in 2019 so we’ll have to get creative. First, <a href="https://en.wikiquote.org/wiki/Alex_Jones">wikiquotes</a> was a decent starting point. I used python w/ requests and bs4 to scrape the data (your smart, do it yourself).</p>
+
+<p>I’ve looked for transcripts of the Alex Jones show to no avail. But what I did find was Alex Jones’s archived <a href="https://webrecorder.io/ola_norsk/twitter---alex-jones/list/twitter-profiles/b1/20180818015205/https://twitter.com/realalexjones">twitter</a> on webrecorder.io. Not sure what kind of wizardry those guys are running for this webapp, but I couldn’t get the html of his twitter feed for the life of me. So instead I just selected all text and wrote it to a file. Genius. There was some manual formatting I did to group them into tweets and then clean up the actual contents, but once that’s done it was somewhat useable for my purposes.</p>
+
+<p>Now that we’ve collected around 900 lines of the good stuff we can train a model. Here’s the code I used (stolen from some medium post, probably):</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#/usr/bin/python3
+import gpt_2_simple as gpt2
+import os
+
+model_name = "124M"
+# model is saved into current directory under /models/124M/
+if not os.path.isdir(os.path.join("models", model_name)):
+	gpt2.download_gpt2(model_name=model_name)   
+
+file_name = "./src/alex_jones.txt"
+
+sess = gpt2.start_tf_sess()
+gpt2.finetune(sess,
+              file_name,
+              model_name=model_name,
+			  run_name='run2',
+              steps=1000,
+			  save_every=50,
+			  print_every=5,
+			  sample_every=10,
+			  learning_rate = 0.0001
+)
+
+gpt2.generate_to_file(sess)
+
+
+</code></pre></div></div>
+
+<p>I’ve let this train in my homelab for a few hours while I slept, and checked back when I thought it was ready.</p>
+
+<p>Here are some of the results:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Organizer: Planned Parenthood Ships Guns To The US  View all other
+
+Open book censorship represents a poison pill for the people and a soulless dollop of
+propaganda for the corporate media. #FreeInfowars #1A
+
+These people are the future. They're such zombies that you can  not only read the news,
+but look at these people! They're so freaking fastidious they have time organs  in their 
+knees that they can hardly walk! They have no awareness of what's going on  and go "OOH 
+O_O O_O"O Oh my gosh! That's evil! The Alex Jones Show, "HILLARY CLINTON IS A GOD DAMN 
+DEMON", June 2016.
+
+I'm like a gigantic pumpkinhead, sitting in a  park, and I'm thinking "Man, this is gonna
+be a really bad day.  It just so happens, is gonna be really bad. I'm thinking ABOUT 
+WHATEVER  I'm thinking about today. Yeah, I'm thinking
+
+A vocal minority of Trump hating registered voters has called off an election for fear of
+repercussions from his supporters.     #Trump2020 #MAGA #1a #USA
+
+Video: left wing extremists targeting DC political events with machetes this weekend  
+
+The coordinated corporate attack on Infowars has exposed a deceptic by any measure, but
+the silencing of the truth is even more apparent.
+
+Now you need to find a way to stop the Chinese from harvesting our blood.
+
+The Rise Of Alex Jones As A Fake News Crikey, Tune in M F 11am 3pm central at:   &lt;&lt; 
+#RealNews #WednesdayWisdom #1a #ThursdayMotivation   #FreeInfowars
+
+</code></pre></div></div>
+
+<p>These are just a few of the hundreds of little gems GPT-2 spat out for us. There were a few artifact that I didn’t like from the outputs; so in the alex_jones.txt, I went back and cleaned it up a bit more. The rest of the txt files are relatively unmodified if you’d like to do the scrubbing yourself. Unlike GPT-2, all the code, output, and finetuning text I used can all be found <a href="https://github.com/leevanrell/make-alex-great-again">here</a>. Have fun. And don’t let the globalists win.</p>
+
+
+  </div></div>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=UA-156487363-1"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-156487363-1');
+	</script></body>
+</html>
