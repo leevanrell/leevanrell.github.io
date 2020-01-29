@@ -1,7 +1,0 @@
----
-layout: post
-title:  "π/2 BPSK"
-date:   2020-01-26 08:02:00 -0600
-categories: SDR BPSK
----
-

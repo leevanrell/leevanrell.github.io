@@ -1,8 +1,8 @@
 articles:
-- categories: [assembly, x86, operating-system]
-  excerpt: How do you run a program all by itself without an operating system running?
-    Can you create assembly programs that the computer can load and run at startup,
-    e.g. boot the computer from a flash drive...
+- categories: []
+  excerpt: How do you run a program all by itself without an operating system running?Can
+    you create assembly programs that the computer can load and run at startup, e.g.
+    boot the computer from a flash drive...
   title: How to run a program without an operating system?
   url: https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545
 - categories: []
@@ -12,7 +12,7 @@ articles:
     the pieces involved and a little bit of general Unix literacy.
   title: Building interactive SSH applications
   url: https://drewdevault.com/2019/09/02/Interactive-SSH-programs.html
-- categories: [project, software defined radio, wireless]
+- categories: [project, software defined radio]
   excerpt: This experiment came out of a software radio design challenge used in coursework
     at New York University and the University of Thessaly. (See Report on university
     course based on DARPA Spectrum Challenge.) The goal of the project is to design
@@ -20,7 +20,7 @@ articles:
   title: Balancing the benefit of deliberate jamming and the cost of self-interference
     in a software defined radio challenge
   url: https://witestlab.poly.edu/blog/software-radio-design-challenge/
-- categories: [Big Data, Deep Learning, DirectPath I/O]
+- categories: [Big Data, Deep Learning]
   excerpt: "This is part 2 of a series of blog articles on the subject of using GPUs\
     \ with VMware vSphere. Part 1 of this series presents an overview of the various\
     \ options for using GPUs on vSphere Part 2 describes the DirectPath I/O (Passthrough)\
@@ -29,8 +29,8 @@ articles:
     Virtualize Applications'
   url: https://blogs.vmware.com/apps/2018/09/using-gpus-with-virtual-machines-on-vsphere-part-2-vmdirectpath-i-o.html
 - categories: []
-  excerpt: Your Makefiles are full of tabs and errors. An opinionated approach to
-    writing (GNU) Makefiles that I learned from Ben may still be able to salvage them.
+  excerpt: Your Makefiles are full of tabs and errors.An opinionated approach to writing
+    (GNU) Makefiles that I learned from Ben may still be able to salvage them.
   title: Your Makefiles are wrong
   url: https://tech.davis-hansson.com/p/make/
 - categories: []
@@ -40,7 +40,7 @@ articles:
     \ doesn\u2019t make sense."
   title: 'How Unix Works: Become a Better Software Engineer'
   url: https://neilkakkar.com/unix.html
-- categories: [data science, deep learning, GPT]
+- categories: [data science, deep learning]
   excerpt: Build your own text generator in Python using OpenAI's GPT-2 framework!
     GPT-2 is the world's most advanced framework for NLP tasks in Python.
   title: 'OpenAI''s GPT-2: Build World''s Most Advanced Text Generator in Python'

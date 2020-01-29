@@ -3,4 +3,4 @@ layout: blank
 title:  "About Me"
 ---
 
-Test
+Bottom Text

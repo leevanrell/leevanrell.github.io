@@ -52,7 +52,8 @@ module.exports = function (grunt) {
             pyscripts: {
                 files:[
                     "misc/bookmarks.txt",
-                    "misc/get_articles.py"
+                    "misc/get_articles.py",
+                    "_data/bookmarks.yml"
                 ],
                 tasks: ["shell:bookmarksBuild"],
                 options: {
@@ -83,6 +84,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-shell");
     grunt.loadNpmTasks("grunt-browser-sync");
     grunt.registerTask("default", ["build", "browserSync", "watch"]);
-    grunt.registerTask("build",["shell:jekyllBuild", "shell:bookmarksBuild"]);
+    grunt.registerTask("build",["shell:bookmarksBuild", "shell:jekyllBuild"]);
     grunt.registerTask("clean",["shell:jekyllClean"]);
 };
