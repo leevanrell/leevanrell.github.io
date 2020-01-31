@@ -5,4 +5,5 @@
 **/node_modules
 **/.jekyll-cache
 **/.sass-cache
+/hide
 .jekyll-metadata
