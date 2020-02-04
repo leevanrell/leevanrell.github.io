@@ -1,3 +1,6 @@
+https://www.hackerfactor.com/blog/index.php?/archives/868-Deanonymizing-Tor-Circuits.html
+https://scholar.harvard.edu/mankiw/publications/skeptics-guide-modern-monetary-theory
+http://jalammar.github.io/illustrated-gpt2/
 https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545
 https://drewdevault.com/2019/09/02/Interactive-SSH-programs.html
 https://witestlab.poly.edu/blog/software-radio-design-challenge/

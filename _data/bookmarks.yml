@@ -1,4 +1,26 @@
 articles:
+- categories: [Tor]
+  excerpt: Since starting my Tor onion service that provides access to the Internet
+    Archive, I've seen a wide range of Tor-based attacks. I have documented many of
+    these in various blog entries.
+  title: Deanonymizing Tor Circuits
+  url: https://www.hackerfactor.com/blog/index.php?/archives/2020/02.html
+- categories: []
+  excerpt: Mankiw NG. A Skeptic's Guide to Modern Monetary Theory. Prepared for AEA
+    Meeting, January. 2020.
+  title: A Skeptic's Guide to Modern Monetary Theory
+  url: https://scholar.harvard.edu/mankiw/publications/skeptics-guide-modern-monetary-theory
+- categories: [ML, GPT-2]
+  excerpt: "This year, we saw a dazzling application of machine learning. The OpenAI\
+    \ GPT-2 exhibited impressive ability of writing coherent and passionate essays\
+    \ that exceed what we anticipated current language models are able to produce.\
+    \ The GPT-2 wasn\u2019t a particularly novel architecture \u2013 it\u2019s architecture\
+    \ is very similar to the decoder-only transformer. The GPT2 was, however, a very\
+    \ large, transformer-based language model trained on a massive dataset. In this\
+    \ post, we\u2019ll look at the architecture that enabled the model to produce\
+    \ its results.   "
+  title: The Illustrated GPT-2 (Visualizing Transformer Language Models)
+  url: http://jalammar.github.io/illustrated-gpt2/
 - categories: [assembly, x86, operating-system]
   excerpt: How do you run a program all by itself without an operating system running?
     Can you create assembly programs that the computer can load and run at startup,

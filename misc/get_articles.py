@@ -64,7 +64,12 @@ class stackoverflow_parser(parser):
 def getLinks():
 	with open(bkmk_file , "r") as f:
 		text = f.readlines()
-	return text
+	clean = []
+	for t in text:
+		t.strip()
+		if not t.isspace():
+			clean.append(t)
+	return clean
 
 def readArticles():
 	stored = []
@@ -106,6 +111,7 @@ def writeArticles(store):
 		yaml.dump(store, f, Dumper=noalias_dumper)
 
 def main():
+	stored_articles = readArticles()
 	links = getLinks()
 	fails = []
 	successes = []
@@ -124,7 +130,7 @@ def main():
 	for f in fails:
 		print(f"\t-> {f['url'][:60]}")
 
-	c, store = mergeArticles(readArticles(),successes)
+	c, store = mergeArticles(stored_articles,successes)
 
 	print(f"Added {c} new articles out of {len(links)}")
 	writeArticles(store)
