@@ -13,6 +13,7 @@ plainwhite:
   navigation:
   - {title: About Me, url: /about}
   - {title: Bookmarks, url: /bookmarks}
+  - {title: Subscribe, url: /feed.xml}
   show_excerpts: true
   sitemap: true
   social_links: {github: leevanrell, linkedIn: in/leevanrell, rss: rss, twitter: lee_vanrell}
@@ -21,7 +22,7 @@ plugins: [jekyll-seo-tag, jekyll-scholar, jekyll-gist]
 sass: {sass_dir: _sass, style: ':compressed'}
 scholar: {style: mla}
 show_excerpts: true
-tagline: software engineering at his worst
+tagline: software engineering at his worst.
 theme: plainwhite
 title: Lee Vanrell
 url: https://leeleegabriel.github.io

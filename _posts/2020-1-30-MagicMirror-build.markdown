@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "MagicMirror build"
+title:  "MagicMirror Build"
 date:   2020-01-30 19:10:12 -0600
 categories: Python RaspberryPi
 ---

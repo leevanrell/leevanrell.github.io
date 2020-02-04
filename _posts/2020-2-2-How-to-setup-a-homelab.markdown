@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "How to setup a homelab: Parts List"
+title:  "How to Setup a Homelab: Making a Parts List"
 date:   2020-02-02 17:12:38 -0600
 categories: Homelab ESXi
 ---
