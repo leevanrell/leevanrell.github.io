@@ -5,51 +5,51 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
-            <loc>https://leeleegabriel.github.io</loc>
+            <loc>https://leevanrell.github.io</loc>
             <lastmod>2019-06-07T00:00:00+00:00</lastmod>
             <priority>1.00</priority>
         </url><url>
-                <loc>https://leeleegabriel.github.io/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio/</loc>
+                <loc>https://leevanrell.github.io/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio/</loc>
                 <lastmod>2020-02-03T19:30:24-06:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>https://leeleegabriel.github.io/homelab/esxi/2020/02/02/How-to-setup-a-homelab/</loc>
+                <loc>https://leevanrell.github.io/homelab/esxi/2020/02/02/How-to-setup-a-homelab/</loc>
                 <lastmod>2020-02-02T17:12:38-06:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>https://leeleegabriel.github.io/python/raspberrypi/2020/01/30/MagicMirror-build/</loc>
+                <loc>https://leevanrell.github.io/python/raspberrypi/2020/01/30/MagicMirror-build/</loc>
                 <lastmod>2020-01-30T19:10:12-06:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>https://leeleegabriel.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/</loc>
+                <loc>https://leevanrell.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/</loc>
                 <lastmod>2020-01-24T20:02:32-06:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>https://leeleegabriel.github.io/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/</loc>
+                <loc>https://leevanrell.github.io/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/</loc>
                 <lastmod>2020-01-21T18:10:00-06:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>https://leeleegabriel.github.io/investing/2020/01/20/Capital-Gains-vs-Dividends-vs-Critical-Thought/</loc>
+                <loc>https://leevanrell.github.io/investing/2020/01/20/Capital-Gains-vs-Dividends-vs-Critical-Thought/</loc>
                 <lastmod>2020-01-20T19:50:12-06:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>https://leeleegabriel.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/</loc>
+                <loc>https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/</loc>
                 <lastmod>2020-01-18T19:22:12-06:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>https://leeleegabriel.github.io/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/</loc>
+                <loc>https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/</loc>
                 <lastmod>2020-01-15T20:12:12-06:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>https://leeleegabriel.github.io/me/2020/01/14/What-I-did-in-2019/</loc>
+                <loc>https://leevanrell.github.io/me/2020/01/14/What-I-did-in-2019/</loc>
                 <lastmod>2020-01-14T20:00:00-06:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
