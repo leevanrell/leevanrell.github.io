@@ -18,7 +18,7 @@ plainwhite:
   sitemap: true
   social_links: {github: leevanrell, linkedIn: in/leevanrell, rss: rss, twitter: lee_vanrell}
   tagline: Software Engineer
-plugins: [jekyll-seo-tag, jekyll-scholar, jekyll-gist]
+gems: [jekyll-feed, jekyll-seo-tag, jekyll-scholar, jekyll-gist]
 sass: {sass_dir: _sass, style: ':compressed'}
 scholar: {style: mla}
 show_excerpts: true
