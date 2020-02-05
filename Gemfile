@@ -5,6 +5,5 @@ source "https://rubygems.org"
    gem "jekyll-gist"
    gem "jekyll-coffeescript"
    gem "jekyll-scholar"
-   gem "jekyll-feed"
  end
 gemspec

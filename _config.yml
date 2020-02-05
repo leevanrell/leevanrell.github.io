@@ -1,5 +1,4 @@
 author: lee vanrell
-  twitter: lee_vanrell
 baseurl: ''
 description: 'Software Engineer attempts to write a blog.  Focused on programming,
   3d printing, arduino''s, sdr, and more. '
@@ -19,7 +18,7 @@ plainwhite:
   sitemap: true
   social_links: {github: leevanrell, linkedIn: in/leevanrell, rss: rss, twitter: lee_vanrell}
   tagline: Software Engineer
-gems: [jekyll-feed, jekyll-seo-tag, jekyll-scholar, jekyll-gist]
+plugins: [jekyll-seo-tag, jekyll-scholar, jekyll-gist]
 sass: {sass_dir: _sass, style: ':compressed'}
 scholar: {style: mla}
 show_excerpts: true

@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://leevanrell.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://leevanrell.github.io/" rel="alternate" type="text/html" /><updated>2020-02-04T18:40:16-06:00</updated><id>https://leevanrell.github.io/feed.xml</id><title type="html">Lee Vanrell</title><subtitle>Software Engineer attempts to write a blog.  Focused on programming, 3d printing, arduino's, sdr, and more. </subtitle><author><name>lee vanrell</name></author><entry><title type="html">Intro to Software Defined Radio: Part I</title><link href="https://leevanrell.github.io/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio/" rel="alternate" type="text/html" title="Intro to Software Defined Radio: Part I" /><published>2020-02-03T19:30:24-06:00</published><updated>2020-02-03T19:30:24-06:00</updated><id>https://leevanrell.github.io/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio</id><content type="html" xml:base="https://leevanrell.github.io/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio/">&lt;p&gt;For the past 4 years or so I’ve tinkered with Software Defined Radios (SDR), but until recently my knowledge of them was fairly limited. So, I today I hope to impart some of my wisdom onto you.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title> - Articles</title>
+		<description>Software Engineer attempts to write a blog.  Focused on programming, 3d printing, arduino's, sdr, and more. </description>
+		<link>https://leevanrell.github.io</link>
+		<atom:link href="https://leevanrell.github.io/feed.articles.xml" rel="self" type="application/rss+xml" />
+		
+			
+			<item>
+				<title>Intro to Software Defined Radio: Part I</title>
+				<description>&lt;p&gt;For the past 4 years or so I’ve tinkered with Software Defined Radios (SDR), but until recently my knowledge of them was fairly limited. So, I today I hope to impart some of my wisdom onto you.&lt;/p&gt;
 
 &lt;p&gt;First, a &lt;strong&gt;very&lt;/strong&gt; brief 101 on what Software Define Radios are and how they work.&lt;/p&gt;
 
@@ -52,7 +63,18 @@ To install a OOT module, its almost always the same:&lt;/p&gt;
 
 &lt;p&gt;When it comes to SDRs and price, the sky is the limit to what you want to spend. And there is no shortage of options to pick from. For the most part, its a usual trade-off for features and cost. There are many SDRs I haven’t listed, but these are just what I have experience with.&lt;/p&gt;
 
-&lt;p&gt;Till next time.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">For the past 4 years or so I’ve tinkered with Software Defined Radios (SDR), but until recently my knowledge of them was fairly limited. So, I today I hope to impart some of my wisdom onto you.</summary></entry><entry><title type="html">How to Setup a Homelab: Making a Parts List</title><link href="https://leevanrell.github.io/homelab/esxi/2020/02/02/How-to-setup-a-homelab/" rel="alternate" type="text/html" title="How to Setup a Homelab: Making a Parts List" /><published>2020-02-02T17:12:38-06:00</published><updated>2020-02-02T17:12:38-06:00</updated><id>https://leevanrell.github.io/homelab/esxi/2020/02/02/How-to-setup-a-homelab</id><content type="html" xml:base="https://leevanrell.github.io/homelab/esxi/2020/02/02/How-to-setup-a-homelab/">&lt;p&gt;A few years ago, I built my first homelab server; I remember it being a bit of a daunting task and decided it might be helpful to share a few insights.&lt;/p&gt;
+&lt;p&gt;Till next time.&lt;/p&gt;
+</description>
+				<pubDate>Mon, 03 Feb 2020 19:30:24 -0600</pubDate>
+				<link>https://leevanrell.github.io/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio/</link>
+				<guid isPermaLink="true">https://leevanrell.github.io/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio/</guid>
+			</item>
+			
+		
+			
+			<item>
+				<title>How to Setup a Homelab: Making a Parts List</title>
+				<description>&lt;p&gt;A few years ago, I built my first homelab server; I remember it being a bit of a daunting task and decided it might be helpful to share a few insights.&lt;/p&gt;
 
 &lt;p&gt;I used &lt;a href=&quot;https://www.reddit.com/r/homelabs/&quot;&gt;r/homelabs&lt;/a&gt; as a resource to assemble the parts list. Along with &lt;a href=&quot;https://en.wikipedia.org/wiki/List_of_Intel_Xeon_microprocessors&quot;&gt;wikipedia&lt;/a&gt; and intel’s &lt;a href=&quot;https://ark.intel.com/content/www/us/en/ark.html#@PanelLabel595&quot;&gt;spec site&lt;/a&gt; for choosing the CPUs.&lt;/p&gt;
 
@@ -90,7 +112,18 @@ To install a OOT module, its almost always the same:&lt;/p&gt;
 
 &lt;p&gt;As a note, if you chose to use a dual socket motherboard and a tower instead of a rack solution, be wary of the dimensions; it was a tight squeeze to my motherboard to fit.&lt;/p&gt;
 
-&lt;p&gt;That’s it for now.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">A few years ago, I built my first homelab server; I remember it being a bit of a daunting task and decided it might be helpful to share a few insights.</summary></entry><entry><title type="html">MagicMirror Build</title><link href="https://leevanrell.github.io/python/raspberrypi/2020/01/30/MagicMirror-build/" rel="alternate" type="text/html" title="MagicMirror Build" /><published>2020-01-30T19:10:12-06:00</published><updated>2020-01-30T19:10:12-06:00</updated><id>https://leevanrell.github.io/python/raspberrypi/2020/01/30/MagicMirror-build</id><content type="html" xml:base="https://leevanrell.github.io/python/raspberrypi/2020/01/30/MagicMirror-build/">&lt;p&gt;Here’s a little project I’ve worked on a few weeks ago. It’s a semi-intelligent magic mirror I put together. It was relatively cheap to put together since I got the monitor for free and already had a pi lying around.&lt;/p&gt;
+&lt;p&gt;That’s it for now.&lt;/p&gt;
+</description>
+				<pubDate>Sun, 02 Feb 2020 17:12:38 -0600</pubDate>
+				<link>https://leevanrell.github.io/homelab/esxi/2020/02/02/How-to-setup-a-homelab/</link>
+				<guid isPermaLink="true">https://leevanrell.github.io/homelab/esxi/2020/02/02/How-to-setup-a-homelab/</guid>
+			</item>
+			
+		
+			
+			<item>
+				<title>MagicMirror Build</title>
+				<description>&lt;p&gt;Here’s a little project I’ve worked on a few weeks ago. It’s a semi-intelligent magic mirror I put together. It was relatively cheap to put together since I got the monitor for free and already had a pi lying around.&lt;/p&gt;
 
 &lt;p&gt;For the frame, I used this &lt;a href=&quot;https://amzn.to/2uCL8Rk&quot;&gt;frame&lt;/a&gt; (though when I bought it was for $100, not $150 so you may want to look elsewhere).&lt;/p&gt;
 
@@ -219,7 +252,18 @@ if __name__ == '__main__':
 &lt;p&gt;There are other things you can do like have it toggle on whenever it senses motion or lack thereof 
 The rest of the code is &lt;a href=&quot;https://github.com/leevanrell/mirror-controller.git&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Finis.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">Here’s a little project I’ve worked on a few weeks ago. It’s a semi-intelligent magic mirror I put together. It was relatively cheap to put together since I got the monitor for free and already had a pi lying around.</summary></entry><entry><title type="html">Turning GPT-2 into Alex Jones</title><link href="https://leevanrell.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/" rel="alternate" type="text/html" title="Turning GPT-2 into Alex Jones" /><published>2020-01-24T20:02:32-06:00</published><updated>2020-01-24T20:02:32-06:00</updated><id>https://leevanrell.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones</id><content type="html" xml:base="https://leevanrell.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/">&lt;p&gt;This post is me riding the coattails of the GPT-2 hype train. 
+&lt;p&gt;Finis.&lt;/p&gt;
+</description>
+				<pubDate>Thu, 30 Jan 2020 19:10:12 -0600</pubDate>
+				<link>https://leevanrell.github.io/python/raspberrypi/2020/01/30/MagicMirror-build/</link>
+				<guid isPermaLink="true">https://leevanrell.github.io/python/raspberrypi/2020/01/30/MagicMirror-build/</guid>
+			</item>
+			
+		
+			
+			<item>
+				<title>Turning GPT-2 into Alex Jones</title>
+				<description>&lt;p&gt;This post is me riding the coattails of the GPT-2 hype train. 
 Now for those that don’t know, GPT-2 is a machine learning model that is very effective at text generation. It can maintain context over a long period of text making it more ‘human’ than previous algorithms.&lt;/p&gt;
 
 &lt;p&gt;For those that are interested read &lt;a href=&quot;https://towardsdatascience.com/transformers-141e32e69591&quot;&gt;this&lt;/a&gt; article on transformers
@@ -293,7 +337,19 @@ The Rise Of Alex Jones As A Fake News Crikey, Tune in M F 11am 3pm central at:  
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;These are just a few of the hundreds of little gems GPT-2 spat out for us. There were a few artifact that I didn’t like from the outputs; so in the alex_jones.txt, I went back and cleaned it up a bit more. The rest of the txt files are relatively unmodified if you’d like to do the scrubbing yourself. Unlike GPT-2, all the code, output, and finetuning text I used can all be found &lt;a href=&quot;https://github.com/leevanrell/make-alex-great-again&quot;&gt;here&lt;/a&gt;. Have fun. And don’t let the globalists win.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">This post is me riding the coattails of the GPT-2 hype train. Now for those that don’t know, GPT-2 is a machine learning model that is very effective at text generation. It can maintain context over a long period of text making it more ‘human’ than previous algorithms.</summary></entry><entry><title type="html">Expanding your VMs in ESXi</title><link href="https://leevanrell.github.io/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/" rel="alternate" type="text/html" title="Expanding your VMs in ESXi" /><published>2020-01-21T18:10:00-06:00</published><updated>2020-01-21T18:10:00-06:00</updated><id>https://leevanrell.github.io/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi</id><content type="html" xml:base="https://leevanrell.github.io/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/">&lt;p&gt;This was pesky enough that I thought it merited a small post. I recently ran out of media on my Ubuntu VM on my ESXi v6.5 homelab. And went on a small adventure trying to figure out what to slap in the terminal to get more space. So hopefully this might save someone else more time.&lt;/p&gt;
+&lt;p&gt;These are just a few of the hundreds of little gems GPT-2 spat out for us. There were a few artifact that I didn’t like from the outputs; so in the alex_jones.txt, I went back and cleaned it up a bit more. The rest of the txt files are relatively unmodified if you’d like to do the scrubbing yourself. Unlike GPT-2, all the code, output, and finetuning text I used can all be found &lt;a href=&quot;https://github.com/leevanrell/make-alex-great-again&quot;&gt;here&lt;/a&gt;. Have fun. And don’t let the globalists win.&lt;/p&gt;
+
+</description>
+				<pubDate>Fri, 24 Jan 2020 20:02:32 -0600</pubDate>
+				<link>https://leevanrell.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/</link>
+				<guid isPermaLink="true">https://leevanrell.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/</guid>
+			</item>
+			
+		
+			
+			<item>
+				<title>Expanding your VMs in ESXi</title>
+				<description>&lt;p&gt;This was pesky enough that I thought it merited a small post. I recently ran out of media on my Ubuntu VM on my ESXi v6.5 homelab. And went on a small adventure trying to figure out what to slap in the terminal to get more space. So hopefully this might save someone else more time.&lt;/p&gt;
 
 &lt;p&gt;First go to the VM whose hdd you’d like to expand and click edit settings.
 Then click the Hard disk option and enter your desired hdd size (make sure the VM is shutdown for this).&lt;/p&gt;
@@ -329,7 +385,18 @@ sudo resize2fs /dev/mapper/vg0-slash
 &lt;p&gt;Be sure to modify /dev/mapper/ubuntu–vg-root to match your fdisk -l output.
 This extends your partition by 100g, insert however much you need. You can use 100%FREE instead of +100g and it should consume all available space; however, I couldn’t get it working for me.&lt;/p&gt;
 
-&lt;p&gt;That’s it!&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">This was pesky enough that I thought it merited a small post. I recently ran out of media on my Ubuntu VM on my ESXi v6.5 homelab. And went on a small adventure trying to figure out what to slap in the terminal to get more space. So hopefully this might save someone else more time.</summary></entry><entry><title type="html">Capital Gains vs. Dividends vs. Critical Thought</title><link href="https://leevanrell.github.io/investing/2020/01/20/Capital-Gains-vs-Dividends-vs-Critical-Thought/" rel="alternate" type="text/html" title="Capital Gains vs. Dividends vs. Critical Thought" /><published>2020-01-20T19:50:12-06:00</published><updated>2020-01-20T19:50:12-06:00</updated><id>https://leevanrell.github.io/investing/2020/01/20/Capital-Gains-vs-Dividends-vs-Critical-Thought</id><content type="html" xml:base="https://leevanrell.github.io/investing/2020/01/20/Capital-Gains-vs-Dividends-vs-Critical-Thought/">&lt;p&gt;I’ve seen a recent trend on youtube where people post about the success of their dividend portfolio and the ‘power blue chip dividend stocks’. These videos fucking annoy me.&lt;/p&gt;
+&lt;p&gt;That’s it!&lt;/p&gt;
+</description>
+				<pubDate>Tue, 21 Jan 2020 18:10:00 -0600</pubDate>
+				<link>https://leevanrell.github.io/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/</link>
+				<guid isPermaLink="true">https://leevanrell.github.io/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/</guid>
+			</item>
+			
+		
+			
+			<item>
+				<title>Capital Gains vs. Dividends vs. Critical Thought</title>
+				<description>&lt;p&gt;I’ve seen a recent trend on youtube where people post about the success of their dividend portfolio and the ‘power blue chip dividend stocks’. These videos fucking annoy me.&lt;/p&gt;
 
 &lt;p&gt;So let’s do a really quick analysis to compare a SPY (Capital Gains) and SPYD (Dividends) portfolio. We’ll use &lt;a href=&quot;https://www.portfoliovisualizer.com/backtest-portfolio&quot;&gt;portfoliovisualizer&lt;/a&gt; to make the backtest&lt;/p&gt;
 
@@ -372,7 +439,18 @@ For the 35% and 37% tax brackets, you make too much to care (okay its 20%).&lt;/
 
 &lt;p&gt;Realistically, anyone who can take advantage of the tax-free status of a dividend or stock should invest their money in an IRA and in a passively managed index with ultra-low fees.&lt;/p&gt;
 
-&lt;p&gt;You won’t bring yourself out of poverty and into obscene wealth overnight. Dividends can’t magic out enough of an income for you to live off of easily. Stocks aren’t a cure-all. Listen to reason. Invest in you. Invest in the future. There are kernels of truth in their lies, but just be wary. Call me a hater, but just fuck off with the bullshit&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">I’ve seen a recent trend on youtube where people post about the success of their dividend portfolio and the ‘power blue chip dividend stocks’. These videos fucking annoy me.</summary></entry><entry><title type="html">Setting up CCTW with MotionEyeOS</title><link href="https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/" rel="alternate" type="text/html" title="Setting up CCTW with MotionEyeOS " /><published>2020-01-18T19:22:12-06:00</published><updated>2020-01-18T19:22:12-06:00</updated><id>https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS</id><content type="html" xml:base="https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/">&lt;p&gt;Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I’ve also decided I need a CCTV-like capability to monitor my door at all times while I’m at my Desk.&lt;/p&gt;
+&lt;p&gt;You won’t bring yourself out of poverty and into obscene wealth overnight. Dividends can’t magic out enough of an income for you to live off of easily. Stocks aren’t a cure-all. Listen to reason. Invest in you. Invest in the future. There are kernels of truth in their lies, but just be wary. Call me a hater, but just fuck off with the bullshit&lt;/p&gt;
+</description>
+				<pubDate>Mon, 20 Jan 2020 19:50:12 -0600</pubDate>
+				<link>https://leevanrell.github.io/investing/2020/01/20/Capital-Gains-vs-Dividends-vs-Critical-Thought/</link>
+				<guid isPermaLink="true">https://leevanrell.github.io/investing/2020/01/20/Capital-Gains-vs-Dividends-vs-Critical-Thought/</guid>
+			</item>
+			
+		
+			
+			<item>
+				<title>Setting up CCTW with MotionEyeOS </title>
+				<description>&lt;p&gt;Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I’ve also decided I need a CCTV-like capability to monitor my door at all times while I’m at my Desk.&lt;/p&gt;
 
 &lt;p&gt;Assuming you already have MotionEye set up on a pi (if you don’t you can look at my previous post &lt;a href=&quot;/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/&quot;&gt;here&lt;/a&gt;), you’ll only need to setup a Pi 3 with the latest rasbian image. I used a Pi 3 and the &lt;a href=&quot;https://amzn.to/2R7u5j6&quot;&gt;official 7-in screen&lt;/a&gt;.&lt;/p&gt;
 
@@ -400,7 +478,18 @@ For the 35% and 37% tax brackets, you make too much to care (okay its 20%).&lt;/
 
 &lt;p&gt;And that’s it! Reboot to ensure everything is working.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/cctv.jpg&quot; alt=&quot;MotionEye Config&quot; /&gt;&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I’ve also decided I need a CCTV-like capability to monitor my door at all times while I’m at my Desk.</summary></entry><entry><title type="html">Setting a MotionEyeOS Webcam</title><link href="https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/" rel="alternate" type="text/html" title="Setting a MotionEyeOS Webcam" /><published>2020-01-15T20:12:12-06:00</published><updated>2020-01-15T20:12:12-06:00</updated><id>https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide</id><content type="html" xml:base="https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/">&lt;p&gt;This guide is for anyone who wants to setup a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/cctv.jpg&quot; alt=&quot;MotionEye Config&quot; /&gt;&lt;/p&gt;
+</description>
+				<pubDate>Sat, 18 Jan 2020 19:22:12 -0600</pubDate>
+				<link>https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/</link>
+				<guid isPermaLink="true">https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/</guid>
+			</item>
+			
+		
+			
+			<item>
+				<title>Setting a MotionEyeOS Webcam</title>
+				<description>&lt;p&gt;This guide is for anyone who wants to setup a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply.&lt;/p&gt;
 
 &lt;p&gt;For those who want a 3d printable case and camera holder, I recommend &lt;a href=&quot;https://www.thingiverse.com/thing:4099543&quot;&gt;this&lt;/a&gt; case (because I designed it and use it myself). Otherwise there plenty of commercial &lt;a href=&quot;https://amzn.to/2NFs7V3&quot;&gt;options&lt;/a&gt;&lt;/p&gt;
 
@@ -480,7 +569,18 @@ conn.getresponse()
 &lt;p&gt;Other than that Motioneye also has Cloud storage option if you trust your data with Google/DropBox. Look at the File Storage tab if that interests you.&lt;/p&gt;
 
 &lt;p&gt;To keep your pi from dying a slow death, I recommend lowering the Movie/Still Quality to ~60-75%. I also have my resolution set to 720p@15fps and am mildly satisfied with it.
-That’s it. You survived. Adorable.ssubl&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">This guide is for anyone who wants to setup a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply.</summary></entry><entry><title type="html">What I did in 2019</title><link href="https://leevanrell.github.io/me/2020/01/14/What-I-did-in-2019/" rel="alternate" type="text/html" title="What I did in 2019" /><published>2020-01-14T20:00:00-06:00</published><updated>2020-01-14T20:00:00-06:00</updated><id>https://leevanrell.github.io/me/2020/01/14/What-I-did-in-2019</id><content type="html" xml:base="https://leevanrell.github.io/me/2020/01/14/What-I-did-in-2019/">&lt;p&gt;I know this is probably coming a little late compared to some. But thats just who I am.&lt;/p&gt;
+That’s it. You survived. Adorable.ssubl&lt;/p&gt;
+</description>
+				<pubDate>Wed, 15 Jan 2020 20:12:12 -0600</pubDate>
+				<link>https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/</link>
+				<guid isPermaLink="true">https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/</guid>
+			</item>
+			
+		
+			
+			<item>
+				<title>What I did in 2019</title>
+				<description>&lt;p&gt;I know this is probably coming a little late compared to some. But thats just who I am.&lt;/p&gt;
 
 &lt;p&gt;I just graduated in December of 2018. So the first quarter of 2018 was filled with applications and anxiety. Eventually, I got a job as a Software Engineer. However, through the past 8 months, I’ve learned that title is much more of a formality than anything else. I’ve become a sme in things I didn’t know existed 12 months ago and mildly knowledgeable of even more. I regularly get to wear the hat of a Software Engineer, Red teamer, Blue Teamer, RF Engineer, and Systems Engineer all in the same day.&lt;/p&gt;
 
@@ -497,4 +597,13 @@ One talk about &lt;a href=&quot;https://www.gnuradio.org/grcon/grcon19/presentat
 
 &lt;p&gt;I got to visit my friends in DC around the Holidays and have fell in love with the city. I hope to live there one day. Plus I miss my friends, so thats a plus.&lt;/p&gt;
 
-&lt;p&gt;I’m sure there are a great deal of things I’m forgetting but this is what I remembered so this must be what’s important. Atleast to me.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">I know this is probably coming a little late compared to some. But thats just who I am.</summary></entry></feed>
+&lt;p&gt;I’m sure there are a great deal of things I’m forgetting but this is what I remembered so this must be what’s important. Atleast to me.&lt;/p&gt;
+</description>
+				<pubDate>Tue, 14 Jan 2020 20:00:00 -0600</pubDate>
+				<link>https://leevanrell.github.io/me/2020/01/14/What-I-did-in-2019/</link>
+				<guid isPermaLink="true">https://leevanrell.github.io/me/2020/01/14/What-I-did-in-2019/</guid>
+			</item>
+			
+		
+	</channel>
+</rss>
