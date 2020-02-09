@@ -36,12 +36,12 @@ Staying within the realm of power, the EVGA PSU was a good choice. It's an age o
 
 Outside of that most choices for hardware are relatively easy. Once you've picked your CPU everything else falls in place. At first I was apprehensive toward using used hardware, but for Processors, RAM, and even HDDs you can hardly tell. The added bonus for used Xeons is there a huge over saturation of them on the market. If you okay with not having the latest and greatest, you can acquire 2-3 generations old Xeons for less than $200. I believe I paid $250 for my two Xeons.
 
-I think Supermicro is still a good choice for motherboards.  recommend a enterprise motherboard instead of the consumer/extremist grade ones that come out from time to time. For motherboards, the more bells and whistles you have the more likely it is to fail. That's why most server motherboards are stripped down to the bare essentials. 
+I think Supermicro is still a good choice for motherboards. I recommend a enterprise motherboard instead of the consumer/extremist grade ones that come out from time to time. For motherboards, the more bells and whistles you have the more likely it is to fail. That's why most server motherboards are stripped down to the bare essentials. 
 
 As for the HyperVisor, I used the free version of ESXi, its relatively easy to setup and maintain. The HTML5 Gui it provides is always useful (despite a few bugs here and there). I've also been thinking of adding a GPU for Machine learning and it seems like ESXi is still the best solution for GPU passthrough, so that's a plus.
 
 Other options though are KVM, Proxmox, and Hyper-V. The ESXi free version has some limits on it (like no vCenter, 2 physical CPUs max, 8 vCPU/VM max), however, I feel like it isn't a big deal for most non-commercial/enterprise users. Realistically, none of these options are a bad choice, it's down to what you prefer.
 
-As a note, if you chose to use a dual socket motherboard and a tower instead of a rack solution, be wary of the dimensions; it was a tight squeeze to my motherboard to fit.
+As a note, if you chose to use a dual socket motherboard and a tower instead of a rack solution, be wary of the dimensions; it was a tight squeeze getting my motherboard in its case.
 
 That's it for now.
