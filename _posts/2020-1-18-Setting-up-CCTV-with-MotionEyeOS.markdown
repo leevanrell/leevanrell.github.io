@@ -5,9 +5,9 @@ date:   2020-01-18 19:22:12 -0600
 categories: RaspberryPi MotionEyeOS
 ---
 
-Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I've also decided I need a CCTV-like capability to monitor my door at all times while I'm at my Desk.
+Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I've also decided I need a CCTV-like capability to monitor my door at all times while I'm at my desk.
 
-Assuming you already have MotionEye set up on a pi (if you don't you can look at my previous post [here](/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/)), you'll only need to setup a Pi 3 with the latest rasbian image. I used a Pi 3 and the [official 7-in screen](https://amzn.to/2R7u5j6). 
+Assuming you already have MotionEye set up on a pi (if you don't you can look at my previous post [here](/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/)), you'll only need to set up a Pi 3 with the latest rasbian image. I used a Pi 3 and the [official 7-in screen](https://amzn.to/2R7u5j6). 
 
 Once you have a raspberry pi 3 running and on a network go ahead and update it with
 ```

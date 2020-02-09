@@ -8,12 +8,12 @@ categories: VM ESXi
 This was pesky enough that I thought it merited a small post. I recently ran out of media on my Ubuntu VM on my ESXi v6.5 homelab. And went on a small adventure trying to figure out what to slap in the terminal to get more space. So hopefully this might save someone else more time.
 
 
-First go to the VM whose hdd you'd like to expand and click edit settings.
-Then click the Hard disk option and enter your desired hdd size (make sure the VM is shutdown for this).
+First, go to the VM whose HDD you'd like to expand and click edit settings.
+Then click the Hard disk option and enter your desired HDD size (make sure the VM is shut down for this).
 
 ![ESXi Menu](/assets/img/esxi_vm_hdd.png)
 
-Then boot your VM and click the gui option or ssh in. Make sure GParted is installed with:
+Then boot your VM and click the GUI option or ssh in. Make sure GParted is installed with:
 ```
 ~ sudo apt install gparted
 ```

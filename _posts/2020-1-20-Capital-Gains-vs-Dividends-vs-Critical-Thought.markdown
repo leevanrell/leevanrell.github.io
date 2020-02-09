@@ -5,7 +5,7 @@ date:   2020-01-20 19:50:12 -0600
 categories: Investing
 ---
 
-I've seen a recent trend on youtube where people post about the success of their dividend portfolio and the 'power blue chip dividend stocks'. These videos fucking annoy me.
+I've seen a recent trend on youtube where people post about the success of their dividend portfolio and the 'power blue-chip dividend stocks'. These videos fucking annoy me.
 
 So let's do a really quick analysis to compare a SPY (Capital Gains) and SPYD (Dividends) portfolio. We'll use [portfoliovisualizer](https://www.portfoliovisualizer.com/backtest-portfolio) to make the backtest
 
@@ -15,7 +15,7 @@ Here you can see each portfolio allocation:
 And here are the resulting returns:
 ![Asset Returns](/assets/img/stock_dividend_returns_1.png)
 
-The SPY portfolio outperforms by about $900 dollars. The SPY does have a worse drawdown, yet maintains a better overall Sharpe Ratio (I have no idea what that means but there you go). The 3rd mix is interesting. I created it by picking the top 5 dividend stocks recommended by [dividendstocks.cash](https://dividendstocks.cash/dividend-screener). I also watched a few dividend videos online and saw that most youtubers echoed some of the same stocks. So it seems like the stocks are atleast somewhat recommended by the dividend stock community. Given its performance, I can atleast see why. But, this backtest is limited to Jan 2016-Dec 2019 because of SPYD so let's cut it out and see if it outperforms given a longer timeline. 
+The SPY portfolio outperforms by about $900 dollars. The SPY does have a worse drawdown, yet maintains a better overall Sharpe Ratio (I have no idea what that means but there you go). The 3rd mix is interesting. I created it by picking the top 5 dividend stocks recommended by [dividendstocks.cash](https://dividendstocks.cash/dividend-screener). I also watched a few dividend videos online and saw that most youtubers echoed some of the same stocks. So it seems like the stocks are at least somewhat recommended by the dividend stock community. Given its performance, I can see why. But, this backtest is limited to Jan 2016-Dec 2019 because of SPYD so let's cut it out and see if it outperforms given a longer timeline. 
 
 Here are the resulting returns:
 ![Asset Returns](/assets/img/stock_dividend_returns_2.png)

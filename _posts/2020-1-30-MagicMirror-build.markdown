@@ -9,7 +9,7 @@ Here's a little project I've worked on a few weeks ago. It's a semi-intelligent 
 
 For the frame, I used this [frame](https://amzn.to/2uCL8Rk) (though when I bought it was for $100, not $150 so you may want to look elsewhere). 
 
-First thing is to always test to make sure that the monitor works, saves time and heartbreak. Then remove the bezel from the monitor and be careful of any ribbon cables connected to the monitor and the bezel.
+The first thing to do is to make sure that the monitor works; it saves time and heartbreak. Then remove the bezel from the monitor and be careful of any ribbon cables connected to the monitor and the bezel.
 For my monitor, the display was divided into two parts physically, the power supply/input logic board, and the display itself. So to keep them together I applied a hefty amount of duck tape. Because who has power tools? 
 
 This is the final product somewhat:
@@ -21,16 +21,16 @@ This is the final product somewhat:
 You can't even tell its held entirely together by duck tape!
 
 I'll explain the wizardry that is connected to the pi in a second.
-To actually setup the magicmirror, the process is pretty automated see [here](https://github.com/sdetweil/MagicMirror_scripts).
+To set up the magic mirror, the process is pretty automated see [here](https://github.com/sdetweil/MagicMirror_scripts).
 
-For  customizations, I like to install [3Day forecast](https://github.com/nigel-daniels/MMM-3Day-Forecast). That's pretty much it, since, I've failed repeatedly to get carousel setup. I do recommend tweaking the css to correct for the screen not taking up the entire mirror's real-estate.
+For customizations, I like to install [3Day forecast](https://github.com/nigel-daniels/MMM-3Day-Forecast). That's pretty much it, since, I've failed repeatedly to get carousel setup. I do recommend tweaking the CSS to correct for the screen not taking up the entire mirror's real-estate.
 
-Now here's where things get interesting. I've configured my Mirror to turn off at around 9pm and back on at 6am automatically. Here's how:
+Now here's where things get interesting. I've configured my Mirror to turn off at around 9 pm and back on at 6a m automatically. Here's how:
 
 First, for hardware, you'll need a [photoresistor](https://amzn.to/2RWC15Z) and a [relay](https://amzn.to/37AHBRP). For tools, you'll need a soldering iron and power of will.
-I've wired a photoresistor to the pi that sends a low signal whenever it detects light above a certain threshold and vice versa when it doesn't. The threshold is can be adjusted with a screw in the blue housing. I've used this in conjuction with a relay that has the control side wired to the pi and the operating side connected to a ribbon cable that was connected to the control board for the on/off buttons. Wiring is relatively simple, I've used a miniature breadboard to distribute power to the rest of the components, but isn't totally necessary. 
+I've wired a photoresistor to the pi that sends a low signal whenever it detects light above a certain threshold and vice versa when it doesn't. The threshold is can be adjusted with a screw in the blue housing. I've used this in conjunction with a relay that has the control side wired to the pi and the operating side connected to a ribbon cable that was connected to the control board for the on/off buttons. Wiring is relatively simple, I've used a miniature breadboard to distribute power to the rest of the components, but isn't necessary. 
 
-I first figured out which pins on the control board need to be shorted in order to turn the display on & off.
+I first figured out which pins on the control board need to be shorted to turn the display on & off.
 I initially planned to solder to the board, but then realized that I can scrape the plastic off of the side of the ribbon cable connecting to the board and solder directly to that.
 
 ![sketchy solder](/assets/img/magicmirror/solder.jpg)
@@ -67,7 +67,7 @@ if (toggle == "turnon" and light_state == GPIO.LOW) or (toggle == "turnoff" and 
 GPIO.cleanup()
 ```
 
-I know. Its hot garbage. But its my garbage. 
+I know. Its hot garbage. But it's my garbage. 
 
 You can drop this script in your home directory. Make it executable with chmod.
 ```
@@ -85,7 +85,7 @@ Here are my entries:
 0	21	*	*	*	/home/pi/script.py turnoff
 ```
 
-What's cool about this solution is that its easily hackable enough that you can make a webserver to toggle it on/off aswell. I've made a quick example of a flask server controlling the mirror:
+What's cool about this solution is that it's easily hackable enough that you can make a webserver to toggle it on/off aswell. I've made a quick example of a flask server controlling the mirror:
 
 ```
 #/usr/bin/python3

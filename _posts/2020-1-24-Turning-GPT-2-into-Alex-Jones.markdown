@@ -13,7 +13,7 @@ and of course openai's [site](https://openai.com/blog/better-language-models/)
 
 Now for the memes. To get GPT-2 talking like Alex Jones, we need text and a lot of it. Unfortunately, Alex Jones was largely purged from social media in 2019 so we'll have to get creative. First, [wikiquotes](https://en.wikiquote.org/wiki/Alex_Jones) was a decent starting point. I used python w/ requests and bs4 to scrape the data (your smart, do it yourself). 
 
-I've looked for transcripts of the Alex Jones show to no avail. But what I did find was Alex Jones's archived [twitter](https://webrecorder.io/ola_norsk/twitter---alex-jones/list/twitter-profiles/b1/20180818015205/https://twitter.com/realalexjones) on webrecorder.io. Not sure what kind of wizardry those guys are running for this webapp, but I couldn't get the html of his twitter feed for the life of me. So instead I just selected all text and wrote it to a file. Genius. There was some manual formatting I did to group them into tweets and then clean up the actual contents, but once that's done it was somewhat useable for my purposes.
+I've looked for transcripts of the Alex Jones show to no avail. But what I did find was Alex Jones's archived [twitter](https://webrecorder.io/ola_norsk/twitter---alex-jones/list/twitter-profiles/b1/20180818015205/https://twitter.com/realalexjones) on webrecorder.io. Not sure what kind of wizardry those guys are running for this web app, but I couldn't get the HTML of his twitter feed for the life of me. So instead I just selected all text and wrote it to a file. Genius. There was some manual formatting I did to group them into tweets and then clean up the actual contents, but once that's done it was somewhat useable for my purposes.
 
 Now that we've collected around 900 lines of the good stuff we can train a model. Here's the code I used (stolen from some medium post, probably):
 ```
@@ -81,6 +81,6 @@ The Rise Of Alex Jones As A Fake News Crikey, Tune in M F 11am 3pm central at:  
 
 ```
 
-These are just a few of the hundreds of little gems GPT-2 spat out for us. There were a few artifact that I didn't like from the outputs; so in the alex_jones.txt, I went back and cleaned it up a bit more. The rest of the txt files are relatively unmodified if you'd like to do the scrubbing yourself. Unlike GPT-2, all the code, output, and finetuning text I used can all be found [here](https://github.com/leevanrell/make-alex-great-again). Have fun. And don't let the globalists win.
+These are just a few of the hundreds of little gems GPT-2 spat out for us. There were a few artifacts that I didn't like from the outputs; so in the alex_jones.txt, I went back and cleaned it up a bit more. The rest of the text files are relatively unmodified if you'd like to do the scrubbing yourself. Unlike GPT-2, all the code, output, and finetuning text I used can all be found [here](https://github.com/leevanrell/make-alex-great-again). Have fun. And don't let the globalists win.
 
 
