@@ -77,12 +77,12 @@
   <div class="post">
     <p>This was pesky enough that I thought it merited a small post. I recently ran out of media on my Ubuntu VM on my ESXi v6.5 homelab. And went on a small adventure trying to figure out what to slap in the terminal to get more space. So hopefully this might save someone else more time.</p>
 
-<p>First go to the VM whose hdd you’d like to expand and click edit settings.
-Then click the Hard disk option and enter your desired hdd size (make sure the VM is shutdown for this).</p>
+<p>First, go to the VM whose HDD you’d like to expand and click edit settings.
+Then click the Hard disk option and enter your desired HDD size (make sure the VM is shut down for this).</p>
 
 <p><img src="/assets/img/esxi_vm_hdd.png" alt="ESXi Menu" /></p>
 
-<p>Then boot your VM and click the gui option or ssh in. Make sure GParted is installed with:</p>
+<p>Then boot your VM and click the GUI option or ssh in. Make sure GParted is installed with:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ sudo apt install gparted
 </code></pre></div></div>
 
@@ -103,9 +103,8 @@ Then click the Hard disk option and enter your desired hdd size (make sure the V
 <p>The second entry, ubuntu–vg-root, is the volume we’re concerned with. The name will vary from machine to machine but it should still something like name–vg-root at end. You can ignore the swap partition.</p>
 
 <p>Next run:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo lvresize /dev/mapper/ubuntu--vg-root -L +100g 
-sudo resize2fs /dev/mapper/vg0-slash
-
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ sudo lvresize /dev/mapper/ubuntu--vg-root -L +100g 
+~ sudo resize2fs /dev/mapper/vg0-slash
 </code></pre></div></div>
 
 <p>Be sure to modify /dev/mapper/ubuntu–vg-root to match your fdisk -l output.

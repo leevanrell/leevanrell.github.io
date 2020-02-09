@@ -33,7 +33,7 @@ For the 10% and 12% tax brackets, you pay 0% in taxes for Qualified dividends.
 For the 22%, 24%, 32%, and 35%, you pay a 15% tax rate.
 For the 35% and 37% tax brackets, you make too much to care. If you noticed, that the 35% bracket appears twice, its because marriage complicates things.
 
-Now let's look at Stocks or 'Capital gains' as the kids call them. Again, there are two types, long term, held for longer than a year, and short term, held for less than a year.
+Now let's look at regular Stocks or 'Capital gains' as the kids call them. Again, there are two types, long term, held for longer than a year, and short term, held for less than a year.
 
 For short term capital gains, it is taxed equal to your marginal tax rate.
 For long term capital gains, the tax rates vary from 0%-20% based on your tax bracket
@@ -44,7 +44,7 @@ For the 35% and 37% tax brackets, you make too much to care (okay its 20%).
 
 So, there is no benefit in terms of taxes to dividends or stocks as long as its a US company or if it's held for longer than a year.
 
-So why are there a bunch of thots in my youtube feed, using these points like there's some sort of magical stock market loophole out there? Guess they assume everyone's too fucking stupid to do their homework.
+So why are there a bunch of thots in my youtube feed, using these points like there's some sort of magical stock market loophole out there? I guess they assume everyone's too fucking stupid to do their homework.
 
 Realistically, anyone who can take advantage of the tax-free status of a dividend or stock should invest their money in an IRA and in a passively managed index with ultra-low fees. 
 

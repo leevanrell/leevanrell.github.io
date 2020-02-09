@@ -42,14 +42,14 @@ You can set the mask to only trigger off of an area of interest like a door/entr
 
 Now that motion detection is enabled go one tab down to 'Motion Notifications'. Enable Run a Command and enter as follows:
 ```
-python /root/notify.py
+~ python /root/notify.py
 ```
 
 Next, enable SSH server in the services tab.
 Hit the annoying orange apply tab. The pi should reboot. Once the pi is back up, SSH into with a SSH client (if you've made it this far you probably know what your doing and don't need help getting one). Since the creators are complete Nazis, the entire fs is read-only so we'll need to run:
 ```
-mount -o remount,rw /
-mount -o remount,rw /boot
+~ mount -o remount,rw /
+~ mount -o remount,rw /boot
 
 ```
 Next thing is to open /root/notify.py
@@ -59,6 +59,7 @@ Next thing is to open /root/notify.py
 
 Write the following python script:
 ```
+#/usr/bin/python3
 import httplib, urllib, urllib2
 
 req = urllib2.Request('http://icanhazip.com', data=None) 

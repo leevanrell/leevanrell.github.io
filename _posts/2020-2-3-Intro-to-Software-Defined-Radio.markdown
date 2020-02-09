@@ -22,22 +22,25 @@ For the most part, gnuradio is the defacto framework for developing your own SDR
 
 If you want to get started using gnuradio, let me clear somethings up. Don't install gnuradio from the default repos. They're outdated and who wouldn't want the __curved lines__ available in GRv3.8. Use gnuradio's PPA instead:
 ```
-~ sudo add-apt-repository ppa:gnuradio/gnuradio-releases
-~ sudo apt-get update
-~ sudo apt install gnuradio
+#!/binb/bash
+sudo add-apt-repository ppa:gnuradio/gnuradio-releases
+sudo apt-get update
+sudo apt install gnuradio
 ```
 
 As a side note, for out-of-tree modules, install from source, don't use PyBOMBs. No one uses that shit. I've been to the conference, trust me. 
 To install a OOT module, its almost always the same:
 ```
-~ sudo git clone <module>
-~ cd <module>
-~ mkdir build
-~ cd build
-~ cmake ..
-~ make
-~ sudo make install
-~ sudo ldconfig 
+#!/bin/bash
+
+git clone <module>
+cd <module>
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+sudo ldconfig 
 ```
 
 A few OOT modules I recommend are:

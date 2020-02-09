@@ -17,7 +17,8 @@ I've looked for transcripts of the Alex Jones show to no avail. But what I did f
 
 Now that we've collected around 900 lines of the good stuff we can train a model. Here's the code I used (stolen from some medium post, probably):
 ```
-#/usr/bin/python3
+#!/usr/bin/python3
+
 import gpt_2_simple as gpt2
 import os
 

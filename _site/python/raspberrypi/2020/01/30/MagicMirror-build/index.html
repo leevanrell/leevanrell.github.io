@@ -79,7 +79,7 @@
 
 <p>For the frame, I used this <a href="https://amzn.to/2uCL8Rk">frame</a> (though when I bought it was for $100, not $150 so you may want to look elsewhere).</p>
 
-<p>First thing is to always test to make sure that the monitor works, saves time and heartbreak. Then remove the bezel from the monitor and be careful of any ribbon cables connected to the monitor and the bezel.
+<p>The first thing to do is to make sure that the monitor works; it saves time and heartbreak. Then remove the bezel from the monitor and be careful of any ribbon cables connected to the monitor and the bezel.
 For my monitor, the display was divided into two parts physically, the power supply/input logic board, and the display itself. So to keep them together I applied a hefty amount of duck tape. Because who has power tools?</p>
 
 <p>This is the final product somewhat:</p>
@@ -91,16 +91,16 @@ For my monitor, the display was divided into two parts physically, the power sup
 <p>You can’t even tell its held entirely together by duck tape!</p>
 
 <p>I’ll explain the wizardry that is connected to the pi in a second.
-To actually setup the magicmirror, the process is pretty automated see <a href="https://github.com/sdetweil/MagicMirror_scripts">here</a>.</p>
+To set up the magic mirror, the process is pretty automated see <a href="https://github.com/sdetweil/MagicMirror_scripts">here</a>.</p>
 
-<p>For  customizations, I like to install <a href="https://github.com/nigel-daniels/MMM-3Day-Forecast">3Day forecast</a>. That’s pretty much it, since, I’ve failed repeatedly to get carousel setup. I do recommend tweaking the css to correct for the screen not taking up the entire mirror’s real-estate.</p>
+<p>For customizations, I like to install <a href="https://github.com/nigel-daniels/MMM-3Day-Forecast">3Day forecast</a>. That’s pretty much it, since, I’ve failed repeatedly to get carousel setup. I do recommend tweaking the CSS to correct for the screen not taking up the entire mirror’s real-estate.</p>
 
-<p>Now here’s where things get interesting. I’ve configured my Mirror to turn off at around 9pm and back on at 6am automatically. Here’s how:</p>
+<p>Now here’s where things get interesting. I’ve configured my Mirror to turn off at around 9 pm and back on at 6a m automatically. Here’s how:</p>
 
 <p>First, for hardware, you’ll need a <a href="https://amzn.to/2RWC15Z">photoresistor</a> and a <a href="https://amzn.to/37AHBRP">relay</a>. For tools, you’ll need a soldering iron and power of will.
-I’ve wired a photoresistor to the pi that sends a low signal whenever it detects light above a certain threshold and vice versa when it doesn’t. The threshold is can be adjusted with a screw in the blue housing. I’ve used this in conjuction with a relay that has the control side wired to the pi and the operating side connected to a ribbon cable that was connected to the control board for the on/off buttons. Wiring is relatively simple, I’ve used a miniature breadboard to distribute power to the rest of the components, but isn’t totally necessary.</p>
+I’ve wired a photoresistor to the pi that sends a low signal whenever it detects light above a certain threshold and vice versa when it doesn’t. The threshold is can be adjusted with a screw in the blue housing. I’ve used this in conjunction with a relay that has the control side wired to the pi and the operating side connected to a ribbon cable that was connected to the control board for the on/off buttons. Wiring is relatively simple, I’ve used a miniature breadboard to distribute power to the rest of the components, but isn’t necessary.</p>
 
-<p>I first figured out which pins on the control board need to be shorted in order to turn the display on &amp; off.
+<p>I first figured out which pins on the control board need to be shorted to turn the display on &amp; off.
 I initially planned to solder to the board, but then realized that I can scrape the plastic off of the side of the ribbon cable connecting to the board and solder directly to that.</p>
 
 <p><img src="/assets/img/magicmirror/solder.jpg" alt="sketchy solder" /></p>
@@ -136,7 +136,7 @@ Here’s the code for actually toggling the pi on/off</p>
 </span><span class="n">GPIO</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p>I know. Its hot garbage. But its my garbage.</p>
+<p>I know. Its hot garbage. But it’s my garbage.</p>
 
 <p>You can drop this script in your home directory. Make it executable with chmod.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ chmod +x script.py
@@ -151,7 +151,7 @@ Here’s the code for actually toggling the pi on/off</p>
 0	21	*	*	*	/home/pi/script.py turnoff
 </code></pre></div></div>
 
-<p>What’s cool about this solution is that its easily hackable enough that you can make a webserver to toggle it on/off aswell. I’ve made a quick example of a flask server controlling the mirror:</p>
+<p>What’s cool about this solution is that it’s easily hackable enough that you can make a webserver to toggle it on/off aswell. I’ve made a quick example of a flask server controlling the mirror:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#/usr/bin/python3
 

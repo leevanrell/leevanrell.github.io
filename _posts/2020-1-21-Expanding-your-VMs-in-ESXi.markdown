@@ -37,9 +37,8 @@ The second entry, ubuntu--vg-root, is the volume we're concerned with. The name 
 
 Next run:
 ```
-sudo lvresize /dev/mapper/ubuntu--vg-root -L +100g 
-sudo resize2fs /dev/mapper/vg0-slash
-
+~ sudo lvresize /dev/mapper/ubuntu--vg-root -L +100g 
+~ sudo resize2fs /dev/mapper/vg0-slash
 ```
 
 Be sure to modify /dev/mapper/ubuntu--vg-root to match your fdisk -l output.

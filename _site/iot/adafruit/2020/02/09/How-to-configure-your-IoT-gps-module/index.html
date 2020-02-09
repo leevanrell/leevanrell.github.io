@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="shortcut icon" href="/assets/favicon.ico"/>
+<title>How to configure your IoT GPS modules</title>
+<!-- Begin Jekyll SEO tag v2.1.0 -->
+<title>How to configure your IoT GPS modules - Lee Vanrell</title>
+<meta property="og:title" content="How to configure your IoT GPS modules" />
+<meta name="description" content="A few years ago, I had a project that required me to collect GPS along with the db of cell towers, so I could triangulate their location. I went down the rabbit hole of configuring the GPS module to output NMEA sentences in the format I wanted; I wasted some time on it, so I decided that this might help someone avoid wasting time." />
+<meta property="og:description" content="A few years ago, I had a project that required me to collect GPS along with the db of cell towers, so I could triangulate their location. I went down the rabbit hole of configuring the GPS module to output NMEA sentences in the format I wanted; I wasted some time on it, so I decided that this might help someone avoid wasting time." />
+<link rel="canonical" href="https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/" />
+<meta property="og:url" content="https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/" />
+<meta property="og:site_name" content="Lee Vanrell" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-09T14:02:45-06:00" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "How to configure your IoT GPS modules",
+"datePublished": "2020-02-09T14:02:45-06:00",
+"description": "A few years ago, I had a project that required me to collect GPS along with the db of cell towers, so I could triangulate their location. I went down the rabbit hole of configuring the GPS module to output NMEA sentences in the format I wanted; I wasted some time on it, so I decided that this might help someone avoid wasting time.",
+"url": "https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+  <body>
+    <main class="container">
+      <section class="about">
+        <a href="/"><img src="/assets/portfolio.png" alt="Lee Vanrell"></a>
+        <h2 id="title">
+          <a href="/">Lee Vanrell</a>
+        </h2>
+        <p class="tagline">Software Engineer</p>
+        <ul class="social"><a href="https://github.com/leevanrell">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a><a href="https://www.linkedin.com/in/leevanrell">
+              <li>
+                <i class="icon-linkedin-squared"></i>
+              </li>
+            </a><a href="https://twitter.com/lee_vanrell">
+              <li>
+                <i class="icon-twitter-squared"></i>
+              </li>
+            </a></ul><nav class="navigation">
+            <ul>
+              
+                <li>
+                  <a href="/about">About Me</a>
+                </li>
+              
+                <li>
+                  <a href="/bookmarks">Bookmarks</a>
+                </li>
+              
+                <li>
+                  <a href="/feed.xml">Subscribe</a>
+                </li>
+              
+            </ul>
+          </nav><p>&copy;
+          2020</p>
+      </section>
+      <section class="content">
+        <div class="post-container">
+  <a class="post-link" href="/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/">
+    <h2 class="post-title">How to configure your IoT GPS modules</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>IoT</li><li>Adafruit</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Feb 9, 2020</div>
+  </div>
+  <div class="post">
+    <p>A few years ago, I had a project that required me to collect GPS along with the db of cell towers, so I could triangulate their location. I went down the rabbit hole of configuring the GPS module to output NMEA sentences in the format I wanted; I wasted some time on it, so I decided that this might help someone avoid wasting time.</p>
+
+<p>The GPS module I used is the <a href="https://www.adafruit.com/product/746">“Adafruit Ultimate GPS Breakout”</a>. This is a pretty decent module for the price although you can probably find knockoffs on aliexpress if you’re cheap. 
+When you first plug in the GPS module you’ll notice that it prints a <strong>ton</strong> of additional data you may or may not need. To limit what it printed to what I wanted I had to do some research on the GPS’s PMTK API to figure out what I needed to do. You can find the PMTK commands for configuring it <a href="https://cdn-shop.adafruit.com/datasheets/PMTK_A11.pdf">here</a>.</p>
+
+<p>Based on that spreadsheet I’ve put together this little script:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python3
+</span>
+<span class="kn">import</span> <span class="nn">serial</span> 
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="n">GPS_TTY</span> <span class="o">=</span> <span class="s">'/dev/ttyUSB0'</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'configuring GPS'</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+	<span class="c1">#start tty session
+</span>    <span class="n">GPS_Serial</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">GPS_TTY</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">9600</span><span class="p">,</span> <span class="n">parity</span><span class="o">=</span><span class="n">serial</span><span class="o">.</span><span class="n">PARITY_NONE</span><span class="p">,</span> \
+    	<span class="n">stopbits</span><span class="o">=</span><span class="n">serial</span><span class="o">.</span><span class="n">STOPBITS_ONE</span><span class="p">,</span> <span class="n">bytesize</span><span class="o">=</span><span class="n">serial</span><span class="o">.</span><span class="n">EIGHTBITS</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  
+    <span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1">#configures GPS to only output GPGGA Sentences
+</span>    <span class="n">GPS_Serial</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">b</span><span class="s">'$PMTK314,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29&lt;CR&gt;&lt;LF&gt;</span><span class="se">\r\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1">#configures how often GPS prints
+</span>    <span class="n">GPS_Serial</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">b</span><span class="s">'$PMTK220,100*2F&lt;CR&gt;&lt;LF&gt;</span><span class="se">\r\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1">#set the baudrate of the GPS
+</span>    <span class="n">GPS_Serial</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">b</span><span class="s">'$PMTK251,115200*1F&lt;CR&gt;&lt;LF&gt;</span><span class="se">\r\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">GPS_Serial</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">serial</span><span class="o">.</span><span class="n">SerialException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'lost connection to GPS unit'</span><span class="p">)</span>
+    <span class="n">GPS_Serial</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>So the first thing we do is open a tty with the GPS unit; its default baud rate is at 9600, but we’ll be changing that in a moment;</p>
+
+<p>Now we can start sending commands to our GPS unit.
+The first command is PMTK314 (PMTK_API_SET_NMEA_OUTPUT), it configures the GPS to send only sentences we care about. We tell it to write out only our GPS fix data and nothing else by setting everything to 0, except for NMEA_SEN_GGA field. As an aside, you can set the value to more than one if you wanted to have the message print every so often instead of every update period.</p>
+
+<p>The next command is PMTK220 (PMTK_SET_NMEA_UPDATERATE). This command configures the update period of the GPS module. The data field is how often you want it to update in milliseconds, it can be between 100-10000.</p>
+
+<p>The last command is PMTK251 (PMTK_SET_NMEA_BAUDRATE). Because we changed the update rate, we also need to change the baud rate so the tty can keep up. The data field here is just the baud rates, it is capable of 4800, 9600, 14400, 19200, 38400, 57600, 115200. We’ll turn it up all the way 115200 since we like to live fast and loose.</p>
+
+<p>The keener among you has probably noticed that most of these messages are followed by two digits of hex and “<CR><LF>". This is a checksum value that has to be calculated for the preceding message, if you want to customize your own GPS/messages you can use this resource [here](http://www.hhhh.org/wiml/proj/NMEAxor.html) to create your checksums.</LF></CR></p>
+
+<p>To parse the GPGGA sentences, you can use <a href="https://github.com/Knio/pyNMEA2">pyNMEA2</a>. Although be sure to sanitize/authenticate the GPS’s output before your try to parse, the GPS/Serial connection can fuck up and spit out bad data, which will throw exceptions and crash your script. Or if you’re me, just use a massive try-catch to keep it chugging.</p>
+
+<p>And as a final note, the next time you open a tty with the GPS you’ll need to set the baud rate up to 115200. And if you use a coin cell battery with it you won’t have to reconfigure every time it boots.</p>
+
+<p>Finis.</p>
+
+  </div></div>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=UA-156487363-1"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-156487363-1');
+	</script></body>
+</html>
