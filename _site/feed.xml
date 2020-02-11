@@ -1,4 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://leevanrell.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://leevanrell.github.io/" rel="alternate" type="text/html" /><updated>2020-02-09T16:00:10-06:00</updated><id>https://leevanrell.github.io/feed.xml</id><title type="html">Lee Vanrell</title><subtitle>Software Engineer attempts to write a blog.  Focused on programming, 3d printing, arduino's, sdr, and more. </subtitle><author><name>lee vanrell</name></author><entry><title type="html">How to configure your IoT GPS modules</title><link href="https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/" rel="alternate" type="text/html" title="How to configure your IoT GPS modules" /><published>2020-02-09T14:02:45-06:00</published><updated>2020-02-09T14:02:45-06:00</updated><id>https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module</id><content type="html" xml:base="https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/">&lt;p&gt;A few years ago, I had a project that required me to collect GPS along with the db of cell towers, so I could triangulate their location. I went down the rabbit hole of configuring the GPS module to output NMEA sentences in the format I wanted; I wasted some time on it, so I decided that this might help someone avoid wasting time.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://leevanrell.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://leevanrell.github.io/" rel="alternate" type="text/html" /><updated>2020-02-10T20:07:17-06:00</updated><id>https://leevanrell.github.io/feed.xml</id><title type="html">Lee Vanrell</title><subtitle>Software Engineer attempts to write a blog.  Focused on programming, 3d printing, arduino's, sdr, and more. </subtitle><author><name>lee vanrell</name></author><entry><title type="html">Just another Pihole guide</title><link href="https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/" rel="alternate" type="text/html" title="Just another Pihole guide" /><published>2020-02-10T19:31:11-06:00</published><updated>2020-02-10T19:31:11-06:00</updated><id>https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide</id><content type="html" xml:base="https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/">&lt;p&gt;Here’s a quick how-to for setting up a Pihole server at home.&lt;/p&gt;
+
+&lt;p&gt;First, you need to setup a VM/raspberrypi to host the Pihole. I decided to just run Pihole off a VM on my ESXi server I already had.&lt;/p&gt;
+
+&lt;p&gt;The VM I’m using is a Ubuntu 18.04 LTS Server image. To get it to work with Pihole we’ll have to make the IP static so it doesn’t up and change on us.&lt;/p&gt;
+
+&lt;p&gt;Since Ubuntu 17(?), Ubuntu uses netplan for configuring it’s ethernet interfaces. So let’s go to its config file at /etc/netplan/50-cloud.yaml (alternatively create a file called 01-netcfg.yaml and remove the default files). Edit the text so it looks like this:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;network:
+  version: 2
+  renderer: networkd
+  ethernets: 
+    ens160:
+      dhcp4: no
+      addresses:
+        - 192.168.1.100/24
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses: [192.168.1.1]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Be wary that your ethernet interface name/ip subnet may vary, mine is ens160. Also, set your address to whatever you like, but I’ll be using 192.168.1.100. Once you’re done, run&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo netplan apply
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now to install Pihole. Simply run:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ curl -sSL https://install.pi-hole.net | bash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It will prompt you for a few options like what external DNS you’d like to use, OpenDNS, Quad9, and DNSWatch are all fine. Once it’s finished it will show a screen with a randomly generated password to access the Pihole admin menu.&lt;/p&gt;
+
+&lt;p&gt;Next, login at http://192.168.1.100/admin/ using the password provided. Now you have your very own DNS server.&lt;/p&gt;
+
+&lt;p&gt;There’s a few quality of life improvements I recommend:&lt;/p&gt;
+
+&lt;p&gt;First, lets add some more blocklists. Click Tools &amp;gt; blocklists. Then copy and paste this into the text block:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+https://mirror1.malwaredomains.com/files/justdomains
+http://sysctl.org/cameleon/hosts
+https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
+https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+https://hosts-file.net/ad_servers.txt
+https://raw.githubusercontent.com/nicholasb2101/PiHole/master/Blocklists/Primary%20Blocklist.txt
+https://raw.githubusercontent.com/nicholasb2101/PiHole/master/Blocklists/Secondary%20Blocklist.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Click save and update, it may take a minute.&lt;/p&gt;
+
+&lt;p&gt;To make your devices use Pihole you can set all your devices to use 192.168.1.100 for DNS requests.
+I also recommend setting your router’s default DNS to your Pihole’s IP (192.168.1.100) and just set your devices default DNS to 192.168.1.1. This way if you ever want to make a change you can do it from your router’s admin menu once, instead of multiple times on multiple devices.&lt;/p&gt;
+
+&lt;p&gt;To force devices that are hardcoded to use external DNS you can configure your router to redirect all DNS requests to your Pihole. To do so, ssh into your router (if your router doesn’t support ssh look up the &lt;a href=&quot;https://openwrt.org/&quot;&gt;OpenWRT project&lt;/a&gt;, it supports many routers on the market) and enter these commands. Your ssh session may lockup on the first command, just give it time.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iptables -t nat -A PREROUTING -s 192.168.1.1 -j ACCEPT 
+iptables -t nat -A PREROUTING -d 192.168.1.100 -j ACCEPT
+iptables -t nat -A OUTPUT -p udp --dport 53 -j DNAT --to 192.168.1.100
+iptables -t nat -A OUTPUT -p tcp --dport 53 -j DNAT --to 192.168.1.100
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That’s all the configurations I’ve made to my Pihole so far, and I’m immensely satisfied.&lt;/p&gt;
+
+&lt;p&gt;Fin.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">Here’s a quick how-to for setting up a Pihole server at home.</summary></entry><entry><title type="html">How to configure your IoT GPS modules</title><link href="https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/" rel="alternate" type="text/html" title="How to configure your IoT GPS modules" /><published>2020-02-09T14:02:45-06:00</published><updated>2020-02-09T14:02:45-06:00</updated><id>https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module</id><content type="html" xml:base="https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/">&lt;p&gt;A few years ago, I had a project that required me to collect GPS along with the db of cell towers, so I could triangulate their location. I went down the rabbit hole of configuring the GPS module to output NMEA sentences in the format I wanted; I wasted some time on it, so I decided that this might help someone avoid wasting time.&lt;/p&gt;
 
 &lt;p&gt;The GPS module I used is the &lt;a href=&quot;https://www.adafruit.com/product/746&quot;&gt;“Adafruit Ultimate GPS Breakout”&lt;/a&gt;. This is a pretty decent module for the price although you can probably find knockoffs on aliexpress if you’re cheap. 
 When you first plug in the GPS module you’ll notice that it prints a &lt;strong&gt;ton&lt;/strong&gt; of additional data you may or may not need. To limit what it printed to what I wanted I had to do some research on the GPS’s PMTK API to figure out what I needed to do. You can find the PMTK commands for configuring it &lt;a href=&quot;https://cdn-shop.adafruit.com/datasheets/PMTK_A11.pdf&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
@@ -532,21 +589,4 @@ conn.getresponse()
 &lt;p&gt;Other than that Motioneye also has Cloud storage option if you trust your data with Google/DropBox. Look at the File Storage tab if that interests you.&lt;/p&gt;
 
 &lt;p&gt;To keep your pi from dying a slow death, I recommend lowering the Movie/Still Quality to ~60-75%. I also have my resolution set to 720p@15fps and am mildly satisfied with it.
-That’s it. You survived. Adorable.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">This guide is for anyone who wants to set up a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply.</summary></entry><entry><title type="html">What I did in 2019</title><link href="https://leevanrell.github.io/me/2020/01/14/What-I-did-in-2019/" rel="alternate" type="text/html" title="What I did in 2019" /><published>2020-01-14T20:00:00-06:00</published><updated>2020-01-14T20:00:00-06:00</updated><id>https://leevanrell.github.io/me/2020/01/14/What-I-did-in-2019</id><content type="html" xml:base="https://leevanrell.github.io/me/2020/01/14/What-I-did-in-2019/">&lt;p&gt;I know this is probably coming a little late compared to some. But that’s just who I am.&lt;/p&gt;
-
-&lt;p&gt;I just graduated in December of 2018. So the first quarter of 2018 was filled with applications and anxiety. Eventually, I got a job as a Software Engineer. However, through the past 8 months, I’ve learned that title is much more of a formality than anything else. I’ve become a sme in things I didn’t know existed 12 months ago and mildly knowledgeable of even more. I regularly get to wear the hat of a Software Engineer, Red teamer, Blue Teamer, RF Engineer, and Systems Engineer all in the same day.&lt;/p&gt;
-
-&lt;p&gt;I attended a few conferences, ShowMeCon and GRCon to name a few. Unfortunately, time slipped me by and I couldn’t attend BSides HSV. At GRCon, I was floored by the massive knowledge base I was surrounded by. Everyone there was a contributor to GNURadio itself or a wildly popular OOT like &lt;a href=&quot;https://github.com/daniestevez/gr-satellites&quot;&gt;gr-satellites&lt;/a&gt;. If you aren’t familiar, this project has software to capture and demodulate the signal of several dozen active satellites. It’s a amazing.
-One talk about &lt;a href=&quot;https://www.gnuradio.org/grcon/grcon19/presentations/determining_optimized_radio_settings_for_specific_waveforms/Determining%20Optimized%20Radio%20settings%20for%20specific%20waveforms_GRCon2019.pdf&quot;&gt;ads-b&lt;/a&gt; inspired me to write a ads-b transmitter as an entry to the world of SDR. And I was successful. I was surprised at how easy it was (humble brag). However, I’m afraid of the repercussions for releasing the code, so I’m afraid it will stay buried.&lt;/p&gt;
-
-&lt;p&gt;Besides the world of conferences and SDRs. I’ve toyed with 3d printing and design. I’m still quite a novice, but I’ve made a few designed that I hope to post to thingiverse soon. They include a Raspberrypi case and camera holder, a ShowMeCon badge, and a case for a stock ticker like 64x8 led matrix.&lt;/p&gt;
-
-&lt;p&gt;I’ve started studying for Security+, CISSP, and CEH. This is all required by my work and has triggered horrible war-like flashbacks to studying in college.&lt;/p&gt;
-
-&lt;p&gt;I started toying with C/CUDA because parallelization gets me hot and heavy. However, I haven’t even successfully compiled any CUDA code yet, but a boy can dream.&lt;/p&gt;
-
-&lt;p&gt;I helped make my first &lt;a href=&quot;fuckcliff.me&quot;&gt;site&lt;/a&gt; (besides this one). I toyed with a new JS framework called Svelte/Sapper. Unfortunately, Web dev scares me so I’ll save it for another time.&lt;/p&gt;
-
-&lt;p&gt;I got to visit my friends in DC around the Holidays and have fallen in love with the city. I hope to live there one day. Plus I miss my friends, so that’s a plus.&lt;/p&gt;
-
-&lt;p&gt;I’m sure there are many I’m forgetting but this is what I remembered so this must be what’s important. At least to me.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">I know this is probably coming a little late compared to some. But that’s just who I am.</summary></entry></feed>
+That’s it. You survived. Adorable.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">This guide is for anyone who wants to set up a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply.</summary></entry></feed>
