@@ -1,4 +1,14 @@
 articles:
+- categories: [Python]
+  excerpt: ''
+  title: Sequential Exeuction, Multiprocessing, and Multithreading IO-Bound Tasks
+    in Python
+  url: https://zacs.site/blog/linear-python.html
+- categories: [Python]
+  excerpt: Is it possible currently? I tried to remove python in Fedora 19 but yum
+    depends on it.
+  title: Distributions that only ships Python 3.X
+  url: https://unix.stackexchange.com/questions/83607/distributions-that-only-ships-python-3-x
 - categories: [Tor]
   excerpt: Since starting my Tor onion service that provides access to the Internet
     Archive, I've seen a wide range of Tor-based attacks. I have documented many of
@@ -74,3 +84,8 @@ articles:
     \ - and that I realised it\u2019s a transferrable skill."
   title: "...And then what? \u2014 Finn Shewell"
   url: https://finnshewell.com/news-notes/2019/and-then-what
+- categories: []
+  excerpt: ''
+  title: Sequential Exeuction, Multiprocessing, and Multithreading IO-Bound Tasks
+    in Python - Zac Szewczyk
+  url: https://zacs.site/blog/linear-python.html

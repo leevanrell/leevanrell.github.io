@@ -1,3 +1,5 @@
+https://unix.stackexchange.com/questions/83607/distributions-that-only-ships-python-3-x
+https://zacs.site/blog/linear-python.html
 https://www.hackerfactor.com/blog/index.php?/archives/868-Deanonymizing-Tor-Circuits.html
 https://scholar.harvard.edu/mankiw/publications/skeptics-guide-modern-monetary-theory
 http://jalammar.github.io/illustrated-gpt2/

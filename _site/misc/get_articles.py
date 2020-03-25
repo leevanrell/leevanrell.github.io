@@ -15,23 +15,29 @@ class parser():
 	def __init__(self, link):
 		self.link =  link.replace('\n','')
 		self.soup = self.getContent()
-		self.head = self.soup.head
-		self.title, self.description, self.tags  = '','',''
-		self.setTitle()
-		if self.title != 0:
-			self.setDescription()
-			self.setTags()
-		self.entry = {
-			'title': self.title,
-			'excerpt': self.description,
-			'categories': self.tags,
-			'url': self.link
-		}
+		if self.soup:
+			self.head = self.soup.head
+			self.title, self.description, self.tags  = '','',''
+			self.setTitle()
+			if self.title != 0:
+				self.setDescription()
+				self.setTags()
+			self.entry = {
+				'title': self.title,
+				'excerpt': self.description,
+				'categories': self.tags,
+				'url': self.link
+			}
+		else:
+			self.title = None
 
 	def getContent(self):
-		result = requests.get(self.link)
-		soup = BeautifulSoup(result.content, "lxml")
-		return soup
+		try:
+			result = requests.get(self.link, timeout=1)
+			soup = BeautifulSoup(result.content, "lxml")
+			return soup
+		except:
+			return None
 
 	def setTitle(self):
 		try:

@@ -54,16 +54,20 @@ https://raw.githubusercontent.com/nicholasb2101/PiHole/master/Blocklists/Seconda
 ```
 Click save and update, it may take a minute.
 
-To make your devices use Pihole you can set all your devices to use 192.168.1.100 for DNS requests.
-I also recommend setting your router's default DNS to your Pihole's IP (192.168.1.100) and just set your devices default DNS to 192.168.1.1. This way if you ever want to make a change you can do it from your router's admin menu once, instead of multiple times on multiple devices.
+To setup your router to use your Pihole you'll need to set it's default DNS to use 192.168.1.100. Once that is done you can set all device's DNS to your router at 192.168.1.1 and it'll route to the Pi. If your using, OpenWRT you can do this by selecting Network > Interfaces > Edit Lan; Then enter 6,192.168.1.100 into the DHCP-Option field.
 
-To force devices that are hardcoded to use external DNS you can configure your router to redirect all DNS requests to your Pihole. To do so, ssh into your router (if your router doesn't support ssh look up the [OpenWRT project](https://openwrt.org/), it supports many routers on the market) and enter these commands. Your ssh session may lockup on the first command, just give it time.
+![Config Pic1](/assets/img/pihole/dns_dhcp.png)
+
+To force devices that are hardcoded to use external DNS you can configure your router to redirect all DNS requests to your Pihole. If you end up setting up a OpenWRT router, log in to it, then click Network > Firewall > Custom rules and drop these commands into the text box. If don't have OpenWRT but can ssh into your router, then ssh into your router and enter these commands. 
+
 ```
 iptables -t nat -A PREROUTING -s 192.168.1.1 -j ACCEPT 
 iptables -t nat -A PREROUTING -d 192.168.1.100 -j ACCEPT
 iptables -t nat -A OUTPUT -p udp --dport 53 -j DNAT --to 192.168.1.100
 iptables -t nat -A OUTPUT -p tcp --dport 53 -j DNAT --to 192.168.1.100
 ``` 
+
+![Config Pic2](/assets/img/pihole/dns_redirect.png)
 
 That's all the configurations I've made to my Pihole so far, and I'm immensely satisfied.
 
