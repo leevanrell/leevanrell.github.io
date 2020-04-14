@@ -130,11 +130,11 @@ def main():
 		if p.title:
 			successes.append(p.entry)
 		else:
-			fails.append(p.entry)
+			fails.append(p.link)
 
 	print(f"Failed to scrape {len(fails)} out of {len(links)}")
 	for f in fails:
-		print(f"\t-> {f['url'][:60]}")
+		print(f"\t-> {f[:60]}")
 
 	c, store = mergeArticles(stored_articles,successes)
 

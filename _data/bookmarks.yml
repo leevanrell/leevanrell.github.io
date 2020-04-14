@@ -1,4 +1,9 @@
 articles:
+- categories: [git]
+  excerpt: A nice way to group some changes together, especially before sharing them
+    with others.
+  title: Squash commits into one with Git
+  url: https://www.internalpointers.com/post/squash-commits-into-one-git
 - categories: [Python]
   excerpt: ''
   title: Sequential Exeuction, Multiprocessing, and Multithreading IO-Bound Tasks

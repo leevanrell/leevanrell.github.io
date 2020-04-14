@@ -15,3 +15,4 @@ https://magcius.github.io/xplain/article/index.html
 https://blog.hboeck.de/archives/898-include-etcshadow.html
 https://www.analyticsvidhya.com/blog/2019/07/openai-gpt2-text-generator-python/
 https://finnshewell.com/news-notes/2019/and-then-what
+https://www.internalpointers.com/post/squash-commits-into-one-git
