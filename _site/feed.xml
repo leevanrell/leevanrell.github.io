@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://leevanrell.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://leevanrell.github.io/" rel="alternate" type="text/html" /><updated>2020-04-14T12:01:25-05:00</updated><id>https://leevanrell.github.io/feed.xml</id><title type="html">Lee Vanrell</title><subtitle>Software Engineer attempts to write a blog.  Focused on programming, 3d printing, arduino's, sdr, and more. </subtitle><author><name>lee vanrell</name></author><entry><title type="html">Just another Pihole guide</title><link href="https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/" rel="alternate" type="text/html" title="Just another Pihole guide" /><published>2020-02-10T19:31:11-06:00</published><updated>2020-02-10T19:31:11-06:00</updated><id>https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide</id><content type="html" xml:base="https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/">&lt;p&gt;Here’s a quick how-to for setting up a Pihole server at home.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="https://leevanrell.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://leevanrell.github.io/" rel="alternate" type="text/html" /><updated>2020-06-06T16:06:23-05:00</updated><id>https://leevanrell.github.io/feed.xml</id><title type="html">Lee Vanrell</title><subtitle>Software Engineer attempts to write a blog.  Focused on programming, 3d printing, arduino's, sdr, and more. </subtitle><author><name>lee vanrell</name></author><entry><title type="html">Just another Pihole guide</title><link href="https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/" rel="alternate" type="text/html" title="Just another Pihole guide" /><published>2020-02-10T19:31:11-06:00</published><updated>2020-02-10T19:31:11-06:00</updated><id>https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide</id><content type="html" xml:base="https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/">&lt;p&gt;Here’s a quick how-to for setting up a Pihole server at home.&lt;/p&gt;
 
 &lt;p&gt;First, you need to setup a VM/raspberrypi to host the Pihole. I decided to just run Pihole off a VM on my ESXi server I already had.&lt;/p&gt;
 
 &lt;p&gt;The VM I’m using is a Ubuntu 18.04 LTS Server image. To get it to work with Pihole we’ll have to make the IP static so it doesn’t up and change on us.&lt;/p&gt;
 
 &lt;p&gt;Since Ubuntu 17(?), Ubuntu uses netplan for configuring it’s ethernet interfaces. So let’s go to its config file at /etc/netplan/50-cloud.yaml (alternatively create a file called 01-netcfg.yaml and remove the default files). Edit the text so it looks like this:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;network:
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;network:
   version: 2
   renderer: networkd
   ethernets: 
@@ -18,11 +18,11 @@
         addresses: [192.168.1.1]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;Be wary that your ethernet interface name/ip subnet may vary, mine is ens160. Also, set your address to whatever you like, but I’ll be using 192.168.1.100. Once you’re done, run&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo netplan apply
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo netplan apply
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Now to install Pihole. Simply run:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ curl -sSL https://install.pi-hole.net | bash
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ curl -sSL https://install.pi-hole.net | bash
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;It will prompt you for a few options like what external DNS you’d like to use, OpenDNS, Quad9, and DNSWatch are all fine. Once it’s finished it will show a screen with a randomly generated password to access the Pihole admin menu.&lt;/p&gt;
@@ -32,7 +32,7 @@
 &lt;p&gt;There’s a few quality of life improvements I recommend:&lt;/p&gt;
 
 &lt;p&gt;First, lets add some more blocklists. Click Tools &amp;gt; blocklists. Then copy and paste this into the text block:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 https://mirror1.malwaredomains.com/files/justdomains
 http://sysctl.org/cameleon/hosts
 https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
@@ -49,7 +49,7 @@ https://raw.githubusercontent.com/nicholasb2101/PiHole/master/Blocklists/Seconda
 
 &lt;p&gt;To force devices that are hardcoded to use external DNS you can configure your router to redirect all DNS requests to your Pihole. If you end up setting up a OpenWRT router, log in to it, then click Network &amp;gt; Firewall &amp;gt; Custom rules and drop these commands into the text box. If don’t have OpenWRT but can ssh into your router, then ssh into your router and enter these commands.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iptables -t nat -A PREROUTING -s 192.168.1.1 -j ACCEPT 
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iptables -t nat -A PREROUTING -s 192.168.1.1 -j ACCEPT 
 iptables -t nat -A PREROUTING -d 192.168.1.100 -j ACCEPT
 iptables -t nat -A OUTPUT -p udp --dport 53 -j DNAT --to 192.168.1.100
 iptables -t nat -A OUTPUT -p tcp --dport 53 -j DNAT --to 192.168.1.100
@@ -65,31 +65,31 @@ iptables -t nat -A OUTPUT -p tcp --dport 53 -j DNAT --to 192.168.1.100
 When you first plug in the GPS module you’ll notice that it prints a &lt;strong&gt;ton&lt;/strong&gt; of additional data you may or may not need. To limit what it printed to what I wanted I had to do some research on the GPS’s PMTK API to figure out what I needed to do. You can find the PMTK commands for configuring it &lt;a href=&quot;https://cdn-shop.adafruit.com/datasheets/PMTK_A11.pdf&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Based on that spreadsheet I’ve put together this little script:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/python3
-&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;serial&lt;/span&gt; 
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/usr/bin/python3
 
-&lt;span class=&quot;n&quot;&gt;GPS_TTY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/dev/ttyUSB0'&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'configuring GPS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;#start tty session
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GPS_TTY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;baudrate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9600&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PARITY_NONE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; \
-    	&lt;span class=&quot;n&quot;&gt;stopbits&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;STOPBITS_ONE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytesize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EIGHTBITS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  
-    &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;#configures GPS to only output GPGGA Sentences
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'$PMTK314,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;#configures how often GPS prints
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'$PMTK220,100*2F&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;#set the baudrate of the GPS
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'$PMTK251,115200*1F&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SerialException&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'lost connection to GPS unit'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+import serial 
+from time import sleep
+
+GPS_TTY = '/dev/ttyUSB0'
+print('configuring GPS')
+try:
+	#start tty session
+    GPS_Serial = serial.Serial(port=GPS_TTY, baudrate=9600, parity=serial.PARITY_NONE, \
+    	stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=0)  
+    sleep(0.5)
+    #configures GPS to only output GPGGA Sentences
+    GPS_Serial.write(b'$PMTK314,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;\r\n')
+    sleep(0.5)
+    #configures how often GPS prints
+    GPS_Serial.write(b'$PMTK220,100*2F&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;\r\n')
+    sleep(0.5)
+    #set the baudrate of the GPS
+    GPS_Serial.write(b'$PMTK251,115200*1F&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;\r\n')
+    sleep(0.5)
+    GPS_Serial.close()
+except serial.SerialException as e:
+    print('lost connection to GPS unit')
+    GPS_Serial.close()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;So the first thing we do is open a tty with the GPS unit; its default baud rate is at 9600, but we’ll be changing that in a moment;&lt;/p&gt;
@@ -123,24 +123,24 @@ The first command is PMTK314 (PMTK_API_SET_NMEA_OUTPUT), it configures the GPS t
 For the most part, gnuradio is the defacto framework for developing your own SDR Tools/Transmitters/Receivers/Whatever.&lt;/p&gt;
 
 &lt;p&gt;If you want to get started using gnuradio, let me clear somethings up. Don’t install gnuradio from the default repos. They’re outdated and who wouldn’t want the &lt;strong&gt;curved lines&lt;/strong&gt; available in GRv3.8. Use gnuradio’s PPA instead:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/binb/bash&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;add-apt-repository ppa:gnuradio/gnuradio-releases
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;gnuradio
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/binb/bash
+sudo add-apt-repository ppa:gnuradio/gnuradio-releases
+sudo apt-get update
+sudo apt install gnuradio
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;As a side note, for out-of-tree modules, install from source, don’t use PyBOMBs. No one uses that shit. I’ve been to the conference, trust me. 
 To install a OOT module, its almost always the same:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/bin/bash
 
 git clone &amp;lt;module&amp;gt;
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &amp;lt;module&amp;gt;
-&lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;build
-&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;build
+cd &amp;lt;module&amp;gt;
+mkdir build
+cd build
 cmake ..
 make
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;make &lt;span class=&quot;nb&quot;&gt;install
-sudo &lt;/span&gt;ldconfig 
+sudo make install
+sudo ldconfig 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;A few OOT modules I recommend are:&lt;/p&gt;
@@ -170,7 +170,7 @@ sudo &lt;/span&gt;ldconfig
 
 &lt;p&gt;The initial build was this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Intel Xeon E5-2660 v2 2.20GHz x2
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Intel Xeon E5-2660 v2 2.20GHz x2
  ARCTIC Alpine 20 Plus CO - 130 Watt Low Noise CPU Cooler x2
  Supermicro X9DRi-LN4F+ Dual LGA2011 1.20 Support E5-2600 v2 24x Slot DDR3 
  32GB 4X8GB DDR3 1333MHz ECC REG MEMORY x2 (64 gb total)
@@ -237,50 +237,50 @@ I initially planned to solder to the board, but then realized that I can scrape 
 &lt;p&gt;Then I plugged the soldered wires into the operating side of the relay.
 Here’s the code for actually toggling the pi on/off&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python
-&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;RPi.GPIO&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sys&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/usr/bin/env python
 
-&lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setmode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BCM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+import RPi.GPIO as GPIO
+import sys
+from time import sleep
 
-&lt;span class=&quot;n&quot;&gt;toggle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+GPIO.setmode(GPIO.BCM)
 
-&lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pull_up_down&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PUD_DOWN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+toggle = sys.argv[1]
 
-&lt;span class=&quot;c1&quot;&gt;#GPIO is high when disp is off and GPIO low when off, inverting because that seems more logical
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;light_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+GPIO.setup(23, GPIO.OUT)
+GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-&lt;span class=&quot;c1&quot;&gt;#will flip relay if told to turn on display and display is off or 
+#GPIO is high when disp is off and GPIO low when off, inverting because that seems more logical
+light_state = not GPIO.input(24) 
+
+#will flip relay if told to turn on display and display is off or 
 #if told to turn off the display and the display is on
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toggle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;turnon&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;light_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LOW&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toggle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;turnoff&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;light_state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HIGH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HIGH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LOW&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# wait for display to turn off
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GPIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cleanup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+if (toggle == &quot;turnon&quot; and light_state == GPIO.LOW) or (toggle == &quot;turnoff&quot; and light_state == GPIO.HIGH):
+	GPIO.output(23, GPIO.HIGH)
+	sleep(0.5)
+	GPIO.output(23, GPIO.LOW)
+	sleep(1.5) # wait for display to turn off
+GPIO.cleanup()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;I know. Its hot garbage. But it’s my garbage.&lt;/p&gt;
 
 &lt;p&gt;You can drop this script in your home directory. Make it executable with chmod.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ chmod +x script.py
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ chmod +x script.py
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;Then run crontab to create a cron job entry.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ crontab -e
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ crontab -e
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Here are my entries:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0	5	*	*	*	/home/pi/script.py turnon
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0	5	*	*	*	/home/pi/script.py turnon
 0	21	*	*	*	/home/pi/script.py turnoff
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;What’s cool about this solution is that it’s easily hackable enough that you can make a webserver to toggle it on/off aswell. I’ve made a quick example of a flask server controlling the mirror:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#/usr/bin/python3
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#/usr/bin/python3
 
 from flask import Flask,render_template
 from time import sleep
@@ -342,31 +342,31 @@ and of course openai’s &lt;a href=&quot;https://openai.com/blog/better-languag
 &lt;p&gt;I’ve looked for transcripts of the Alex Jones show to no avail. But what I did find was Alex Jones’s archived &lt;a href=&quot;https://webrecorder.io/ola_norsk/twitter---alex-jones/list/twitter-profiles/b1/20180818015205/https://twitter.com/realalexjones&quot;&gt;twitter&lt;/a&gt; on webrecorder.io. Not sure what kind of wizardry those guys are running for this web app, but I couldn’t get the HTML of his twitter feed for the life of me. So instead I just selected all text and wrote it to a file. Genius. There was some manual formatting I did to group them into tweets and then clean up the actual contents, but once that’s done it was somewhat useable for my purposes.&lt;/p&gt;
 
 &lt;p&gt;Now that we’ve collected around 900 lines of the good stuff we can train a model. Here’s the code I used (stolen from some medium post, probably):&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/python3
-&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;gpt_2_simple&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gpt2&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/usr/bin/python3
 
-&lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;124M&quot;&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# model is saved into current directory under /models/124M/
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;models&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;gpt2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;download_gpt2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;   
+import gpt_2_simple as gpt2
+import os
 
-&lt;span class=&quot;n&quot;&gt;file_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;./src/alex_jones.txt&quot;&lt;/span&gt;
+model_name = &quot;124M&quot;
+# model is saved into current directory under /models/124M/
+if not os.path.isdir(os.path.join(&quot;models&quot;, model_name)):
+	gpt2.download_gpt2(model_name=model_name)   
 
-&lt;span class=&quot;n&quot;&gt;sess&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gpt2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start_tf_sess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;gpt2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;finetune&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-              &lt;span class=&quot;n&quot;&gt;file_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-              &lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-			  &lt;span class=&quot;n&quot;&gt;run_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'run2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-              &lt;span class=&quot;n&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-			  &lt;span class=&quot;n&quot;&gt;save_every&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-			  &lt;span class=&quot;n&quot;&gt;print_every&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-			  &lt;span class=&quot;n&quot;&gt;sample_every&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-			  &lt;span class=&quot;n&quot;&gt;learning_rate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0001&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+file_name = &quot;./src/alex_jones.txt&quot;
 
-&lt;span class=&quot;n&quot;&gt;gpt2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate_to_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+sess = gpt2.start_tf_sess()
+gpt2.finetune(sess,
+              file_name,
+              model_name=model_name,
+			  run_name='run2',
+              steps=1000,
+			  save_every=50,
+			  print_every=5,
+			  sample_every=10,
+			  learning_rate = 0.0001
+)
+
+gpt2.generate_to_file(sess)
 
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -375,7 +375,7 @@ and of course openai’s &lt;a href=&quot;https://openai.com/blog/better-languag
 
 &lt;p&gt;Here are some of the results:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 Organizer: Planned Parenthood Ships Guns To The US  View all other
 
 Open book censorship represents a poison pill for the people and a soulless dollop of
@@ -414,7 +414,7 @@ Then click the Hard disk option and enter your desired HDD size (make sure the V
 &lt;p&gt;&lt;img src=&quot;/assets/img/esxi_vm_hdd.png&quot; alt=&quot;ESXi Menu&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Then boot your VM and click the GUI option or ssh in. Make sure GParted is installed with:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo apt install gparted
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo apt install gparted
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Start GParted and click the /dev/sda1 partition then click the Resize/Move button. Drag the partition to the right to consume the unallocated partition.&lt;/p&gt;
@@ -424,7 +424,7 @@ Then click the Hard disk option and enter your desired HDD size (make sure the V
 &lt;p&gt;Normally, this is all you’d have to do for a regular linux machine, however, it uses logical volumes that have to be extended as well.&lt;/p&gt;
 
 &lt;p&gt;Run&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo fdisk -l
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo fdisk -l
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;It should display something like this:&lt;/p&gt;
@@ -434,7 +434,7 @@ Then click the Hard disk option and enter your desired HDD size (make sure the V
 &lt;p&gt;The second entry, ubuntu–vg-root, is the volume we’re concerned with. The name will vary from machine to machine but it should still something like name–vg-root at end. You can ignore the swap partition.&lt;/p&gt;
 
 &lt;p&gt;Next run:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo lvresize /dev/mapper/ubuntu--vg-root -L +100g 
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo lvresize /dev/mapper/ubuntu--vg-root -L +100g 
 ~ sudo resize2fs /dev/mapper/vg0-slash
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -489,16 +489,16 @@ For the 35% and 37% tax brackets, you make too much to care (okay its 20%).&lt;/
 &lt;p&gt;Assuming you already have MotionEye set up on a pi (if you don’t you can look at my previous post &lt;a href=&quot;/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/&quot;&gt;here&lt;/a&gt;), you’ll only need to set up a Pi 3 with the latest rasbian image. I used a Pi 3 and the &lt;a href=&quot;https://amzn.to/2R7u5j6&quot;&gt;official 7-in screen&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Once you have a raspberry pi 3 running and on a network go ahead and update it with&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo apt update -y &amp;amp;&amp;amp; sudo apt upgrade -y
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo apt update -y &amp;amp;&amp;amp; sudo apt upgrade -y
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Then install unclutter with:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo apt install unclutter
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo apt install unclutter
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;This is to hide the mouse-cursor, recommended, but not required&lt;/p&gt;
 
 &lt;p&gt;Now onto the bread and butter. Make sure that you have the streaming functionality enabled, otherwise it won’t work. To display the MotionEyeOS stream, we’ll make chromium load on startup and open to the MotionEye’s streaming page. Write the following to /home/pi/.config/lxsession/LXDE-pi/autostart.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@xset s off
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@xset s off
 @xset -dpms
 @xset s noblank
 @chromium-browser --kiosk http://{MOTIONEYE'S IP}}:8081
@@ -506,7 +506,7 @@ For the 35% and 37% tax brackets, you make too much to care (okay its 20%).&lt;/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;If you need to rotate the display write&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lcd_display=2
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lcd_display=2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;into /boot/config.txt, 2 rotates it by 180 degrees.&lt;/p&gt;
 
@@ -521,7 +521,7 @@ For the 35% and 37% tax brackets, you make too much to care (okay its 20%).&lt;/
 &lt;p&gt;First, go MotionEye’s release &lt;a href=&quot;https://github.com/ccrisan/motioneyeos/releases&quot;&gt;page&lt;/a&gt;. Download the corresponding images for your board. Once, downloaded plug in your preferred image flashing utility, I prefer &lt;a href=&quot;https://www.balena.io/etcher&quot;&gt;balenaEtcher&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;If you want to use wifi with the pi, you can drop wpa_supplicant.conf in the root directory of the sd card and paste this into the file:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    country=US
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    country=US
     update_config=1
     ctrl_interface=/var/run/wpa_supplicant
     
@@ -547,21 +547,21 @@ For the 35% and 37% tax brackets, you make too much to care (okay its 20%).&lt;/
 You can set the mask to only trigger off of an area of interest like a door/entryway/shower/etc. The red-highlighted area is the area that is ignored by the camera. Also note that these settings might not work for everyone and aren’t set in stone. This just works for me.&lt;/p&gt;
 
 &lt;p&gt;Now that motion detection is enabled go one tab down to ‘Motion Notifications’. Enable Run a Command and enter as follows:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ python /root/notify.py
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ python /root/notify.py
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Next, enable SSH server in the services tab.
 Hit the annoying orange apply tab. The pi should reboot. Once the pi is back up, SSH into with a SSH client (if you’ve made it this far you probably know what your doing and don’t need help getting one). Since the creators are complete Nazis, the entire fs is read-only so we’ll need to run:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ mount -o remount,rw /
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ mount -o remount,rw /
 ~ mount -o remount,rw /boot
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;Next thing is to open /root/notify.py&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ nano /root/notify.py #they include nano tho?
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ nano /root/notify.py #they include nano tho?
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Write the following python script:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#/usr/bin/python3
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#/usr/bin/python3
 import httplib, urllib, urllib2
 
 req = urllib2.Request('http://icanhazip.com', data=None) 
@@ -586,7 +586,7 @@ conn.getresponse()
 
 &lt;p&gt;To generate a user and app token head over to Pushover and they’ll get you set up. The service costs a few bucks for an account and provides 7,500 messages/month. If your too cheap to pay that dunno why you wasted $50 on a shitty webcam. Once the tokens are added Ctrl^O and Ctrl^x and exit the SSH session. Now, download Pushover’s app and you should be set to receive messages. Now try and run the following command in the SSH shell.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ python /root/notify.py
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ python /root/notify.py
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;With any luck, you should receive a push notification.&lt;/p&gt;
 

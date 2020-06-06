@@ -1,218 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta charset="UTF-8">
+
+<head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
-<link rel="shortcut icon" href="/assets/favicon.ico"/>
+<link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
 <title>Lee Vanrell</title>
-<!-- Begin Jekyll SEO tag v2.1.0 -->
-<title>Lee Vanrell - Software Engineer attempts to write a blog. Focused on programming, 3d printing, arduino’s, sdr, and more.</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Lee Vanrell | Software Engineer attempts to write a blog. Focused on programming, 3d printing, arduino’s, sdr, and more.</title>
+<meta name="generator" content="Jekyll v4.1.0" />
 <meta property="og:title" content="Lee Vanrell" />
+<meta name="author" content="lee vanrell" />
+<meta property="og:locale" content="en_US" />
 <meta name="description" content="Software Engineer attempts to write a blog. Focused on programming, 3d printing, arduino’s, sdr, and more." />
 <meta property="og:description" content="Software Engineer attempts to write a blog. Focused on programming, 3d printing, arduino’s, sdr, and more." />
 <link rel="canonical" href="https://leevanrell.github.io/" />
 <meta property="og:url" content="https://leevanrell.github.io/" />
 <meta property="og:site_name" content="Lee Vanrell" />
 <script type="application/ld+json">
-{"@context": "http://schema.org",
-"@type": "WebSite",
-"name": "Lee Vanrell",
-"headline": "Lee Vanrell",
-"description": "Software Engineer attempts to write a blog. Focused on programming, 3d printing, arduino’s, sdr, and more.",
-"url": "https://leevanrell.github.io/"}</script>
+{"@type":"WebSite","headline":"Lee Vanrell","author":{"@type":"Person","name":"lee vanrell"},"description":"Software Engineer attempts to write a blog. Focused on programming, 3d printing, arduino’s, sdr, and more.","url":"https://leevanrell.github.io/","name":"Lee Vanrell","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 </head>
-  <body>
-    <main class="container">
-      <section class="about">
-        <a href="/"><img src="/assets/portfolio.png" alt="Lee Vanrell"></a>
-        <h2 id="title">
-          <a href="/">Lee Vanrell</a>
-        </h2>
-        <p class="tagline">Software Engineer</p>
-        <ul class="social"><a href="https://github.com/leevanrell">
-              <li>
-                <i class="icon-github-circled"></i>
-              </li>
-            </a><a href="https://www.linkedin.com/in/leevanrell">
-              <li>
-                <i class="icon-linkedin-squared"></i>
-              </li>
-            </a><a href="https://twitter.com/lee_vanrell">
-              <li>
-                <i class="icon-twitter-squared"></i>
-              </li>
-            </a></ul><nav class="navigation">
-            <ul>
-              
-                <li>
-                  <a href="/about">About Me</a>
-                </li>
-              
-                <li>
-                  <a href="/bookmarks">Bookmarks</a>
-                </li>
-              
-                <li>
-                  <a href="/feed.xml">Subscribe</a>
-                </li>
-              
-            </ul>
-          </nav><p>&copy;
-          2020</p>
-      </section>
-      <section class="content">
-        
+
+<body>
+  <main class="container">
+    <section class="about">
+      <a href="/"><img src="/assets/portfolio.png" alt="Lee Vanrell"></a>
+      <h2 id="title">
+        <a href="/">Lee Vanrell</a>
+      </h2>
+      <p class="tagline">Software Engineer</p>
+      <ul class="social"><a href="https://github.com/leevanrell">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/leevanrell">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/lee_vanrell">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation">
+        <ul>
+          
+          <li>
+            <a href="/about">About Me</a>
+          </li>
+          
+          <li>
+            <a href="/bookmarks">Bookmarks</a>
+          </li>
+          
+          <li>
+            <a href="/feed.xml">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav><p>&copy;
+        2020</p><div>
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+      <script type="text/javascript" src="/assets/js/darkmode.js"></script></section>
+    <section class="content">
+      
 <ul class="posts">
-    <li>
+    <li class="posts-labelgroup" id="posts-labelgroup">
       <h1 id="posts-label">posts</h1>
+      
+      <div class="search-container">
+        <div class="search-section">
+          <i class="icon-search"></i>
+          <input type="text" name="search" id="searchbar" autocomplete="off" aria-label="search in posts">
+        </div>
+        <div class="search-results" id="search-results" data-placeholder="No Results" style="display: none;"></div>
+      </div>
+      
     </li><li><a class="post-link" href="/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/">
           <h2 class="post-title">Just another Pihole guide</h2>
         </a>
         <div class="post-meta">
-          <ul class="post-categories"><li>RaspberryPi</li><li>PiHole</li></ul>
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Feb 10, 2020</div>
-        </div>
+            Feb 10, 2020
+          </div><ul class="post-categories"><li>RaspberryPi</li><li>PiHole</li></ul></div>
         <div class="post"><p>Here’s a quick how-to for setting up a Pihole server at home.</p>
-
 </div>
       </li><li><a class="post-link" href="/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/">
           <h2 class="post-title">How to configure your IoT GPS modules</h2>
         </a>
         <div class="post-meta">
-          <ul class="post-categories"><li>IoT</li><li>Adafruit</li></ul>
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Feb 9, 2020</div>
-        </div>
+            Feb 9, 2020
+          </div><ul class="post-categories"><li>IoT</li><li>Adafruit</li></ul></div>
         <div class="post"><p>A few years ago, I had a project that required me to collect GPS along with the db of cell towers, so I could triangulate their location. I went down the rabbit hole of configuring the GPS module to output NMEA sentences in the format I wanted; I wasted some time on it, so I decided that this might help someone avoid wasting time.</p>
-
 </div>
       </li><li><a class="post-link" href="/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio/">
           <h2 class="post-title">Intro to Software Defined Radio: Part I</h2>
         </a>
         <div class="post-meta">
-          <ul class="post-categories"><li>SDR</li><li>gnuradio</li></ul>
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Feb 3, 2020</div>
-        </div>
+            Feb 3, 2020
+          </div><ul class="post-categories"><li>SDR</li><li>gnuradio</li></ul></div>
         <div class="post"><p>For the past 4 years or so I’ve tinkered with Software Defined Radios (SDR), but until recently my knowledge of them was fairly limited. So, today I hope to impart some of my wisdom onto you.</p>
-
 </div>
       </li><li><a class="post-link" href="/homelab/esxi/2020/02/02/How-to-setup-a-homelab/">
           <h2 class="post-title">How to Setup a Homelab: Making a Parts List</h2>
         </a>
         <div class="post-meta">
-          <ul class="post-categories"><li>Homelab</li><li>ESXi</li></ul>
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Feb 2, 2020</div>
-        </div>
+            Feb 2, 2020
+          </div><ul class="post-categories"><li>Homelab</li><li>ESXi</li></ul></div>
         <div class="post"><p>A few years ago, I built my first homelab server; I remember it being a bit of a daunting task and decided it might be helpful to share a few insights.</p>
-
 </div>
       </li><li><a class="post-link" href="/python/raspberrypi/2020/01/30/MagicMirror-build/">
           <h2 class="post-title">MagicMirror Build</h2>
         </a>
         <div class="post-meta">
-          <ul class="post-categories"><li>Python</li><li>RaspberryPi</li></ul>
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Jan 30, 2020</div>
-        </div>
+            Jan 30, 2020
+          </div><ul class="post-categories"><li>Python</li><li>RaspberryPi</li></ul></div>
         <div class="post"><p>Here’s a little project I’ve worked on a few weeks ago. It’s a semi-intelligent magic mirror I put together. It was relatively cheap to put together since I got the monitor for free and already had a pi lying around.</p>
-
 </div>
       </li><li><a class="post-link" href="/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/">
           <h2 class="post-title">Turning GPT-2 into Alex Jones</h2>
         </a>
         <div class="post-meta">
-          <ul class="post-categories"><li>Python</li><li>GPT-2</li></ul>
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Jan 24, 2020</div>
-        </div>
+            Jan 24, 2020
+          </div><ul class="post-categories"><li>Python</li><li>GPT-2</li></ul></div>
         <div class="post"><p>This post is me riding the coattails of the GPT-2 hype train. 
 Now for those that don’t know, GPT-2 is a machine learning model that is very effective at text generation. It can maintain context over a long period of text making it more ‘human’ than previous algorithms.</p>
-
 </div>
       </li><li><a class="post-link" href="/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/">
           <h2 class="post-title">Expanding your VMs in ESXi</h2>
         </a>
         <div class="post-meta">
-          <ul class="post-categories"><li>VM</li><li>ESXi</li></ul>
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Jan 21, 2020</div>
-        </div>
+            Jan 21, 2020
+          </div><ul class="post-categories"><li>VM</li><li>ESXi</li></ul></div>
         <div class="post"><p>This was pesky enough that I thought it merited a small post. I recently ran out of media on my Ubuntu VM on my ESXi v6.5 homelab. And went on a small adventure trying to figure out what to slap in the terminal to get more space. So hopefully this might save someone else more time.</p>
-
 </div>
       </li><li><a class="post-link" href="/investing/2020/01/20/Capital-Gains-vs-Dividends-vs-Critical-Thought/">
           <h2 class="post-title">Capital Gains vs. Dividends vs. Critical Thought</h2>
         </a>
         <div class="post-meta">
-          <ul class="post-categories"><li>Investing</li></ul>
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Jan 20, 2020</div>
-        </div>
+            Jan 20, 2020
+          </div><ul class="post-categories"><li>Investing</li></ul></div>
         <div class="post"><p>I’ve seen a recent trend on youtube where people post about the success of their dividend portfolio and the ‘power blue-chip dividend stocks’. These videos fucking annoy me.</p>
-
 </div>
       </li><li><a class="post-link" href="/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/">
           <h2 class="post-title">Setting up CCTW with MotionEyeOS </h2>
         </a>
         <div class="post-meta">
-          <ul class="post-categories"><li>RaspberryPi</li><li>MotionEyeOS</li></ul>
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Jan 18, 2020</div>
-        </div>
+            Jan 18, 2020
+          </div><ul class="post-categories"><li>RaspberryPi</li><li>MotionEyeOS</li></ul></div>
         <div class="post"><p>Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I’ve also decided I need a CCTV-like capability to monitor my door at all times while I’m at my desk.</p>
-
 </div>
       </li><li><a class="post-link" href="/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/">
           <h2 class="post-title">Setting a MotionEyeOS Webcam</h2>
         </a>
         <div class="post-meta">
-          <ul class="post-categories"><li>RaspberryPi</li><li>MotionEyeOS</li></ul>
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Jan 15, 2020</div>
-        </div>
+            Jan 15, 2020
+          </div><ul class="post-categories"><li>RaspberryPi</li><li>MotionEyeOS</li></ul></div>
         <div class="post"><p>This guide is for anyone who wants to set up a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply.</p>
-
 </div>
       </li><li><a class="post-link" href="/me/2020/01/14/What-I-did-in-2019/">
           <h2 class="post-title">What I did in 2019</h2>
         </a>
         <div class="post-meta">
-          <ul class="post-categories"><li>Me</li></ul>
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Jan 14, 2020</div>
-        </div>
+            Jan 14, 2020
+          </div><ul class="post-categories"><li>Me</li></ul></div>
         <div class="post"><p>I know this is probably coming a little late compared to some. But that’s just who I am.</p>
-
+</div>
+      </li><li><a class="post-link" href="/javascript/nodejs/2019/03/23/welcome-to-jekyll/">
+          <h2 class="post-title">Integrating razorpay into your webapp</h2>
+        </a>
+        <div class="post-meta">
+          <div class="post-date">
+            <i class="icon-calendar"></i>
+            Mar 23, 2019
+          </div><ul class="post-categories"><li>Javascript</li><li>NodeJS</li></ul></div>
+        <div class="post"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</p>
 </div>
       </li></ul>
 
-<!--   <p class="feed-subscribe"><svg class="svg-icon orange">
+  <!-- <p class="feed-subscribe"><svg class="svg-icon orange">
 		<use xlink:href="/assets/minima-social-icons.svg#rss"></use>
 	</svg><a href="/feed.xml">Subscribe</a></p> -->
-      </section>
-    </main><script async src="https://www.googletagmanager.com/gtag/js?id=UA-156487363-1"></script>
-      <script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
+    </section>
+  </main>
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
 
-		gtag('config', 'UA-156487363-1');
-	</script></body>
 </html>

@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta charset="UTF-8">
+
+<head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
-<link rel="shortcut icon" href="/assets/favicon.ico"/>
+<link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
 <title>Just another Pihole guide</title>
-<!-- Begin Jekyll SEO tag v2.1.0 -->
-<title>Just another Pihole guide - Lee Vanrell</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Just another Pihole guide | Lee Vanrell</title>
+<meta name="generator" content="Jekyll v4.1.0" />
 <meta property="og:title" content="Just another Pihole guide" />
+<meta name="author" content="lee vanrell" />
+<meta property="og:locale" content="en_US" />
 <meta name="description" content="Here’s a quick how-to for setting up a Pihole server at home." />
 <meta property="og:description" content="Here’s a quick how-to for setting up a Pihole server at home." />
 <link rel="canonical" href="https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/" />
@@ -18,62 +22,64 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-02-10T19:31:11-06:00" />
 <script type="application/ld+json">
-{"@context": "http://schema.org",
-"@type": "BlogPosting",
-"headline": "Just another Pihole guide",
-"datePublished": "2020-02-10T19:31:11-06:00",
-"description": "Here’s a quick how-to for setting up a Pihole server at home.",
-"url": "https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/"}</script>
+{"@type":"BlogPosting","headline":"Just another Pihole guide","dateModified":"2020-02-10T19:31:11-06:00","datePublished":"2020-02-10T19:31:11-06:00","author":{"@type":"Person","name":"lee vanrell"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/"},"description":"Here’s a quick how-to for setting up a Pihole server at home.","url":"https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 </head>
-  <body>
-    <main class="container">
-      <section class="about">
-        <a href="/"><img src="/assets/portfolio.png" alt="Lee Vanrell"></a>
-        <h2 id="title">
-          <a href="/">Lee Vanrell</a>
-        </h2>
-        <p class="tagline">Software Engineer</p>
-        <ul class="social"><a href="https://github.com/leevanrell">
-              <li>
-                <i class="icon-github-circled"></i>
-              </li>
-            </a><a href="https://www.linkedin.com/in/leevanrell">
-              <li>
-                <i class="icon-linkedin-squared"></i>
-              </li>
-            </a><a href="https://twitter.com/lee_vanrell">
-              <li>
-                <i class="icon-twitter-squared"></i>
-              </li>
-            </a></ul><nav class="navigation">
-            <ul>
-              
-                <li>
-                  <a href="/about">About Me</a>
-                </li>
-              
-                <li>
-                  <a href="/bookmarks">Bookmarks</a>
-                </li>
-              
-                <li>
-                  <a href="/feed.xml">Subscribe</a>
-                </li>
-              
-            </ul>
-          </nav><p>&copy;
-          2020</p>
-      </section>
-      <section class="content">
-        <div class="post-container">
+
+<body>
+  <main class="container">
+    <section class="about">
+      <a href="/"><img src="/assets/portfolio.png" alt="Lee Vanrell"></a>
+      <h2 id="title">
+        <a href="/">Lee Vanrell</a>
+      </h2>
+      <p class="tagline">Software Engineer</p>
+      <ul class="social"><a href="https://github.com/leevanrell">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/leevanrell">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/lee_vanrell">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation">
+        <ul>
+          
+          <li>
+            <a href="/about">About Me</a>
+          </li>
+          
+          <li>
+            <a href="/bookmarks">Bookmarks</a>
+          </li>
+          
+          <li>
+            <a href="/feed.xml">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav><p>&copy;
+        2020</p><div>
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+      <script type="text/javascript" src="/assets/js/darkmode.js"></script></section>
+    <section class="content">
+      <div class="post-container">
   <a class="post-link" href="/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/">
     <h2 class="post-title">Just another Pihole guide</h2>
   </a>
   <div class="post-meta">
-    <ul class="post-categories"><li>RaspberryPi</li><li>PiHole</li></ul>
-    <div class="post-date"><i class="icon-calendar"></i>Feb 10, 2020</div>
-  </div>
+    <div class="post-date"><i class="icon-calendar"></i>Feb 10, 2020</div><ul class="post-categories"><li>RaspberryPi</li><li>PiHole</li></ul></div>
   <div class="post">
     <p>Here’s a quick how-to for setting up a Pihole server at home.</p>
 
@@ -82,7 +88,7 @@
 <p>The VM I’m using is a Ubuntu 18.04 LTS Server image. To get it to work with Pihole we’ll have to make the IP static so it doesn’t up and change on us.</p>
 
 <p>Since Ubuntu 17(?), Ubuntu uses netplan for configuring it’s ethernet interfaces. So let’s go to its config file at /etc/netplan/50-cloud.yaml (alternatively create a file called 01-netcfg.yaml and remove the default files). Edit the text so it looks like this:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>network:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>network:
   version: 2
   renderer: networkd
   ethernets: 
@@ -95,11 +101,11 @@
         addresses: [192.168.1.1]
 </code></pre></div></div>
 <p>Be wary that your ethernet interface name/ip subnet may vary, mine is ens160. Also, set your address to whatever you like, but I’ll be using 192.168.1.100. Once you’re done, run</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ sudo netplan apply
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ sudo netplan apply
 </code></pre></div></div>
 
 <p>Now to install Pihole. Simply run:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ curl -sSL https://install.pi-hole.net | bash
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ curl -sSL https://install.pi-hole.net | bash
 </code></pre></div></div>
 
 <p>It will prompt you for a few options like what external DNS you’d like to use, OpenDNS, Quad9, and DNSWatch are all fine. Once it’s finished it will show a screen with a randomly generated password to access the Pihole admin menu.</p>
@@ -109,7 +115,7 @@
 <p>There’s a few quality of life improvements I recommend:</p>
 
 <p>First, lets add some more blocklists. Click Tools &gt; blocklists. Then copy and paste this into the text block:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 https://mirror1.malwaredomains.com/files/justdomains
 http://sysctl.org/cameleon/hosts
 https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
@@ -126,7 +132,7 @@ https://raw.githubusercontent.com/nicholasb2101/PiHole/master/Blocklists/Seconda
 
 <p>To force devices that are hardcoded to use external DNS you can configure your router to redirect all DNS requests to your Pihole. If you end up setting up a OpenWRT router, log in to it, then click Network &gt; Firewall &gt; Custom rules and drop these commands into the text box. If don’t have OpenWRT but can ssh into your router, then ssh into your router and enter these commands.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iptables -t nat -A PREROUTING -s 192.168.1.1 -j ACCEPT 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iptables -t nat -A PREROUTING -s 192.168.1.1 -j ACCEPT 
 iptables -t nat -A PREROUTING -d 192.168.1.100 -j ACCEPT
 iptables -t nat -A OUTPUT -p udp --dport 53 -j DNAT --to 192.168.1.100
 iptables -t nat -A OUTPUT -p tcp --dport 53 -j DNAT --to 192.168.1.100
@@ -140,13 +146,11 @@ iptables -t nat -A OUTPUT -p tcp --dport 53 -j DNAT --to 192.168.1.100
 
   </div></div>
 
-      </section>
-    </main><script async src="https://www.googletagmanager.com/gtag/js?id=UA-156487363-1"></script>
-      <script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
+    </section>
+  </main>
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
 
-		gtag('config', 'UA-156487363-1');
-	</script></body>
 </html>

@@ -7,7 +7,9 @@ exclude: [.editorconfig, .git, .jekyll-cache, Gemfile, Gemfile.lock, LICENSE.md,
 host: 0.0.0.0
 permalink: pretty
 plainwhite:
-  analytics_id: UA-156487363-1
+  dark_mode: true
+  search: true
+  #analytics_id: UA-156487363-1
   date_format: '%b %-d, %Y'
   name: Lee Vanrell
   navigation:
@@ -18,7 +20,11 @@ plainwhite:
   sitemap: true
   social_links: {github: leevanrell, linkedIn: in/leevanrell, rss: rss, twitter: lee_vanrell}
   tagline: Software Engineer
-gems: [jekyll-feed, jekyll-seo-tag, jekyll-scholar, jekyll-gist]
+plugins: 
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-gist
+remote_theme: thelehhman/plainwhite-jekyll
 sass: {sass_dir: _sass, style: ':compressed'}
 scholar: {style: mla}
 show_excerpts: true

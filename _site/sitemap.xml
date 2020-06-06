@@ -6,7 +6,7 @@
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
             <loc>https://leevanrell.github.io</loc>
-            <lastmod>2019-06-07T00:00:00+00:00</lastmod>
+	    <lastmod>2020-06-06T16:06:23-05:00</lastmod>
             <priority>1.00</priority>
         </url><url>
                 <loc>https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/</loc>
@@ -61,6 +61,11 @@
             </url><url>
                 <loc>https://leevanrell.github.io/me/2020/01/14/What-I-did-in-2019/</loc>
                 <lastmod>2020-01-14T20:00:00-06:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
+                <loc>https://leevanrell.github.io/javascript/nodejs/2019/03/23/welcome-to-jekyll/</loc>
+                <lastmod>2019-03-23T10:33:36-05:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url></urlset>

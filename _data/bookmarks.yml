@@ -1,20 +1,24 @@
 articles:
-- categories: [git]
+- categories:
+  - git
   excerpt: A nice way to group some changes together, especially before sharing them
     with others.
   title: Squash commits into one with Git
   url: https://www.internalpointers.com/post/squash-commits-into-one-git
-- categories: [Python]
+- categories:
+  - Python
   excerpt: ''
   title: Sequential Exeuction, Multiprocessing, and Multithreading IO-Bound Tasks
     in Python
   url: https://zacs.site/blog/linear-python.html
-- categories: [Python]
+- categories:
+  - Python
   excerpt: Is it possible currently? I tried to remove python in Fedora 19 but yum
     depends on it.
   title: Distributions that only ships Python 3.X
   url: https://unix.stackexchange.com/questions/83607/distributions-that-only-ships-python-3-x
-- categories: [Tor]
+- categories:
+  - Tor
   excerpt: Since starting my Tor onion service that provides access to the Internet
     Archive, I've seen a wide range of Tor-based attacks. I have documented many of
     these in various blog entries.
@@ -25,7 +29,9 @@ articles:
     Meeting, January. 2020.
   title: A Skeptic's Guide to Modern Monetary Theory
   url: https://scholar.harvard.edu/mankiw/publications/skeptics-guide-modern-monetary-theory
-- categories: [ML, GPT-2]
+- categories:
+  - ML
+  - GPT-2
   excerpt: "This year, we saw a dazzling application of machine learning. The OpenAI\
     \ GPT-2 exhibited impressive ability of writing coherent and passionate essays\
     \ that exceed what we anticipated current language models are able to produce.\
@@ -36,7 +42,10 @@ articles:
     \ its results.   "
   title: The Illustrated GPT-2 (Visualizing Transformer Language Models)
   url: http://jalammar.github.io/illustrated-gpt2/
-- categories: [assembly, x86, operating-system]
+- categories:
+  - assembly
+  - x86
+  - operating-system
   excerpt: How do you run a program all by itself without an operating system running?
     Can you create assembly programs that the computer can load and run at startup,
     e.g. boot the computer from a flash drive...
@@ -49,7 +58,10 @@ articles:
     the pieces involved and a little bit of general Unix literacy.
   title: Building interactive SSH applications
   url: https://drewdevault.com/2019/09/02/Interactive-SSH-programs.html
-- categories: [project, software defined radio, wireless]
+- categories:
+  - project
+  - software defined radio
+  - wireless
   excerpt: This experiment came out of a software radio design challenge used in coursework
     at New York University and the University of Thessaly. (See Report on university
     course based on DARPA Spectrum Challenge.) The goal of the project is to design
@@ -57,7 +69,10 @@ articles:
   title: Balancing the benefit of deliberate jamming and the cost of self-interference
     in a software defined radio challenge
   url: https://witestlab.poly.edu/blog/software-radio-design-challenge/
-- categories: [Big Data, Deep Learning, DirectPath I/O]
+- categories:
+  - Big Data
+  - Deep Learning
+  - DirectPath I/O
   excerpt: "This is part 2 of a series of blog articles on the subject of using GPUs\
     \ with VMware vSphere. Part 1 of this series presents an overview of the various\
     \ options for using GPUs on vSphere Part 2 describes the DirectPath I/O (Passthrough)\
@@ -77,7 +92,10 @@ articles:
     \ doesn\u2019t make sense."
   title: 'How Unix Works: Become a Better Software Engineer'
   url: https://neilkakkar.com/unix.html
-- categories: [data science, deep learning, GPT]
+- categories:
+  - data science
+  - deep learning
+  - GPT
   excerpt: Build your own text generator in Python using OpenAI's GPT-2 framework!
     GPT-2 is the world's most advanced framework for NLP tasks in Python.
   title: 'OpenAI''s GPT-2: Build World''s Most Advanced Text Generator in Python'
