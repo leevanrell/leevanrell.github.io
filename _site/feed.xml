@@ -1,4 +1,78 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="https://leevanrell.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://leevanrell.github.io/" rel="alternate" type="text/html" /><updated>2020-06-06T16:06:23-05:00</updated><id>https://leevanrell.github.io/feed.xml</id><title type="html">Lee Vanrell</title><subtitle>Software Engineer attempts to write a blog.  Focused on programming, 3d printing, arduino's, sdr, and more. </subtitle><author><name>lee vanrell</name></author><entry><title type="html">Just another Pihole guide</title><link href="https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/" rel="alternate" type="text/html" title="Just another Pihole guide" /><published>2020-02-10T19:31:11-06:00</published><updated>2020-02-10T19:31:11-06:00</updated><id>https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide</id><content type="html" xml:base="https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/">&lt;p&gt;Here’s a quick how-to for setting up a Pihole server at home.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="https://leevanrell.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://leevanrell.github.io/" rel="alternate" type="text/html" /><updated>2020-06-06T18:05:47-05:00</updated><id>https://leevanrell.github.io/feed.xml</id><title type="html">Lee Vanrell</title><subtitle>Software Engineer attempts to write a blog.  Focused on programming, 3d printing, arduino's, sdr, and more. </subtitle><author><name>lee vanrell</name></author><entry><title type="html">Surviving in an offline environment</title><link href="https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment/" rel="alternate" type="text/html" title="Surviving in an offline environment" /><published>2020-06-06T18:03:36-05:00</published><updated>2020-06-06T18:03:36-05:00</updated><id>https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment</id><content type="html" xml:base="https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment/">&lt;p&gt;Have you ever been so fucked that you had to work on a box that didn’t have internet? Then this post is for you!&lt;/p&gt;
+
+&lt;p&gt;The simplest solution is to setup a squeeky clean vm and use apt to get the .debs you need. Here’s an example to install wine offline:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt update &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt clean &lt;span class=&quot;c&quot;&gt;# just in case&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--download-only&lt;/span&gt; wine &lt;span class=&quot;c&quot;&gt;# or -d&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;zip &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; wine.zip /var/cache/apt/archives/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.deb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Then on your offline box run:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;unzip wine.zip
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dpkg &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This only works if the vm/online box doesn’t have any of required packages installed. If you run apt -d with wine already installed then apt won’t download any of the required .debs since it already sees wine installed on the system.&lt;/p&gt;
+
+&lt;p&gt;So what if you want to use a online dev environments with packages already installed to supply .deb packages to a offline computer?&lt;/p&gt;
+
+&lt;p&gt;Theres apt-offline which you can use on any system, debian or not for download your required apt packages. The problem here is that we have to install apt-offline on both the offline system and the online system. In addition to that debian 10 does not have apt-offline in it’s native repos yet so we have to install it from source.&lt;/p&gt;
+
+&lt;p&gt;For the online system run:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt clean
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;git python3-pip python-magic
+git clone https://github.com/rickysarraf/apt-offline.git
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;apt-offline/
+&lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;soappy
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;soappy
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pip3 download &lt;span class=&quot;nt&quot;&gt;--no-cache&lt;/span&gt; soappy
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pip3 &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ..
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pip3 &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Note we download all the required files from pip because we’ll be using them later on the offline system. Now we have the online system setup, lets make a bundle to install on the offline system.&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;zip &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; offline-install.zip /var/cache/apt/archives/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.deb apt-offline
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then take that over to the offline system and run:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;unzip offline-install.zip
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dpkg &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;apt-offline/soappy
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pip3 &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ..
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pip3 &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we should be set for creating a sig file for the offline system:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-offline &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;wine-offline.sig &lt;span class=&quot;nt&quot;&gt;--install-packages&lt;/span&gt; wine
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This generates a file to tell the online system what the offline system already has installed on it. It can use it to diff and figure out what it needs. Take the wine-offline.sig to the online system and run&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-offline get wine-offline.sig &lt;span class=&quot;nt&quot;&gt;--bundle&lt;/span&gt; wine-install.zip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then take the .zip it generates to the offline machine and run:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-offline &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;wine-install.zip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Wasn’t that fun?&lt;/p&gt;
+
+&lt;p&gt;The benefit of using apt-offline is allows us the flexibility of not having to use the same OS and version for the online box and allows us to install packages (on the online box) with out risking missing dependencies for the offline box.&lt;/p&gt;
+
+&lt;p&gt;If you are working on a system that uses yum the alternative is similar to the first process where you will need a vm with the same OS/verion and run:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;yum &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;yum-plugin-downloadonly
+	yum &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--downloadonly&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--downloaddir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;directory&amp;gt; &amp;lt;package&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Again this methodology is limited but it works. Sort of.&lt;/p&gt;
+
+&lt;p&gt;Fin.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">Have you ever been so fucked that you had to work on a box that didn’t have internet? Then this post is for you!</summary></entry><entry><title type="html">Just another Pihole guide</title><link href="https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/" rel="alternate" type="text/html" title="Just another Pihole guide" /><published>2020-02-10T19:31:11-06:00</published><updated>2020-02-10T19:31:11-06:00</updated><id>https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide</id><content type="html" xml:base="https://leevanrell.github.io/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/">&lt;p&gt;Here’s a quick how-to for setting up a Pihole server at home.&lt;/p&gt;
 
 &lt;p&gt;First, you need to setup a VM/raspberrypi to host the Pihole. I decided to just run Pihole off a VM on my ESXi server I already had.&lt;/p&gt;
 
@@ -512,85 +586,4 @@ For the 35% and 37% tax brackets, you make too much to care (okay its 20%).&lt;/
 
 &lt;p&gt;And that’s it! Reboot to ensure everything is working.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/cctv.jpg&quot; alt=&quot;MotionEye Config&quot; /&gt;&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I’ve also decided I need a CCTV-like capability to monitor my door at all times while I’m at my desk.</summary></entry><entry><title type="html">Setting a MotionEyeOS Webcam</title><link href="https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/" rel="alternate" type="text/html" title="Setting a MotionEyeOS Webcam" /><published>2020-01-15T20:12:12-06:00</published><updated>2020-01-15T20:12:12-06:00</updated><id>https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide</id><content type="html" xml:base="https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/">&lt;p&gt;This guide is for anyone who wants to set up a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply.&lt;/p&gt;
-
-&lt;p&gt;For those who want a 3d printable case and camera holder, I recommend &lt;a href=&quot;https://www.thingiverse.com/thing:4099543&quot;&gt;this&lt;/a&gt; case (because I designed it and use it myself). Otherwise there plenty of commercial &lt;a href=&quot;https://amzn.to/2NFs7V3&quot;&gt;options&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Besides that, the setup for MotionEyeOS is relatively easy. Although there are some tweaks that I find important to have a more functional surveillance system. We’ll talk about that later.&lt;/p&gt;
-
-&lt;p&gt;First, go MotionEye’s release &lt;a href=&quot;https://github.com/ccrisan/motioneyeos/releases&quot;&gt;page&lt;/a&gt;. Download the corresponding images for your board. Once, downloaded plug in your preferred image flashing utility, I prefer &lt;a href=&quot;https://www.balena.io/etcher&quot;&gt;balenaEtcher&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;If you want to use wifi with the pi, you can drop wpa_supplicant.conf in the root directory of the sd card and paste this into the file:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    country=US
-    update_config=1
-    ctrl_interface=/var/run/wpa_supplicant
-    
-    network={
-        scan_ssid=1
-        ssid=&quot;MyWiFiSSID&quot;
-        psk=&quot;S3cr3tp@$$w0rc|&quot;
-    }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Be sure to replace the SSID and PSK with your SSID and password. If you have any questions or frustrations fuck off to the &lt;a href=&quot;https://github.com/ccrisan/motioneyeos/wiki/Wifi-Preconfiguration&quot;&gt;git&lt;/a&gt;. Once this is finished, we’re now done with the sd card and you can plug it into the pi.&lt;/p&gt;
-
-&lt;p&gt;Now for the camera. The side with the metal contacts should face toward the camera. Lift the slide clamp of the connector to make it easier to slide the ribbon cable in. Slide in the ribbon cable. Now pull it out and put it back in. Once finished slide it in again and push the clamp back. Don’t use too much force. They’re gentle creatures. Now for the pi connector. The process is pretty much the same. The connector you want is the one closest to the USB/Ethernet ports. Don’t put it in the wrong hole. The metal contacts should face towards the HDMI port/away from the USB/Ethernet ports.&lt;/p&gt;
-
-&lt;p&gt;Once this is complete, you’re set to turn on the pi. The boot process takes some time to complete. You can use a network tool to monitor once the pi has come online like angryIPscanner (Windows/normie) or Nmap (linux/windows).&lt;/p&gt;
-
-&lt;p&gt;The login is admin and the password should be left blank. If you’re not being prompted for an admin login the first time, click the person icon in the top left corner.&lt;/p&gt;
-
-&lt;p&gt;The First thing you should do now is change the password to something a little more secure (try password123).&lt;/p&gt;
-
-&lt;p&gt;For the settings, it’s important to note that this is all running on something that consumes less than 4 watts under load and has a full linux kernel and network stack. So it’s not going to be able to stream and capture 1920x1080@60fps easily (I’m sure this is gonna age well). Although maybe the newer pi’s can handle it better, IDGAF.&lt;/p&gt;
-
-&lt;p&gt;Something I like to do is enable push notifications via &lt;a href=&quot;https://pushover.net/&quot;&gt;Pushover&lt;/a&gt;. First, enable and configure Motion Detection like so &lt;img src=&quot;/assets/img/motioney_config.png&quot; alt=&quot;MotionEye Config&quot; /&gt;.
-You can set the mask to only trigger off of an area of interest like a door/entryway/shower/etc. The red-highlighted area is the area that is ignored by the camera. Also note that these settings might not work for everyone and aren’t set in stone. This just works for me.&lt;/p&gt;
-
-&lt;p&gt;Now that motion detection is enabled go one tab down to ‘Motion Notifications’. Enable Run a Command and enter as follows:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ python /root/notify.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Next, enable SSH server in the services tab.
-Hit the annoying orange apply tab. The pi should reboot. Once the pi is back up, SSH into with a SSH client (if you’ve made it this far you probably know what your doing and don’t need help getting one). Since the creators are complete Nazis, the entire fs is read-only so we’ll need to run:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ mount -o remount,rw /
-~ mount -o remount,rw /boot
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Next thing is to open /root/notify.py&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ nano /root/notify.py #they include nano tho?
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Write the following python script:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#/usr/bin/python3
-import httplib, urllib, urllib2
-
-req = urllib2.Request('http://icanhazip.com', data=None) 
-response = urllib2.urlopen(req, timeout=5)
-response = response.read().strip('\n')
-port = 80
-
-conn = httplib.HTTPSConnection(&quot;api.pushover.net:443&quot;)
-conn.request(&quot;POST&quot;, &quot;/1/messages.json&quot;,
-urllib.urlencode({
-    &quot;token&quot;: &quot;APP_TOKEN&quot;,                       # Insert app token here
-    &quot;user&quot;: &quot;USER_TOKEN&quot;,                       # Insert user token here
-    &quot;html&quot;: &quot;1&quot;,                                # 1 for HTML, 0 to disable
-    &quot;title&quot;: &quot;Motion Detected!&quot;,                # Title of the message
-    &quot;message&quot;: &quot;&amp;lt;b&amp;gt;Front Door&amp;lt;/b&amp;gt; camera!&quot;,     # Content of the message - include HTML if required
-    &quot;url&quot;: &quot;http://&quot;+response+&quot;:&quot;+str(port),         # Link to be included in message
-    &quot;url_title&quot;: &quot;View live stream&quot;,            # Text for the link
-    &quot;sound&quot;: &quot;siren&quot;,                           # Define the sound played on the receiving device
-}), { &quot;Content-type&quot;: &quot;application/x-www-form-urlencoded&quot; })
-conn.getresponse()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;To generate a user and app token head over to Pushover and they’ll get you set up. The service costs a few bucks for an account and provides 7,500 messages/month. If your too cheap to pay that dunno why you wasted $50 on a shitty webcam. Once the tokens are added Ctrl^O and Ctrl^x and exit the SSH session. Now, download Pushover’s app and you should be set to receive messages. Now try and run the following command in the SSH shell.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ python /root/notify.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;With any luck, you should receive a push notification.&lt;/p&gt;
-
-&lt;p&gt;Other than that Motioneye also has Cloud storage option if you trust your data with Google/DropBox. Look at the File Storage tab if that interests you.&lt;/p&gt;
-
-&lt;p&gt;To keep your pi from dying a slow death, I recommend lowering the Movie/Still Quality to ~60-75%. I also have my resolution set to 720p@15fps and am mildly satisfied with it.
-That’s it. You survived. Adorable.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">This guide is for anyone who wants to set up a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbon cable, and a 5v power supply.</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;/assets/img/cctv.jpg&quot; alt=&quot;MotionEye Config&quot; /&gt;&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I’ve also decided I need a CCTV-like capability to monitor my door at all times while I’m at my desk.</summary></entry></feed>
