@@ -1,4 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="https://leevanrell.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://leevanrell.github.io/" rel="alternate" type="text/html" /><updated>2020-06-06T18:05:47-05:00</updated><id>https://leevanrell.github.io/feed.xml</id><title type="html">Lee Vanrell</title><subtitle>Software Engineer attempts to write a blog.  Focused on programming, 3d printing, arduino's, sdr, and more. </subtitle><author><name>lee vanrell</name></author><entry><title type="html">Surviving in an offline environment</title><link href="https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment/" rel="alternate" type="text/html" title="Surviving in an offline environment" /><published>2020-06-06T18:03:36-05:00</published><updated>2020-06-06T18:03:36-05:00</updated><id>https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment</id><content type="html" xml:base="https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment/">&lt;p&gt;Have you ever been so fucked that you had to work on a box that didn’t have internet? Then this post is for you!&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="https://leevanrell.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://leevanrell.github.io/" rel="alternate" type="text/html" /><updated>2020-07-18T18:04:19-05:00</updated><id>https://leevanrell.github.io/feed.xml</id><title type="html">Lee Vanrell</title><subtitle>Software Engineer attempts to write a blog.  Focused on programming, 3d printing, arduino's, sdr, and more. </subtitle><author><name>lee vanrell</name></author><entry><title type="html">Reverse Engineering Convolutional Codes</title><link href="https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/" rel="alternate" type="text/html" title="Reverse Engineering Convolutional Codes" /><published>2020-07-18T17:03:36-05:00</published><updated>2020-07-18T17:03:36-05:00</updated><id>https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes</id><content type="html" xml:base="https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/">&lt;p&gt;I’ve recently been reading through Daniel Estevez’s blog because I wanted to learn more about reverse engineering signals. If your unfamiliar, Daniel Estevez is the code owner/maintainer/big boi of &lt;a href=&quot;https://github.com/daniestevez/gr-satellites&quot;&gt;gr-satellites&lt;/a&gt;, a very popular OOT module for gnuradio that supports decoding 80+ satellites.&lt;/p&gt;
+
+&lt;p&gt;This eventually led me to find &lt;a href=&quot;https://github.com/BatchDrake/cccrack&quot;&gt;cccrack&lt;/a&gt; mentioned in a post where Daniel was trying to reverse engineer the convolutional encoder for the DSCS-III beacon.&lt;/p&gt;
+
+&lt;p&gt;The tool itself is fairly limited in its capability however, I hope as it ages it develops to be more practical to use. Currently, it reads in symbols from a file and guesses its codes using the &lt;a href=&quot;https://www.researchgate.net/publication/224093438_Dual_Code_Method_for_Blind_Identification_of_Convolutional_Encoder_for_Cognitive_Radio_Receiver_Design&quot;&gt; Marazin-Gautier-Burel&lt;/a&gt;. I wish I could go into more depth on this algorithm but I’m very lacking in the linear algebra department but it definitely looks dope &lt;strong&gt;af&lt;/strong&gt; from my ignorant standpoint. Let’s try it out and see how it works.&lt;/p&gt;
+
+&lt;p&gt;First let’s make a encoder:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/re_convolutional_codes/encoder.png&quot; alt=&quot;Encoder diagram&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a diagram of a simple 1/2 convolutional encoder I stole from the internet. It has a code rate of 1/2 meaning that it takes in one bit and outputs two bits. The center boxes are a single bit registers that store a single bit and the circle with pluses represent xor operations. Here’s the python code that implement’s the encoder.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;random&lt;/span&gt; 
+
+&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;_in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;o1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;o2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;o1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;o2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'bits.txt'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'w'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For the sake of simplicity and my cpu, we’re going to keep the ‘symbols’ in a binary constellation however, cccrack does support complex modulation schemes up to 6 bits per symbol.&lt;/p&gt;
+
+&lt;p&gt;Now we build cccrack and see if it can figure out our encoder:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;autoreconf &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt;
+./configure
+make
+src/cccrack bits.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and this is cccrack’s output:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/re_convolutional_codes/cccrack_output.png&quot; alt=&quot;cccrack output&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here not only can see we that it accurately estimated the code rate, but it accurately describes the structure of the encoder.
+I’m unsure of what the H[1] means but the G[1] represents the physical connections of the encoder for each output. Essentially it says the first output bit is xor’d with the input, the 2nd, and 3rd register, while the second output bit is xor’d with the input, 1st register, and 3rd register. A picture’s worth a thousand words so here:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/re_convolutional_codes/cccrack_diagram.png&quot; alt=&quot;cccrack diagram&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I think this tool has a lot of potential and can be more useful than alternatives like gr-baz’s autofec block if its given more dev time. The developer &lt;a href=&quot;https://batchdrake.github.io/sc2019/&quot;&gt;mentions&lt;/a&gt; that he would like to add this algorithm to SigDigger using the soft decision version algorithm, which I think would greatly enhance its usefulness in practical applications&lt;/p&gt;
+
+&lt;p&gt;If you’re completely unaware of what convolutional encoding is or why its needed, tough.&lt;/p&gt;
+
+&lt;p&gt;Fin.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">I’ve recently been reading through Daniel Estevez’s blog because I wanted to learn more about reverse engineering signals. If your unfamiliar, Daniel Estevez is the code owner/maintainer/big boi of gr-satellites, a very popular OOT module for gnuradio that supports decoding 80+ satellites.</summary></entry><entry><title type="html">Surviving in an offline environment</title><link href="https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment/" rel="alternate" type="text/html" title="Surviving in an offline environment" /><published>2020-06-06T18:03:36-05:00</published><updated>2020-06-06T18:03:36-05:00</updated><id>https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment</id><content type="html" xml:base="https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment/">&lt;p&gt;Have you ever been so fucked that you had to work on a box that didn’t have internet? Then this post is for you!&lt;/p&gt;
 
 &lt;p&gt;The simplest solution is to setup a squeeky clean vm and use apt to get the .debs you need. Here’s an example to install wine offline:&lt;/p&gt;
 
@@ -133,55 +192,85 @@ iptables -t nat -A OUTPUT -p tcp --dport 53 -j DNAT --to 192.168.1.100
 
 &lt;p&gt;That’s all the configurations I’ve made to my Pihole so far, and I’m immensely satisfied.&lt;/p&gt;
 
-&lt;p&gt;Fin.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">Here’s a quick how-to for setting up a Pihole server at home.</summary></entry><entry><title type="html">How to configure your IoT GPS modules</title><link href="https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/" rel="alternate" type="text/html" title="How to configure your IoT GPS modules" /><published>2020-02-09T14:02:45-06:00</published><updated>2020-02-09T14:02:45-06:00</updated><id>https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module</id><content type="html" xml:base="https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/">&lt;p&gt;A few years ago, I had a project that required me to collect GPS along with the db of cell towers, so I could triangulate their location. I went down the rabbit hole of configuring the GPS module to output NMEA sentences in the format I wanted; I wasted some time on it, so I decided that this might help someone avoid wasting time.&lt;/p&gt;
+&lt;p&gt;Fin.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">Here’s a quick how-to for setting up a Pihole server at home.</summary></entry><entry><title type="html">How to configure your IoT GPS modules</title><link href="https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/" rel="alternate" type="text/html" title="How to configure your IoT GPS modules" /><published>2020-02-09T14:02:45-06:00</published><updated>2020-02-09T14:02:45-06:00</updated><id>https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module</id><content type="html" xml:base="https://leevanrell.github.io/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/">&lt;p&gt;A few years ago, I had a project that required me to collect GPS along with the db of cell towers, so I could triangulate their location. I went down a rabbit hole trying to figure out how to configure the GPS module to output data in the format I wanted; I wasted more time than I’m willing to admit to, so I decided that this might help someone avoid raging at a piece of equipment that couldn’t possibly fight back.&lt;/p&gt;
 
 &lt;p&gt;The GPS module I used is the &lt;a href=&quot;https://www.adafruit.com/product/746&quot;&gt;“Adafruit Ultimate GPS Breakout”&lt;/a&gt;. This is a pretty decent module for the price although you can probably find knockoffs on aliexpress if you’re cheap. 
 When you first plug in the GPS module you’ll notice that it prints a &lt;strong&gt;ton&lt;/strong&gt; of additional data you may or may not need. To limit what it printed to what I wanted I had to do some research on the GPS’s PMTK API to figure out what I needed to do. You can find the PMTK commands for configuring it &lt;a href=&quot;https://cdn-shop.adafruit.com/datasheets/PMTK_A11.pdf&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Based on that spreadsheet I’ve put together this little script:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/usr/bin/python3
+&lt;p&gt;Based on that spreadsheet I’ve put together this little example script:&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/python3
+&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;serial&lt;/span&gt; 
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;
 
-import serial 
-from time import sleep
-
-GPS_TTY = '/dev/ttyUSB0'
-print('configuring GPS')
-try:
-	#start tty session
-    GPS_Serial = serial.Serial(port=GPS_TTY, baudrate=9600, parity=serial.PARITY_NONE, \
-    	stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=0)  
-    sleep(0.5)
-    #configures GPS to only output GPGGA Sentences
-    GPS_Serial.write(b'$PMTK314,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;\r\n')
-    sleep(0.5)
-    #configures how often GPS prints
-    GPS_Serial.write(b'$PMTK220,100*2F&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;\r\n')
-    sleep(0.5)
-    #set the baudrate of the GPS
-    GPS_Serial.write(b'$PMTK251,115200*1F&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;\r\n')
-    sleep(0.5)
-    GPS_Serial.close()
-except serial.SerialException as e:
-    print('lost connection to GPS unit')
-    GPS_Serial.close()
+&lt;span class=&quot;n&quot;&gt;GPS_TTY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/dev/ttyUSB0'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'configuring GPS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;#start tty session
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GPS_TTY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;baudrate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9600&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PARITY_NONE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; \
+    	&lt;span class=&quot;n&quot;&gt;stopbits&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;STOPBITS_ONE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytesize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EIGHTBITS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  
+    &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;#configures GPS to only output GPGGA Sentences
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;b'$PMTK314,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;#configures how often GPS prints
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;b'$PMTK220,100*2F&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;#set the baudrate of the GPS
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;b'$PMTK251,115200*1F&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SerialException&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'lost connection to GPS unit'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;So the first thing we do is open a tty with the GPS unit; its default baud rate is at 9600, but we’ll be changing that in a moment;&lt;/p&gt;
 
-&lt;p&gt;Now we can start sending commands to our GPS unit.
-The first command is PMTK314 (PMTK_API_SET_NMEA_OUTPUT), it configures the GPS to send only sentences we care about. We tell it to write out only our GPS fix data and nothing else by setting everything to 0, except for NMEA_SEN_GGA field. As an aside, you can set the value to more than one if you wanted to have the message print every so often instead of every update period.&lt;/p&gt;
+&lt;p&gt;Now we can start sending commands to our GPS unit. We send the unit three separate commands, each with their own definite purpose.&lt;/p&gt;
 
-&lt;p&gt;The next command is PMTK220 (PMTK_SET_NMEA_UPDATERATE). This command configures the update period of the GPS module. The data field is how often you want it to update in milliseconds, it can be between 100-10000.&lt;/p&gt;
+&lt;p&gt;The first command is PMTK314 (PMTK_API_SET_NMEA_OUTPUT), it configures the GPS to send only the sentences in the format we care about. We tell it to write out only our GPS fix data and nothing else by setting everything to 0, except for NMEA_SEN_GGA field. As an aside, you can set the value to more than one if you wanted to have the message print every so often instead of every update period.&lt;/p&gt;
 
-&lt;p&gt;The last command is PMTK251 (PMTK_SET_NMEA_BAUDRATE). Because we changed the update rate, we also need to change the baud rate so the tty can keep up. The data field here is just the baud rates, it is capable of 4800, 9600, 14400, 19200, 38400, 57600, 115200. We’ll turn it up all the way 115200 since we like to live fast and loose.&lt;/p&gt;
+&lt;p&gt;The next command is PMTK220 (PMTK_SET_NMEA_UPDATERATE). This command configures the update period of the GPS module. The data field is how often you want it to update in milliseconds, it can be between 100-10000. Here we set it to be 100ms&lt;/p&gt;
+
+&lt;p&gt;The last command is PMTK251 (PMTK_SET_NMEA_BAUDRATE). Because we changed the update rate, we also need to change the baud rate so the tty can keep up. The data field here is just the baud rates, it is capable of 4800, 9600, 14400, 19200, 38400, 57600, 115200. We’ll turn it up all the way 115200 since we like to live fast and loose; and also we need it to be that fast to keep up with a 100ms tx rate.&lt;/p&gt;
 
 &lt;p&gt;The keener among you has probably noticed that most of these messages are followed by two digits of hex and “&lt;CR&gt;&lt;LF&gt;&quot;. This is a checksum value that has to be calculated for the preceding message, if you want to customize your own GPS/messages you can use this resource [here](http://www.hhhh.org/wiml/proj/NMEAxor.html) to create your checksums.&lt;/LF&gt;&lt;/CR&gt;&lt;/p&gt;
 
-&lt;p&gt;To parse the GPGGA sentences, you can use &lt;a href=&quot;https://github.com/Knio/pyNMEA2&quot;&gt;pyNMEA2&lt;/a&gt;. Although be sure to sanitize/authenticate the GPS’s output before your try to parse, the GPS/Serial connection can fuck up and spit out bad data, which will throw exceptions and crash your script. Or if you’re me, just use a massive try-catch to keep it chugging.&lt;/p&gt;
+&lt;p&gt;To parse the GPGGA sentences, you can use &lt;a href=&quot;https://github.com/Knio/pyNMEA2&quot;&gt;pyNMEA2&lt;/a&gt;. Or if you’re wanting to stay in stdlib you can use regex to parse everything out. Here’s an example with pyNMEA2 since I’m lazy.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/python3
+&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;serial&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pynmea2&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pynmea2&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ParseError&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;GPS_TTY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/dev/ttyUSB0'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GPS_TTY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;baudrate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;115200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; \
+        &lt;span class=&quot;n&quot;&gt;parity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PARITY_NONE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stopbits&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;STOPBITS_ONE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; \
+        &lt;span class=&quot;n&quot;&gt;bytesize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EIGHTBITS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;    
+    &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# wait 100ms
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;GPS_Output&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ascii'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;\
+        &lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pynmea2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;f&quot;Lat: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;longitude&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; Lon: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;latitude&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SerialException&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#handle error somehow
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;UnicodeDecodeError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#handle error somehow
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ParseError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#handle error somehow
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GPS_Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For a robust implementation be sure to sanitize/authenticate the GPS’s output before your try to parse, the GPS/Serial connection can fuck up and spit out bad data almost regularly, which will throw exceptions and crash your script. Or if you’re me, just use a massive try-catch to keep it chugging.&lt;/p&gt;
 
 &lt;p&gt;And as a final note, the next time you open a tty with the GPS you’ll need to set the baud rate up to 115200. And if you use a coin cell battery with it you won’t have to reconfigure every time it boots.&lt;/p&gt;
 
-&lt;p&gt;Finis.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">A few years ago, I had a project that required me to collect GPS along with the db of cell towers, so I could triangulate their location. I went down the rabbit hole of configuring the GPS module to output NMEA sentences in the format I wanted; I wasted some time on it, so I decided that this might help someone avoid wasting time.</summary></entry><entry><title type="html">Intro to Software Defined Radio: Part I</title><link href="https://leevanrell.github.io/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio/" rel="alternate" type="text/html" title="Intro to Software Defined Radio: Part I" /><published>2020-02-03T19:30:24-06:00</published><updated>2020-02-03T19:30:24-06:00</updated><id>https://leevanrell.github.io/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio</id><content type="html" xml:base="https://leevanrell.github.io/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio/">&lt;p&gt;For the past 4 years or so I’ve tinkered with Software Defined Radios (SDR), but until recently my knowledge of them was fairly limited. So, today I hope to impart some of my wisdom onto you.&lt;/p&gt;
+&lt;p&gt;Finis.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">A few years ago, I had a project that required me to collect GPS along with the db of cell towers, so I could triangulate their location. I went down a rabbit hole trying to figure out how to configure the GPS module to output data in the format I wanted; I wasted more time than I’m willing to admit to, so I decided that this might help someone avoid raging at a piece of equipment that couldn’t possibly fight back.</summary></entry><entry><title type="html">Intro to Software Defined Radio: Part I</title><link href="https://leevanrell.github.io/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio/" rel="alternate" type="text/html" title="Intro to Software Defined Radio: Part I" /><published>2020-02-03T19:30:24-06:00</published><updated>2020-02-03T19:30:24-06:00</updated><id>https://leevanrell.github.io/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio</id><content type="html" xml:base="https://leevanrell.github.io/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio/">&lt;p&gt;For the past 4 years or so I’ve tinkered with Software Defined Radios (SDR), but until recently my knowledge of them was fairly limited. So, today I hope to impart some of my wisdom onto you.&lt;/p&gt;
 
 &lt;p&gt;First, a &lt;strong&gt;very&lt;/strong&gt; brief 101 on what Software Defined Radios are and how they work.&lt;/p&gt;
 
@@ -270,7 +359,7 @@ sudo ldconfig
 
 &lt;p&gt;I think Supermicro is still a good choice for motherboards. I recommend an enterprise motherboard instead of the consumer/extremist grade ones that come out from time to time. For motherboards, the more bells and whistles you have the more likely it is to fail. That’s why most server motherboards are stripped down to the bare essentials.&lt;/p&gt;
 
-&lt;p&gt;As for the HyperVisor, I used the free version of ESXi, its relatively easy to set up and maintain. The HTML5 Gui it provides is always useful (despite a few bugs here and there). I’ve also been thinking of adding a GPU for Machine learning and it seems like ESXi is still the best solution for GPU passthrough, so that’s a plus.&lt;/p&gt;
+&lt;p&gt;As for the HyperVisor, I used the free version of ESXi, its relatively easy to set up and maintain. The webclient it provides is always useful (despite a few bugs here and there). I’ve also been thinking of adding a GPU for Machine learning and it seems like ESXi is still the best solution for GPU passthrough, so that’s a plus.&lt;/p&gt;
 
 &lt;p&gt;Other options though are KVM, Proxmox, and Hyper-V. The ESXi free version has some limits on it (like no vCenter, 2 physical CPUs max, 8 vCPU/VM max), however, I feel like it isn’t a big deal for most non-commercial/enterprise users. Realistically, none of these options is a bad choice, it’s down to what you prefer.&lt;/p&gt;
 
@@ -416,31 +505,31 @@ and of course openai’s &lt;a href=&quot;https://openai.com/blog/better-languag
 &lt;p&gt;I’ve looked for transcripts of the Alex Jones show to no avail. But what I did find was Alex Jones’s archived &lt;a href=&quot;https://webrecorder.io/ola_norsk/twitter---alex-jones/list/twitter-profiles/b1/20180818015205/https://twitter.com/realalexjones&quot;&gt;twitter&lt;/a&gt; on webrecorder.io. Not sure what kind of wizardry those guys are running for this web app, but I couldn’t get the HTML of his twitter feed for the life of me. So instead I just selected all text and wrote it to a file. Genius. There was some manual formatting I did to group them into tweets and then clean up the actual contents, but once that’s done it was somewhat useable for my purposes.&lt;/p&gt;
 
 &lt;p&gt;Now that we’ve collected around 900 lines of the good stuff we can train a model. Here’s the code I used (stolen from some medium post, probably):&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/usr/bin/python3
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/python3
+&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;gpt_2_simple&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gpt2&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
 
-import gpt_2_simple as gpt2
-import os
+&lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;124M&quot;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# model is saved into current directory under /models/124M/
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;models&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;gpt2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;download_gpt2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;   
 
-model_name = &quot;124M&quot;
-# model is saved into current directory under /models/124M/
-if not os.path.isdir(os.path.join(&quot;models&quot;, model_name)):
-	gpt2.download_gpt2(model_name=model_name)   
+&lt;span class=&quot;n&quot;&gt;file_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;./src/alex_jones.txt&quot;&lt;/span&gt;
 
-file_name = &quot;./src/alex_jones.txt&quot;
+&lt;span class=&quot;n&quot;&gt;sess&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gpt2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start_tf_sess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gpt2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;finetune&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+              &lt;span class=&quot;n&quot;&gt;file_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+              &lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+			  &lt;span class=&quot;n&quot;&gt;run_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'run2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+              &lt;span class=&quot;n&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+			  &lt;span class=&quot;n&quot;&gt;save_every&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+			  &lt;span class=&quot;n&quot;&gt;print_every&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+			  &lt;span class=&quot;n&quot;&gt;sample_every&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+			  &lt;span class=&quot;n&quot;&gt;learning_rate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0001&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-sess = gpt2.start_tf_sess()
-gpt2.finetune(sess,
-              file_name,
-              model_name=model_name,
-			  run_name='run2',
-              steps=1000,
-			  save_every=50,
-			  print_every=5,
-			  sample_every=10,
-			  learning_rate = 0.0001
-)
-
-gpt2.generate_to_file(sess)
+&lt;span class=&quot;n&quot;&gt;gpt2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate_to_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -558,32 +647,4 @@ For the 35% and 37% tax brackets, you make too much to care (okay its 20%).&lt;/
 
 &lt;p&gt;Realistically, anyone who can take advantage of the tax-free status of a dividend or stock should invest their money in an IRA and in a passively managed index with ultra-low fees.&lt;/p&gt;
 
-&lt;p&gt;You won’t bring yourself out of poverty and into obscene wealth overnight. Dividends can’t magic out enough of an income for you to live off of easily. Stocks aren’t a cure-all. Listen to reason. Invest in you. Invest in the future. There are kernels of truth in their lies, but just be wary. Call me a hater, but just fuck off with the bullshit&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">I’ve seen a recent trend on youtube where people post about the success of their dividend portfolio and the ‘power blue-chip dividend stocks’. These videos fucking annoy me.</summary></entry><entry><title type="html">Setting up CCTW with MotionEyeOS</title><link href="https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/" rel="alternate" type="text/html" title="Setting up CCTW with MotionEyeOS " /><published>2020-01-18T19:22:12-06:00</published><updated>2020-01-18T19:22:12-06:00</updated><id>https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS</id><content type="html" xml:base="https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/">&lt;p&gt;Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I’ve also decided I need a CCTV-like capability to monitor my door at all times while I’m at my desk.&lt;/p&gt;
-
-&lt;p&gt;Assuming you already have MotionEye set up on a pi (if you don’t you can look at my previous post &lt;a href=&quot;/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/&quot;&gt;here&lt;/a&gt;), you’ll only need to set up a Pi 3 with the latest rasbian image. I used a Pi 3 and the &lt;a href=&quot;https://amzn.to/2R7u5j6&quot;&gt;official 7-in screen&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Once you have a raspberry pi 3 running and on a network go ahead and update it with&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo apt update -y &amp;amp;&amp;amp; sudo apt upgrade -y
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then install unclutter with:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~ sudo apt install unclutter
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;This is to hide the mouse-cursor, recommended, but not required&lt;/p&gt;
-
-&lt;p&gt;Now onto the bread and butter. Make sure that you have the streaming functionality enabled, otherwise it won’t work. To display the MotionEyeOS stream, we’ll make chromium load on startup and open to the MotionEye’s streaming page. Write the following to /home/pi/.config/lxsession/LXDE-pi/autostart.&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@xset s off
-@xset -dpms
-@xset s noblank
-@chromium-browser --kiosk http://{MOTIONEYE'S IP}}:8081
-@unclutter -idle 0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If you need to rotate the display write&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lcd_display=2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;into /boot/config.txt, 2 rotates it by 180 degrees.&lt;/p&gt;
-
-&lt;p&gt;And that’s it! Reboot to ensure everything is working.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/cctv.jpg&quot; alt=&quot;MotionEye Config&quot; /&gt;&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I’ve also decided I need a CCTV-like capability to monitor my door at all times while I’m at my desk.</summary></entry></feed>
+&lt;p&gt;You won’t bring yourself out of poverty and into obscene wealth overnight. Dividends can’t magic out enough of an income for you to live off of easily. Stocks aren’t a cure-all. Listen to reason. Invest in you. Invest in the future. There are kernels of truth in their lies, but just be wary. Call me a hater, but just fuck off with the bullshit&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">I’ve seen a recent trend on youtube where people post about the success of their dividend portfolio and the ‘power blue-chip dividend stocks’. These videos fucking annoy me.</summary></entry></feed>

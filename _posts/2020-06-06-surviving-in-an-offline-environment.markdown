@@ -2,7 +2,7 @@
 layout: post
 title:  "Surviving in an offline environment"
 date:   2020-06-06 17:03:36 -0600
-categories: Debian Apt
+categories: Debian apt
 ---
 
 Have you ever been so fucked that you had to work on a box that didn't have internet? Then this post is for you!

@@ -92,31 +92,31 @@ and of course openai’s <a href="https://openai.com/blog/better-language-models
 <p>I’ve looked for transcripts of the Alex Jones show to no avail. But what I did find was Alex Jones’s archived <a href="https://webrecorder.io/ola_norsk/twitter---alex-jones/list/twitter-profiles/b1/20180818015205/https://twitter.com/realalexjones">twitter</a> on webrecorder.io. Not sure what kind of wizardry those guys are running for this web app, but I couldn’t get the HTML of his twitter feed for the life of me. So instead I just selected all text and wrote it to a file. Genius. There was some manual formatting I did to group them into tweets and then clean up the actual contents, but once that’s done it was somewhat useable for my purposes.</p>
 
 <p>Now that we’ve collected around 900 lines of the good stuff we can train a model. Here’s the code I used (stolen from some medium post, probably):</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/usr/bin/python3
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python3
+</span>
+<span class="kn">import</span> <span class="nn">gpt_2_simple</span> <span class="k">as</span> <span class="n">gpt2</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
-import gpt_2_simple as gpt2
-import os
+<span class="n">model_name</span> <span class="o">=</span> <span class="s">"124M"</span>
+<span class="c1"># model is saved into current directory under /models/124M/
+</span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">"models"</span><span class="p">,</span> <span class="n">model_name</span><span class="p">)):</span>
+	<span class="n">gpt2</span><span class="p">.</span><span class="n">download_gpt2</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">)</span>   
 
-model_name = "124M"
-# model is saved into current directory under /models/124M/
-if not os.path.isdir(os.path.join("models", model_name)):
-	gpt2.download_gpt2(model_name=model_name)   
+<span class="n">file_name</span> <span class="o">=</span> <span class="s">"./src/alex_jones.txt"</span>
 
-file_name = "./src/alex_jones.txt"
+<span class="n">sess</span> <span class="o">=</span> <span class="n">gpt2</span><span class="p">.</span><span class="n">start_tf_sess</span><span class="p">()</span>
+<span class="n">gpt2</span><span class="p">.</span><span class="n">finetune</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span>
+              <span class="n">file_name</span><span class="p">,</span>
+              <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+			  <span class="n">run_name</span><span class="o">=</span><span class="s">'run2'</span><span class="p">,</span>
+              <span class="n">steps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+			  <span class="n">save_every</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+			  <span class="n">print_every</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+			  <span class="n">sample_every</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+			  <span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.0001</span>
+<span class="p">)</span>
 
-sess = gpt2.start_tf_sess()
-gpt2.finetune(sess,
-              file_name,
-              model_name=model_name,
-			  run_name='run2',
-              steps=1000,
-			  save_every=50,
-			  print_every=5,
-			  sample_every=10,
-			  learning_rate = 0.0001
-)
-
-gpt2.generate_to_file(sess)
+<span class="n">gpt2</span><span class="p">.</span><span class="n">generate_to_file</span><span class="p">(</span><span class="n">sess</span><span class="p">)</span>
 
 
 </code></pre></div></div>

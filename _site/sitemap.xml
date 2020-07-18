@@ -6,9 +6,14 @@
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
             <loc>https://leevanrell.github.io</loc>
-	    <lastmod>2020-06-06T18:05:47-05:00</lastmod>
+	    <lastmod>2020-07-18T18:04:20-05:00</lastmod>
             <priority>1.00</priority>
         </url><url>
+                <loc>https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/</loc>
+                <lastmod>2020-07-18T17:03:36-05:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
                 <loc>https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment/</loc>
                 <lastmod>2020-06-06T18:03:36-05:00</lastmod>
                 <changefreq>weekly</changefreq>

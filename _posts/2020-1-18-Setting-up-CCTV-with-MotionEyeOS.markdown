@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Setting up CCTW with MotionEyeOS "
+title:  "Setting up CCTV with MotionEyeOS "
 date:   2020-01-18 19:22:12 -0600
 categories: RaspberryPi MotionEyeOS
 ---

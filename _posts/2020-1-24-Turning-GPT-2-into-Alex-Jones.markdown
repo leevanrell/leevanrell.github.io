@@ -16,7 +16,7 @@ Now for the memes. To get GPT-2 talking like Alex Jones, we need text and a lot 
 I've looked for transcripts of the Alex Jones show to no avail. But what I did find was Alex Jones's archived [twitter](https://webrecorder.io/ola_norsk/twitter---alex-jones/list/twitter-profiles/b1/20180818015205/https://twitter.com/realalexjones) on webrecorder.io. Not sure what kind of wizardry those guys are running for this web app, but I couldn't get the HTML of his twitter feed for the life of me. So instead I just selected all text and wrote it to a file. Genius. There was some manual formatting I did to group them into tweets and then clean up the actual contents, but once that's done it was somewhat useable for my purposes.
 
 Now that we've collected around 900 lines of the good stuff we can train a model. Here's the code I used (stolen from some medium post, probably):
-```
+```python
 #!/usr/bin/python3
 
 import gpt_2_simple as gpt2

@@ -38,7 +38,7 @@ Outside of that most choices for hardware are relatively easy. Once you've picke
 
 I think Supermicro is still a good choice for motherboards. I recommend an enterprise motherboard instead of the consumer/extremist grade ones that come out from time to time. For motherboards, the more bells and whistles you have the more likely it is to fail. That's why most server motherboards are stripped down to the bare essentials. 
 
-As for the HyperVisor, I used the free version of ESXi, its relatively easy to set up and maintain. The HTML5 Gui it provides is always useful (despite a few bugs here and there). I've also been thinking of adding a GPU for Machine learning and it seems like ESXi is still the best solution for GPU passthrough, so that's a plus.
+As for the HyperVisor, I used the free version of ESXi, its relatively easy to set up and maintain. The webclient it provides is always useful (despite a few bugs here and there). I've also been thinking of adding a GPU for Machine learning and it seems like ESXi is still the best solution for GPU passthrough, so that's a plus.
 
 Other options though are KVM, Proxmox, and Hyper-V. The ESXi free version has some limits on it (like no vCenter, 2 physical CPUs max, 8 vCPU/VM max), however, I feel like it isn't a big deal for most non-commercial/enterprise users. Realistically, none of these options is a bad choice, it's down to what you prefer.
 
