@@ -24,7 +24,7 @@ $$
 $$
 
 
-All this formula says is that your signal, your signal being a complex value (i.e composed of both a real and imaginary value), at time t is equal to the functions $e_{L1I}(t)$ and $e_{L1Q}(t)$. These functions are further described below.
+All this formula says is that your signal, your signal being a complex value (i.e composed of both a real and imaginary value), at time t is equal to the functions $$e_{L1I}(t)$$ and $$e_{L1Q}(t)$$. These functions are further described below.
 
 $$
 \begin{equation} e_{L1I}(t) = \sum_{l=-\infty}^{\infty} D_{\text{NAV}}\Big[ [l]_{204600}\Big] \oplus C_{\text{P(Y)}} \Big[ |l|_{L_{\text{P(Y)}}} \Big] p(t -  lT_{c,\text{P(Y)}})~, [2]\end{equation}
