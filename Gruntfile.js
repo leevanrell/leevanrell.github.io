@@ -23,12 +23,6 @@ module.exports = function (grunt) {
                 options: {
                     callback: log
                 }
-            },
-            bookmarksBuild: {
-                command: "python3 ./misc/get_articles.py",
-                options: {
-                    callback: log
-                }
             }
         },
         watch: {
@@ -84,6 +78,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-shell");
     grunt.loadNpmTasks("grunt-browser-sync");
     grunt.registerTask("default", ["build", "browserSync", "watch"]);
-    grunt.registerTask("build",["shell:bookmarksBuild", "shell:jekyllBuild"]);
+    grunt.registerTask("build",["shell:jekyllBuild"]);
     grunt.registerTask("clean",["shell:jekyllClean"]);
 };

@@ -8,8 +8,9 @@ from bs4 import BeautifulSoup
 
 user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
 
-store_file = "/home/r3g3n7/git/leevanrell.github.io/_data/bookmarks.yml"
-bkmk_file = "/home/r3g3n7/git/leevanrell.github.io/misc/bookmarks.txt"
+#store_file = "/home/r3g3n7/git/leevanrell.github.io/_data/bookmarks.yml"
+#bkmk_file = "/home/r3g3n7/git/leevanrell.github.io/misc/bookmarks.txt"
+
 
 class parser():
 	def __init__(self, link):
@@ -30,6 +31,9 @@ class parser():
 			}
 		else:
 			self.title = None
+
+	def __repr__(self):
+		return self.entry
 
 	def getContent(self):
 		try:
@@ -60,6 +64,7 @@ class parser():
 		except Exception as E:
 			self.tags = ""
 
+
 class stackoverflow_parser(parser):
 	def __init__(self, link):
 		super().__init__(link)
@@ -67,80 +72,22 @@ class stackoverflow_parser(parser):
 	def setTags(self):
 		self.tags = [tag.text for tag in self.soup.find_all('a', class_='post-tag')][:3]
 
-def getLinks():
-	with open(bkmk_file , "r") as f:
-		text = f.readlines()
-	clean = []
-	for t in text:
-		t.strip()
-		if not t.isspace():
-			clean.append(t)
-	return clean
 
-def readArticles():
-	stored = []
-	try:
-		with open(store_file, "r") as f:
-			stored = yaml.load(f)
-	except:
-		stored = None
-	return stored
+def main(link):
+	p = ''
+	if 'https://stackoverflow.com/' in link:
+		p = stackoverflow_parser(link)
+	else:
+		p = parser(link)
+	if p.title:	
+		noalias_dumper = yaml.dumper.SafeDumper
+		noalias_dumper.ignore_aliases = lambda self, data: True
+		print(yaml.dump(p.entry))#, Dumper=noalias_dumper))
+		#successes.append(p.entry)
+	else:
+		print('Failed')
+		#fails.append(p.link)
 
-def mergeArticles(stored, new):
-	c = 0
-	try:
-		stored_titles = [x['title'] for x in stored['articles']]
-		for article in new:
-			if article['title'] not in stored_titles:
-				stored['articles'].append(article)
-				c += 1
-	except Exception as e:
-		print(f"Failed to merge with yaml {e}")
-		print("Stored:")
-		print([print("\t->{entry['title'][:60]}\n") for entry in stored])
-		print("New:")
-		print([print("\t->{entry['title'][:60]}\n") for entry in new])
-		res = input("Only use New? (y/n): ")
-		print("")
-		if res[0] == 'y' or res[0] == 'Y':
-			stored = {'articles': new}
-		else:
-			print('exiting!')
-			sys.exit(1)
-		c = len(new)	
-	return c, stored 
-
-def writeArticles(store):
-	noalias_dumper = yaml.dumper.SafeDumper
-	noalias_dumper.ignore_aliases = lambda self, data: True
-	with open(store_file, "w") as f:
-		yaml.dump(store, f, Dumper=noalias_dumper)
-
-def main():
-	stored_articles = readArticles()
-	links = getLinks()
-	fails = []
-	successes = []
-	for link in links:
-		p = ''
-		if 'https://stackoverflow.com/' in link:
-			p = stackoverflow_parser(link)
-		else:
-			p = parser(link)
-		if p.title:
-			successes.append(p.entry)
-		else:
-			fails.append(p.link)
-
-	print(f"Failed to scrape {len(fails)} out of {len(links)}")
-	for f in fails:
-		print(f"\t-> {f[:60]}")
-
-	c, store = mergeArticles(stored_articles,successes)
-
-	print(f"Added {c} new articles out of {len(links)}")
-	writeArticles(store)
 
 if __name__ == "__main__":
-	main()
-	sys.exit(0)
+	main(sys.argv[1])

@@ -1,4 +1,125 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="https://leevanrell.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://leevanrell.github.io/" rel="alternate" type="text/html" /><updated>2020-07-18T18:04:19-05:00</updated><id>https://leevanrell.github.io/feed.xml</id><title type="html">Lee Vanrell</title><subtitle>Software Engineer attempts to write a blog.  Focused on programming, 3d printing, arduino's, sdr, and more. </subtitle><author><name>lee vanrell</name></author><entry><title type="html">Reverse Engineering Convolutional Codes</title><link href="https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/" rel="alternate" type="text/html" title="Reverse Engineering Convolutional Codes" /><published>2020-07-18T17:03:36-05:00</published><updated>2020-07-18T17:03:36-05:00</updated><id>https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes</id><content type="html" xml:base="https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/">&lt;p&gt;I’ve recently been reading through Daniel Estevez’s blog because I wanted to learn more about reverse engineering signals. If your unfamiliar, Daniel Estevez is the code owner/maintainer/big boi of &lt;a href=&quot;https://github.com/daniestevez/gr-satellites&quot;&gt;gr-satellites&lt;/a&gt;, a very popular OOT module for gnuradio that supports decoding 80+ satellites.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="https://leevanrell.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://leevanrell.github.io/" rel="alternate" type="text/html" /><updated>2020-08-01T17:56:07-05:00</updated><id>https://leevanrell.github.io/feed.xml</id><title type="html">Lee Vanrell</title><subtitle>Software Engineer attempts to write a blog.  Focused on programming, 3d printing, arduino's, sdr, and more. </subtitle><author><name>lee vanrell</name></author><entry><title type="html">Understanding GPS</title><link href="https://leevanrell.github.io/informationtheory/gps/2020/07/30/Understanding-GPS/" rel="alternate" type="text/html" title="Understanding GPS" /><published>2020-07-30T19:23:36-05:00</published><updated>2020-07-30T19:23:36-05:00</updated><id>https://leevanrell.github.io/informationtheory/gps/2020/07/30/Understanding-GPS</id><content type="html" xml:base="https://leevanrell.github.io/informationtheory/gps/2020/07/30/Understanding-GPS/">&lt;p&gt;I wanted to make a brief post about GPS and how it works; hopefully, it will increase your knowledge as it has mine.&lt;/p&gt;
+
+&lt;p&gt;Now, I know what you’re thinking, “Well, Lee I know how GPS works, you use three satellite’s signal to triangulate your position”. No. Well yeah, but hold on.&lt;/p&gt;
+
+&lt;p&gt;Maybe the more informed would say, “GPS satellites use atomic clocks and transmit their time down to the earth. A receiver would then receive this signal and synchronize it to step in sequence with the clock. Using the time drift between the three or however many satellites visible, a receiver can approximate your location using the drift between your receiver’s clock and each of the onboard clock of the satellite”. Ya’ll go fuck off to your fancy universities and talk about how the world is caving in on itself because communism failed thirty years ago in front of a greco roman painting. No one likes you.&lt;/p&gt;
+
+&lt;p&gt;But what I’d like to do is get more into the nitty-gritty waves and bits of GPS to understand it. Anyone can have a surface level understanding of a topic but until the open it, and work on it, the information they know or think they know can be flawed. With that watch me make a fool of myself.&lt;/p&gt;
+
+&lt;p&gt;So lets first talk about the waveform, for this section I will be heavily leaning on &lt;a href=&quot;https://gnss-sdr.org/docs/tutorials/gnss-signals/]&quot;&gt;this post&lt;/a&gt; for information if you’d like to read that instead be my guest.&lt;/p&gt;
+
+&lt;p&gt;Here is the formula for generating a GPS signal (at least in the L1 band but we’re gonna keep things simple).&lt;/p&gt;
+
+\[\begin{equation} s^{\text{(GPS L1)}}_{T}(t)=e_{L1I}(t) + j e_{L1Q}(t)~, [1] \end{equation}\]
+
+&lt;p&gt;All this formula says is that your signal, your signal being a complex value (i.e composed of both a real and imaginary value), at time t is equal to the functions $e_{L1I}(t)$ and $e_{L1Q}(t)$. These functions are further described below.&lt;/p&gt;
+
+\[\begin{equation} e_{L1I}(t) = \sum_{l=-\infty}^{\infty} D_{\text{NAV}}\Big[ [l]_{204600}\Big] \oplus C_{\text{P(Y)}} \Big[ |l|_{L_{\text{P(Y)}}} \Big] p(t -  lT_{c,\text{P(Y)}})~, [2]\end{equation}\]
+
+\[\begin{equation} e_{L1Q}(t) = \sum_{l=-\infty}^{\infty} D_{\text{NAV}}\Big[ [l]_{20460}  \Big]  \oplus   C_{\text{C/A}}  \Big[ |l|_{1023} \Big] p(t - lT_{c,\text{C/A}})~,[] 3]\end{equation}\]
+
+&lt;p&gt;Here is where the real meat and potatoes of GPS is. Just to emphasize how great these three lines are lemme just rant for a second.&lt;/p&gt;
+
+&lt;p&gt;In the world today there are about 3.6 billion GNSS devices in use. The GPS generates about $1.4 trillion dollars (2017) in economic benefits since it was made (thats capitalist speak for GPS == mad dosh). The loss of GPS would result in about $1 billion dollars per &lt;strong&gt;day&lt;/strong&gt;. There isn’t an industry in the world that doesn’t rely on GPS in some way. For something so hugely instrumental in our global economic infrastructure here it is discribed before you in effectively three lines. Three fucking lines. They have more impact in the world in an hour than I will in my lifetime. And it keeps me up at night. Back on topic.&lt;/p&gt;
+
+&lt;p&gt;Let us break down each formula and understand what’s happening. Not everyone was born with a degree in mathematics so it can pretty scary to see all these greek symbols. I’m told mathematicians were often burned at the stake in the 1950s because of their formulas and postulates.&lt;/p&gt;
+
+&lt;p&gt;Alright, formula one essentially breaks down the GPS baseband signal in terms of complex values (in-phase and quadrature/real and complex values). Equation two generates the I component while Equation three generates the Q component. If you’re confused about what I&amp;amp;Q values are, a picture’s worth a thousand words, so a gif is like a million.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/assets/img/gps-101/IQ_modulator.gif&quot; alt=&quot;IQ 101&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Both equations are functionally equivalent except for one very large difference which we’ll come to later. For now, we’ll fixate on function three. \(D_{\text{NAV}}\) is the navigation message sequence,  \(C_{\text{C/A}}\) is the Coarse Code or Gold Code sequence. The signal \(p(t)\) is a rectangular pulse starting a t=0 and lasting the duration of the chip period. Honestly \(p(t)\) isn’t really that important&lt;/p&gt;
+
+&lt;p&gt;The Coarse code is a pseudorandom sequence that is generated with two linear feedback shift registers. The coarse code is then xor’d with the navigation code ‘spreading’ the data out. The code below effectively models the C/A generator for a GPS satellite.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;c1&quot;&gt;#https://natronics.github.io/blag/2014/GPS-prn/
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shift&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feedback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;GPS Shift Register
+    
+    :param list feedback: which positions to use as feedback (1 indexed)
+    :param list output: which positions are output (1 indexed)
+    :returns output of shift register:
+    
+    &quot;&quot;&quot;&lt;/span&gt;
+    
+    &lt;span class=&quot;c1&quot;&gt;# calculate output
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        
+    &lt;span class=&quot;c1&quot;&gt;# modulo 2 add feedback
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;fb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feedback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+    
+    &lt;span class=&quot;c1&quot;&gt;# shift to the right
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;reversed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]))):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        
+    &lt;span class=&quot;c1&quot;&gt;# put feedback in position 1
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fb&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;G1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;G2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;ca&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# stuff output in here
+&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# create sequence
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1023&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;g1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shift&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;g2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shift&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# &amp;lt;- sat chosen here from table
+&lt;/span&gt;    
+    &lt;span class=&quot;c1&quot;&gt;# modulo 2 add and append to the code
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;ca&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# return C/A code!
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ca&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After the code is generated it is then xor’d with the navigation data, spreading the signal out. Each bit for the nav code is \(0.02s\) in length while each bit for the C/A is about \(1 / 10.23 \mu s\). So to cover or spread a navigation bit the entire C/A sequence is xor’d with a single navigation bit two hundred times, resulting in a chip sequence (chips are bits after they’ve been spread) 204600 chips in length. Python for the programically minded.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;nav_bit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;chip_sequence&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1023&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ca&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nav_bit&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;chip_sequence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The chip_sequence array is essentially a GPS signal, at least from the civilian perspective, we will talk about why in a minute. For now let’s move on to why we spread the signal.&lt;/p&gt;
+
+&lt;p&gt;First each satellite is talking constinuously on the same band. To share the same medium at the same time and frequncy, we must multiplex the signal in some way. Normally what transmitters do it either Time Division Multiplexing, where you transmit and then let someone else transmit on the same frequency, or Frequency Division Multiplexing, where you transmit at one frequency and everyone else transmits at other frequency, but these methodologies don’t fit our requirements. So, what GPS instead uses is called CDMA, Code Division Multiple Access. What happens is the signal power is actually ‘spread’ by the spreading code (go figure), so instead of having a loud, small signal, we have a very quiet, wide signal. GPS operates near the noise floor partly because of the huge spreading factor and because each GPS satellite uses full-earth omnidirectional antennas (newer satellites are being equipped with directional antennas to provide a GPS ‘spotlight’).&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/assets/img/gps-101/spread_signal.png&quot; alt=&quot;IQ 101&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;The reason it widens in bandwidth is because we’re changing bits around faster resulting in our frequency varying more and more. Now using more bandwidth sounds like we’re making the problem worse instead of better, but what we can do here is give each satellite a C/A code that is orthogonal to all the other satellite’s C/A. What this means is that at time t, each and every satellite is transmitting at a different frequency in the band, so they’re not stepping on each other’s transmission.
+If you look back at our code, the second LFSR uses bits [2,6] to determine it’s output,
+but this varies satellite to satellite so that each PRN is unique (the lookup table for each satellite’s LFSR configuration can be found &lt;a href=&quot;https://www.gps.gov/technical/icwg/IS-GPS-200K.pdf&quot;&gt;here&lt;/a&gt; at pg. 5).&lt;/p&gt;
+
+&lt;p&gt;Second, the spreading code allows our receiver to do is synchronize with the satellite’s onboard clock. Because the GPS signal repeates the same sequence 200 times per navigation bit, it allows the receiver to blindly be able to determine which satellite it is and determine what information it is sending by brute force. Refering back to the equation two, the function \(C_{\text{P(Y)}}\) generates a precision code that’s only allowed for military use. The timing on the Precision code is much smaller, allowing for a higher fidelity synchronization and thus a better location fix. Since the P(Y) code is exclusively used for the military, equation two and subsequently the I component for GPS is dead to us, meaning we can simplify formula down to just this:&lt;/p&gt;
+
+\[\begin{equation} s^{\text{(GPS L1)}}_{T}(t)= 0 + j\sum_{l=-\infty}^{\infty} D_{\text{NAV}}\Big[ [l]_{20460}  \Big]  \oplus   C_{\text{C/A}}  \Big[ |l|_{1023} \Big] p(t - lT_{c,\text{C/A}})~ \end{equation}\]
+
+&lt;p&gt;So hopefully now we understand the C/A code, let’s talk a little about the navigation data. The navigation message includes several pieces of data:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Orbit parameters (aka ‘broadcast ephemeris’), which is basically the satellite’s location in space.&lt;/li&gt;
+  &lt;li&gt;Time and clock bias parameters, useful for correcting clock errors at the receiver&lt;/li&gt;
+  &lt;li&gt;Almanac Data, contains the overal status and location of GPS constellation&lt;/li&gt;
+  &lt;li&gt;Satellite halth status&lt;/li&gt;
+  &lt;li&gt;Some other odds and ends.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The data like the almanac is useful for receivers because it can store that information for a warm start, so it estimate the satellite’s position and acquire’s them faster when trying to get a lock. But all we need is the ephemeris data from multiple satellites to figure out our position.&lt;/p&gt;
+
+&lt;p&gt;So let’s tie this all together. When we synchronize with a satellite, we’re synthetically reproducing the satellite’s signal internally in the receiver. We receiving the actual GPS signal, then looking at the delta between the two. This delta allows us to figure out our distance from the GPS satellite. Combining the ephemeris data along with the delta/distance from multiple satellites allows us to triangulate our position (sorta like in CSI).&lt;/p&gt;
+
+&lt;p&gt;And that’s all there is to it. Are you smarter? I am.&lt;/p&gt;
+
+&lt;p&gt;Fin.&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">I wanted to make a brief post about GPS and how it works; hopefully, it will increase your knowledge as it has mine.</summary></entry><entry><title type="html">Reverse Engineering Convolutional Codes</title><link href="https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/" rel="alternate" type="text/html" title="Reverse Engineering Convolutional Codes" /><published>2020-07-18T17:03:36-05:00</published><updated>2020-07-18T17:03:36-05:00</updated><id>https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes</id><content type="html" xml:base="https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/">&lt;p&gt;I’ve recently been reading through Daniel Estevez’s blog because I wanted to learn more about reverse engineering signals. If your unfamiliar, Daniel Estevez is the code owner/maintainer/big boi of &lt;a href=&quot;https://github.com/daniestevez/gr-satellites&quot;&gt;gr-satellites&lt;/a&gt;, a very popular OOT module for gnuradio that supports decoding 80+ satellites.&lt;/p&gt;
 
 &lt;p&gt;This eventually led me to find &lt;a href=&quot;https://github.com/BatchDrake/cccrack&quot;&gt;cccrack&lt;/a&gt; mentioned in a post where Daniel was trying to reverse engineer the convolutional encoder for the DSCS-III beacon.&lt;/p&gt;
 
@@ -604,47 +725,4 @@ Then click the Hard disk option and enter your desired HDD size (make sure the V
 &lt;p&gt;Be sure to modify /dev/mapper/ubuntu–vg-root to match your fdisk -l output.
 This extends your partition by 100g, insert however much you need. You can use 100%FREE instead of +100g and it should consume all available space; however, I couldn’t get it working for me.&lt;/p&gt;
 
-&lt;p&gt;That’s it!&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">This was pesky enough that I thought it merited a small post. I recently ran out of media on my Ubuntu VM on my ESXi v6.5 homelab. And went on a small adventure trying to figure out what to slap in the terminal to get more space. So hopefully this might save someone else more time.</summary></entry><entry><title type="html">Capital Gains vs. Dividends vs. Critical Thought</title><link href="https://leevanrell.github.io/investing/2020/01/20/Capital-Gains-vs-Dividends-vs-Critical-Thought/" rel="alternate" type="text/html" title="Capital Gains vs. Dividends vs. Critical Thought" /><published>2020-01-20T19:50:12-06:00</published><updated>2020-01-20T19:50:12-06:00</updated><id>https://leevanrell.github.io/investing/2020/01/20/Capital-Gains-vs-Dividends-vs-Critical-Thought</id><content type="html" xml:base="https://leevanrell.github.io/investing/2020/01/20/Capital-Gains-vs-Dividends-vs-Critical-Thought/">&lt;p&gt;I’ve seen a recent trend on youtube where people post about the success of their dividend portfolio and the ‘power blue-chip dividend stocks’. These videos fucking annoy me.&lt;/p&gt;
-
-&lt;p&gt;So let’s do a really quick analysis to compare a SPY (Capital Gains) and SPYD (Dividends) portfolio. We’ll use &lt;a href=&quot;https://www.portfoliovisualizer.com/backtest-portfolio&quot;&gt;portfoliovisualizer&lt;/a&gt; to make the backtest&lt;/p&gt;
-
-&lt;p&gt;Here you can see each portfolio allocation:
-&lt;img src=&quot;/assets/img/allocation_1.png&quot; alt=&quot;Asset Allocations&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;And here are the resulting returns:
-&lt;img src=&quot;/assets/img/stock_dividend_returns_1.png&quot; alt=&quot;Asset Returns&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The SPY portfolio outperforms by about $900 dollars. The SPY does have a worse drawdown, yet maintains a better overall Sharpe Ratio (I have no idea what that means but there you go). The 3rd mix is interesting. I created it by picking the top 5 dividend stocks recommended by &lt;a href=&quot;https://dividendstocks.cash/dividend-screener&quot;&gt;dividendstocks.cash&lt;/a&gt;. I also watched a few dividend videos online and saw that most youtubers echoed some of the same stocks. So it seems like the stocks are at least somewhat recommended by the dividend stock community. Given its performance, I can see why. But, this backtest is limited to Jan 2016-Dec 2019 because of SPYD so let’s cut it out and see if it outperforms given a longer timeline.&lt;/p&gt;
-
-&lt;p&gt;Here are the resulting returns:
-&lt;img src=&quot;/assets/img/stock_dividend_returns_2.png&quot; alt=&quot;Asset Returns&quot; /&gt;
-&lt;img src=&quot;/assets/img/stock_dividend_returns_graph.png&quot; alt=&quot;Asset Returns&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;A much better final balance. If you go back farther and farther back the performance only gets better for the dividend portfolio; however, I’m lazy and you get the point.&lt;/p&gt;
-
-&lt;p&gt;Though realistically this is a terrible backtest due to bias because I chose these stocks based on previous performance. So, let’s strike that out for now. Or if you want I can throw in an AMZN, GOOGL, FB portfolio together and see how they go toe to toe. Looks like I need a better point.&lt;/p&gt;
-
-&lt;p&gt;So, what else is there? Taxes.&lt;/p&gt;
-
-&lt;p&gt;Taxes get complicated very fast so let’s keep it simple. There are two different types of dividends in terms of taxes. Qualified dividends, basically a dividend paid by a US company, and Ordinary dividends. Ordinary dividends are taxed as ordinary income whereas Qualified dividend receives reduced tax rates depending on your reported income. Since Qualified dividends are better, let’s just focus on them for now.&lt;/p&gt;
-
-&lt;p&gt;For the 10% and 12% tax brackets, you pay 0% in taxes for Qualified dividends.
-For the 22%, 24%, 32%, and 35%, you pay a 15% tax rate.
-For the 35% and 37% tax brackets, you make too much to care. If you noticed, that the 35% bracket appears twice, its because marriage complicates things.&lt;/p&gt;
-
-&lt;p&gt;Now let’s look at regular Stocks or ‘Capital gains’ as the kids call them. Again, there are two types, long term, held for longer than a year, and short term, held for less than a year.&lt;/p&gt;
-
-&lt;p&gt;For short term capital gains, it is taxed equal to your marginal tax rate.
-For long term capital gains, the tax rates vary from 0%-20% based on your tax bracket&lt;/p&gt;
-
-&lt;p&gt;For the 10% and 12% tax brackets, you pay 0 in taxes much like Qualified dividends.
-For the 22%, 24%, 32%, and 35%, you pay a 15% tax rate.
-For the 35% and 37% tax brackets, you make too much to care (okay its 20%).&lt;/p&gt;
-
-&lt;p&gt;So, there is no benefit in terms of taxes to dividends or stocks as long as its a US company or if it’s held for longer than a year.&lt;/p&gt;
-
-&lt;p&gt;So why are there a bunch of thots in my youtube feed, using these points like there’s some sort of magical stock market loophole out there? I guess they assume everyone’s too fucking stupid to do their homework.&lt;/p&gt;
-
-&lt;p&gt;Realistically, anyone who can take advantage of the tax-free status of a dividend or stock should invest their money in an IRA and in a passively managed index with ultra-low fees.&lt;/p&gt;
-
-&lt;p&gt;You won’t bring yourself out of poverty and into obscene wealth overnight. Dividends can’t magic out enough of an income for you to live off of easily. Stocks aren’t a cure-all. Listen to reason. Invest in you. Invest in the future. There are kernels of truth in their lies, but just be wary. Call me a hater, but just fuck off with the bullshit&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">I’ve seen a recent trend on youtube where people post about the success of their dividend portfolio and the ‘power blue-chip dividend stocks’. These videos fucking annoy me.</summary></entry></feed>
+&lt;p&gt;That’s it!&lt;/p&gt;</content><author><name>lee vanrell</name></author><summary type="html">This was pesky enough that I thought it merited a small post. I recently ran out of media on my Ubuntu VM on my ESXi v6.5 homelab. And went on a small adventure trying to figure out what to slap in the terminal to get more space. So hopefully this might save someone else more time.</summary></entry></feed>
