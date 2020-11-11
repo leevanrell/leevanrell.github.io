@@ -14,26 +14,22 @@ user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 
 
 class parser():
 	def __init__(self, link):
-		self.link =  link.replace('\n','')
-		self.soup = self.getContent()
-		if self.soup:
-			self.head = self.soup.head
-			self.title, self.description, self.tags  = '','',''
-			self.setTitle()
-			if self.title != 0:
-				self.setDescription()
-				self.setTags()
+		link =  link.replace('\n','')
+		self.entry = None
+		soup = self.getContent()
+		if soup:
+			title = self.getTitle(soup.head)
+			description = self.getDescription(soup)
+			tags = self.getTags(soup)
 			self.entry = {
-				'title': self.title,
-				'excerpt': self.description,
-				'categories': self.tags,
-				'url': self.link
+				'title': title,
+				'excerpt': description,
+				'categories': tags,
+				'url': link
 			}
-		else:
-			self.title = None
 
 	def __repr__(self):
-		return self.entry
+		return str(self.entry)
 
 	def getContent(self):
 		try:
@@ -43,34 +39,38 @@ class parser():
 		except:
 			return None
 
-	def setTitle(self):
+	def getTitle(self, head):
 		try:
-			self.title = self.head.find("meta", property="og:title")["content"]
+			title = head.find("meta", property="og:title")["content"]
 		except Exception as E:
 			try:
-				self.title =  self.head.find(property="title").text
+				title =  head.find(property="title").text
 			except Exception as E:
-				self.title =  ""
+				title = ""
+		return title
 
-	def setDescription(self):
+	def getDescription(self, soup):
 		try: 
-			self.description = self.soup.find("meta", property="og:description")["content"].replace('\n', ' ')
+			description = soup.find("meta", property="og:description")["content"].replace('\n', ' ')
 		except Exception as E:
-			self.description = ""
+			description = ""
+		return description
 
-	def setTags(self):
+	def getTags(self, soup):
 		try: 	
-			self.tags = [x["content"] for x in self.soup.find_all("meta", property="article:tag")][:3]
+			tags = [x["content"] for x in soup.find_all("meta", property="article:tag")][:3]
 		except Exception as E:
-			self.tags = ""
+			tags = ""
+		return tags
 
 
 class stackoverflow_parser(parser):
 	def __init__(self, link):
 		super().__init__(link)
 
-	def setTags(self):
-		self.tags = [tag.text for tag in self.soup.find_all('a', class_='post-tag')][:3]
+	def getTags(self):
+		tags = [tag.text for tag in soup.find_all('a', class_='post-tag')][:3]
+		return tags
 
 
 def main(link):
@@ -79,14 +79,13 @@ def main(link):
 		p = stackoverflow_parser(link)
 	else:
 		p = parser(link)
-	if p.title:	
+	print(p)
+	if p.entry:	
 		noalias_dumper = yaml.dumper.SafeDumper
 		noalias_dumper.ignore_aliases = lambda self, data: True
 		print(yaml.dump(p.entry))#, Dumper=noalias_dumper))
-		#successes.append(p.entry)
 	else:
 		print('Failed')
-		#fails.append(p.link)
 
 
 if __name__ == "__main__":
