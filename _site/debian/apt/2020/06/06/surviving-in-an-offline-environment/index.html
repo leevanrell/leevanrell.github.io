@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
+<title>Surviving in an offline environment</title>
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Surviving in an offline environment | Lee Vanrell</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Surviving in an offline environment" />
+<meta name="author" content="lee vanrell" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Have you ever been so fucked that you had to work on a box that didn’t have internet? Then this post is for you!" />
+<meta property="og:description" content="Have you ever been so fucked that you had to work on a box that didn’t have internet? Then this post is for you!" />
+<link rel="canonical" href="https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment/" />
+<meta property="og:url" content="https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment/" />
+<meta property="og:site_name" content="Lee Vanrell" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-06T18:03:36-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Surviving in an offline environment" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment/","headline":"Surviving in an offline environment","dateModified":"2020-06-06T18:03:36-05:00","datePublished":"2020-06-06T18:03:36-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://leevanrell.github.io/debian/apt/2020/06/06/surviving-in-an-offline-environment/"},"author":{"@type":"Person","name":"lee vanrell"},"description":"Have you ever been so fucked that you had to work on a box that didn’t have internet? Then this post is for you!","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header condensed">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/portfolio.png" alt="Lee Vanrell" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Lee Vanrell</a>
+      </h2>
+      </div><p class="tagline">Software Engineer</p></div>
+      
+      <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer condensed">
+        <ul>
+          
+          <li>
+            <a href="/about">About Me</a>
+          </li>
+          
+          <li>
+            <a href="/bookmarks">Bookmarks</a>
+          </li>
+          
+          <li>
+            <a href="/feed.xml">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer condensed">&copy;
+        2021</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/debian/apt/2020/06/06/surviving-in-an-offline-environment/">
+    <h2 class="post-title">Surviving in an offline environment</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Jun 6, 2020</div><ul class="post-categories"><li>Debian</li><li>apt</li></ul></div>
+  <div class="post">
+    <p>Have you ever been so fucked that you had to work on a box that didn’t have internet? Then this post is for you!</p>
+
+<p>The simplest solution is to setup a squeeky clean vm and use apt to get the .debs you need. Here’s an example to install wine offline:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update <span class="nt">-y</span> 
+<span class="nb">sudo </span>apt clean <span class="c"># just in case</span>
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">--download-only</span> wine <span class="c"># or -d</span>
+<span class="nb">sudo </span>zip <span class="nt">-r</span> wine.zip /var/cache/apt/archives/<span class="k">*</span>.deb
+</code></pre></div></div>
+<p>Then on your offline box run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unzip wine.zip
+<span class="nb">sudo </span>dpkg <span class="nt">-i</span> <span class="k">*</span>
+</code></pre></div></div>
+
+<p>This only works if the vm/online box doesn’t have any of required packages installed. If you run apt -d with wine already installed then apt won’t download any of the required .debs since it already sees wine installed on the system.</p>
+
+<p>So what if you want to use a online dev environments with packages already installed to supply .deb packages to a offline computer?</p>
+
+<p>Theres apt-offline which you can use on any system, debian or not for download your required apt packages. The problem here is that we have to install apt-offline on both the offline system and the online system. In addition to that debian 10 does not have apt-offline in it’s native repos yet so we have to install it from source.</p>
+
+<p>For the online system run:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> ~
+<span class="nb">sudo </span>apt clean
+<span class="nb">sudo </span>apt <span class="nb">install </span>git python3-pip python-magic
+git clone https://github.com/rickysarraf/apt-offline.git
+<span class="nb">cd </span>apt-offline/
+<span class="nb">mkdir </span>soappy
+<span class="nb">cd </span>soappy
+<span class="nb">sudo </span>pip3 download <span class="nt">--no-cache</span> soappy
+<span class="nb">sudo </span>pip3 <span class="nb">install</span> <span class="k">*</span>
+<span class="nb">cd</span> ..
+<span class="nb">sudo </span>pip3 <span class="nb">install</span> <span class="nb">.</span>
+
+</code></pre></div></div>
+
+<p>Note we download all the required files from pip because we’ll be using them later on the offline system. Now we have the online system setup, lets make a bundle to install on the offline system.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> ~
+<span class="nb">sudo </span>zip <span class="nt">-r</span> offline-install.zip /var/cache/apt/archives/<span class="k">*</span>.deb apt-offline
+</code></pre></div></div>
+
+<p>Then take that over to the offline system and run:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unzip offline-install.zip
+<span class="nb">sudo </span>dpkg <span class="nt">-i</span> <span class="nb">.</span>
+<span class="nb">cd </span>apt-offline/soappy
+<span class="nb">sudo </span>pip3 <span class="nb">install</span> <span class="k">*</span>
+<span class="nb">cd</span> ..
+<span class="nb">sudo </span>pip3 <span class="nb">install</span> <span class="nb">.</span>
+</code></pre></div></div>
+
+<p>Now we should be set for creating a sig file for the offline system:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="nb">sudo </span>apt-offline <span class="nb">set </span>wine-offline.sig <span class="nt">--install-packages</span> wine
+</code></pre></div></div>
+
+<p>This generates a file to tell the online system what the offline system already has installed on it. It can use it to diff and figure out what it needs. Take the wine-offline.sig to the online system and run</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-offline get wine-offline.sig <span class="nt">--bundle</span> wine-install.zip
+</code></pre></div></div>
+
+<p>Then take the .zip it generates to the offline machine and run:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-offline <span class="nb">install </span>wine-install.zip
+</code></pre></div></div>
+
+<p>Wasn’t that fun?</p>
+
+<p>The benefit of using apt-offline is allows us the flexibility of not having to use the same OS and version for the online box and allows us to install packages (on the online box) with out risking missing dependencies for the offline box.</p>
+
+<p>If you are working on a system that uses yum the alternative is similar to the first process where you will need a vm with the same OS/verion and run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="nb">sudo </span>yum <span class="nb">install </span>yum <span class="nb">install </span>yum-plugin-downloadonly
+	yum <span class="nb">install</span> <span class="nt">--downloadonly</span> <span class="nt">--downloaddir</span><span class="o">=</span>&lt;directory&gt; &lt;package&gt;
+</code></pre></div></div>
+
+<p>Again this methodology is limited but it works. Sort of.</p>
+
+<p>Fin.</p>
+
+  </div></div>
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer condensed">
+        <ul>
+          
+          <li>
+            <a href="/about">About Me</a>
+          </li>
+          
+          <li>
+            <a href="/bookmarks">Bookmarks</a>
+          </li>
+          
+          <li>
+            <a href="/feed.xml">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer condensed">&copy;
+        2021</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
+<title>Reverse Engineering Convolutional Codes</title>
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Reverse Engineering Convolutional Codes | Lee Vanrell</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Reverse Engineering Convolutional Codes" />
+<meta name="author" content="lee vanrell" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’ve recently been reading through Daniel Estevez’s blog because I wanted to learn more about reverse engineering signals. If your unfamiliar, Daniel Estevez is the code owner/maintainer/big boi of gr-satellites, a very popular OOT module for gnuradio that supports decoding 80+ satellites." />
+<meta property="og:description" content="I’ve recently been reading through Daniel Estevez’s blog because I wanted to learn more about reverse engineering signals. If your unfamiliar, Daniel Estevez is the code owner/maintainer/big boi of gr-satellites, a very popular OOT module for gnuradio that supports decoding 80+ satellites." />
+<link rel="canonical" href="https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/" />
+<meta property="og:url" content="https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/" />
+<meta property="og:site_name" content="Lee Vanrell" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-18T17:03:36-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Reverse Engineering Convolutional Codes" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/","headline":"Reverse Engineering Convolutional Codes","dateModified":"2020-07-18T17:03:36-05:00","datePublished":"2020-07-18T17:03:36-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://leevanrell.github.io/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/"},"author":{"@type":"Person","name":"lee vanrell"},"description":"I’ve recently been reading through Daniel Estevez’s blog because I wanted to learn more about reverse engineering signals. If your unfamiliar, Daniel Estevez is the code owner/maintainer/big boi of gr-satellites, a very popular OOT module for gnuradio that supports decoding 80+ satellites.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header condensed">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/portfolio.png" alt="Lee Vanrell" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Lee Vanrell</a>
+      </h2>
+      </div><p class="tagline">Software Engineer</p></div>
+      
+      <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer condensed">
+        <ul>
+          
+          <li>
+            <a href="/about">About Me</a>
+          </li>
+          
+          <li>
+            <a href="/bookmarks">Bookmarks</a>
+          </li>
+          
+          <li>
+            <a href="/feed.xml">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer condensed">&copy;
+        2021</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/">
+    <h2 class="post-title">Reverse Engineering Convolutional Codes</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Jul 18, 2020</div><ul class="post-categories"><li>InformationTheory</li></ul></div>
+  <div class="post">
+    <p>I’ve recently been reading through Daniel Estevez’s blog because I wanted to learn more about reverse engineering signals. If your unfamiliar, Daniel Estevez is the code owner/maintainer/big boi of <a href="https://github.com/daniestevez/gr-satellites">gr-satellites</a>, a very popular OOT module for gnuradio that supports decoding 80+ satellites.</p>
+
+<p>This eventually led me to find <a href="https://github.com/BatchDrake/cccrack">cccrack</a> mentioned in a post where Daniel was trying to reverse engineer the convolutional encoder for the DSCS-III beacon.</p>
+
+<p>The tool itself is fairly limited in its capability however, I hope as it ages it develops to be more practical to use. Currently, it reads in symbols from a file and guesses its codes using the <a href="https://www.researchgate.net/publication/224093438_Dual_Code_Method_for_Blind_Identification_of_Convolutional_Encoder_for_Cognitive_Radio_Receiver_Design"> Marazin-Gautier-Burel</a>. I wish I could go into more depth on this algorithm but I’m very lacking in the linear algebra department but it definitely looks dope <strong>af</strong> from my ignorant standpoint. Let’s try it out and see how it works.</p>
+
+<p>First let’s make a encoder:</p>
+
+<p><img src="/assets/img/re_convolutional_codes/encoder.png" alt="Encoder diagram" /></p>
+
+<p>This is a diagram of a simple 1/2 convolutional encoder I stole from the internet. It has a code rate of 1/2 meaning that it takes in one bit and outputs two bits. The center boxes are a single bit registers that store a single bit and the circle with pluses represent xor operations. Here’s the python code that implement’s the encoder.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">random</span> 
+
+<span class="n">nums</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">_in</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nums</span><span class="p">)]</span>
+<span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">r1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">r3</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">_in</span><span class="p">:</span>
+	<span class="n">o1</span> <span class="o">=</span> <span class="n">i</span> <span class="o">^</span> <span class="n">r2</span> <span class="o">^</span> <span class="n">r3</span>
+	<span class="n">o2</span> <span class="o">=</span> <span class="n">i</span> <span class="o">^</span> <span class="n">r1</span> <span class="o">^</span> <span class="n">r3</span>
+	<span class="n">out</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">o1</span><span class="p">)</span>
+	<span class="n">out</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">o2</span><span class="p">)</span>
+	<span class="n">r3</span> <span class="o">=</span> <span class="n">r2</span>
+	<span class="n">r2</span> <span class="o">=</span> <span class="n">r1</span>
+	<span class="n">r1</span> <span class="o">=</span> <span class="n">i</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'bits.txt'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+	<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">out</span><span class="p">]))</span>
+
+</code></pre></div></div>
+
+<p>For the sake of simplicity and my cpu, we’re going to keep the ‘symbols’ in a binary constellation however, cccrack does support complex modulation schemes up to 6 bits per symbol.</p>
+
+<p>Now we build cccrack and see if it can figure out our encoder:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>autoreconf <span class="nt">-i</span>
+./configure
+make
+src/cccrack bits.txt
+</code></pre></div></div>
+
+<p>and this is cccrack’s output:</p>
+
+<p><img src="/assets/img/re_convolutional_codes/cccrack_output.png" alt="cccrack output" /></p>
+
+<p>Here not only can see we that it accurately estimated the code rate, but it accurately describes the structure of the encoder.
+I’m unsure of what the H[1] means but the G[1] represents the physical connections of the encoder for each output. Essentially it says the first output bit is xor’d with the input, the 2nd, and 3rd register, while the second output bit is xor’d with the input, 1st register, and 3rd register. A picture’s worth a thousand words so here:</p>
+
+<p><img src="/assets/img/re_convolutional_codes/cccrack_diagram.png" alt="cccrack diagram" /></p>
+
+<p>I think this tool has a lot of potential and can be more useful than alternatives like gr-baz’s autofec block if its given more dev time. The developer <a href="https://batchdrake.github.io/sc2019/">mentions</a> that he would like to add this algorithm to SigDigger using the soft decision version algorithm, which I think would greatly enhance its usefulness in practical applications</p>
+
+<p>If you’re completely unaware of what convolutional encoding is or why its needed, tough.</p>
+
+<p>Fin.</p>
+
+  </div></div>
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer condensed">
+        <ul>
+          
+          <li>
+            <a href="/about">About Me</a>
+          </li>
+          
+          <li>
+            <a href="/bookmarks">Bookmarks</a>
+          </li>
+          
+          <li>
+            <a href="/feed.xml">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer condensed">&copy;
+        2021</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

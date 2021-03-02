@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
+<title>Decoding Convolutional Codes</title>
+
+<script type="text/javascript" async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Decoding Convolutional Codes | Lee Vanrell</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Decoding Convolutional Codes" />
+<meta name="author" content="lee vanrell" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Software Engineer attempts to write a blog. Focused on programming, 3d printing, arduino’s, sdr, and more." />
+<meta property="og:description" content="Software Engineer attempts to write a blog. Focused on programming, 3d printing, arduino’s, sdr, and more." />
+<link rel="canonical" href="https://leevanrell.github.io/todo/2020-08-08-Decoding-Convolutional-Codes/" />
+<meta property="og:url" content="https://leevanrell.github.io/todo/2020-08-08-Decoding-Convolutional-Codes/" />
+<meta property="og:site_name" content="Lee Vanrell" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-08T19:23:36-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Decoding Convolutional Codes" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"https://leevanrell.github.io/todo/2020-08-08-Decoding-Convolutional-Codes/","headline":"Decoding Convolutional Codes","dateModified":"2020-08-08T19:23:36-05:00","datePublished":"2020-08-08T19:23:36-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://leevanrell.github.io/todo/2020-08-08-Decoding-Convolutional-Codes/"},"author":{"@type":"Person","name":"lee vanrell"},"description":"Software Engineer attempts to write a blog. Focused on programming, 3d printing, arduino’s, sdr, and more.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header condensed">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/portfolio.png" alt="Lee Vanrell" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Lee Vanrell</a>
+      </h2>
+      </div><p class="tagline">Software Engineer</p></div>
+      
+      <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer condensed">
+        <ul>
+          
+          <li>
+            <a href="/about">About Me</a>
+          </li>
+          
+          <li>
+            <a href="/bookmarks">Bookmarks</a>
+          </li>
+          
+          <li>
+            <a href="/feed.xml">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer condensed">&copy;
+        2021</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/todo/2020-08-08-Decoding-Convolutional-Codes/">
+    <h2 class="post-title">Decoding Convolutional Codes</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Aug 8, 2020</div><ul class="post-categories"><li>InformationTheory GPS</li></ul></div>
+  <div class="post">
+    
+
+  </div></div>
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation about-footer condensed">
+        <ul>
+          
+          <li>
+            <a href="/about">About Me</a>
+          </li>
+          
+          <li>
+            <a href="/bookmarks">Bookmarks</a>
+          </li>
+          
+          <li>
+            <a href="/feed.xml">Subscribe</a>
+          </li>
+          
+        </ul>
+      </nav><p class="about-footer condensed">&copy;
+        2021</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>
