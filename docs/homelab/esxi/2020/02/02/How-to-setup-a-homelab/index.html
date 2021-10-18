@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
+<title>How to Setup a Homelab: Making a Parts List</title>
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>How to Setup a Homelab: Making a Parts List | Lee Vanrell</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="How to Setup a Homelab: Making a Parts List" />
+<meta name="author" content="lee vanrell" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A few years ago, I built my first homelab server; I remember it being a bit of a daunting task and decided it might be helpful to share a few insights." />
+<meta property="og:description" content="A few years ago, I built my first homelab server; I remember it being a bit of a daunting task and decided it might be helpful to share a few insights." />
+<link rel="canonical" href="https://leevanrell.github.io/homelab/esxi/2020/02/02/How-to-setup-a-homelab/" />
+<meta property="og:url" content="https://leevanrell.github.io/homelab/esxi/2020/02/02/How-to-setup-a-homelab/" />
+<meta property="og:site_name" content="Lee Vanrell" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-02T17:12:38-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="How to Setup a Homelab: Making a Parts List" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"https://leevanrell.github.io/homelab/esxi/2020/02/02/How-to-setup-a-homelab/","dateModified":"2020-02-02T17:12:38-06:00","datePublished":"2020-02-02T17:12:38-06:00","headline":"How to Setup a Homelab: Making a Parts List","mainEntityOfPage":{"@type":"WebPage","@id":"https://leevanrell.github.io/homelab/esxi/2020/02/02/How-to-setup-a-homelab/"},"author":{"@type":"Person","name":"lee vanrell"},"description":"A few years ago, I built my first homelab server; I remember it being a bit of a daunting task and decided it might be helpful to share a few insights.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+</head><body>
+  <main class="container"><section class="about">
+    <div class="about-header condensed">
+    <div class="about-title">
+    <a href="/">
+      
+      <img src="/assets/portfolio.png" alt="Lee Vanrell" />
+      
+    </a>
+    <h2 id="title">
+      <a href="/">Lee Vanrell</a>
+    </h2>
+    </div><p class="tagline">Software Engineer</p></div>
+    
+    <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+        <li>
+          <i class="icon-github-circled"></i>
+        </li>
+      </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+        <li>
+          <i class="icon-linkedin-squared"></i>
+        </li>
+      </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+        <li>
+          <i class="icon-twitter-squared"></i>
+        </li>
+      </a></ul><nav class="navigation about-footer condensed">
+      <ul>
+        
+        <li>
+          <a href="/about">About Me</a>
+        </li>
+        
+        <li>
+          <a href="/bookmarks">Bookmarks</a>
+        </li>
+        
+        <li>
+          <a href="/feed.xml">Subscribe</a>
+        </li>
+        
+      </ul>
+    </nav><p class="about-footer condensed">&copy;
+      2021</p><div class="about-footer condensed">
+      <p>Dark Mode
+        <i class="icon-moon"></i>
+        <label class="switch">
+          <input type="checkbox" class="dark-mode-toggle">
+          <span class="slider round" onclick="toggleDarkMode()"></span>
+        </label>
+      </p>
+    </div>
+</section><section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/homelab/esxi/2020/02/02/How-to-setup-a-homelab/">
+    <h2 class="post-title">How to Setup a Homelab: Making a Parts List</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Feb 2, 2020</div><ul class="post-categories"><li>Homelab</li><li>ESXi</li></ul></div>
+  <div class="post">
+    <p>A few years ago, I built my first homelab server; I remember it being a bit of a daunting task and decided it might be helpful to share a few insights.</p>
+
+<p>I used <a href="https://www.reddit.com/r/homelabs/">r/homelabs</a> as a resource to assemble the parts list. Along with <a href="https://en.wikipedia.org/wiki/List_of_Intel_Xeon_microprocessors">wikipedia</a> and intel’s <a href="https://ark.intel.com/content/www/us/en/ark.html#@PanelLabel595">spec site</a> for choosing the CPUs.</p>
+
+<p>The initial build was this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> Intel Xeon E5-2660 v2 2.20GHz x2
+ ARCTIC Alpine 20 Plus CO - 130 Watt Low Noise CPU Cooler x2
+ Supermicro X9DRi-LN4F+ Dual LGA2011 1.20 Support E5-2600 v2 24x Slot DDR3 
+ 32GB 4X8GB DDR3 1333MHz ECC REG MEMORY x2 (64 gb total)
+ Crucial BX300 120GB 
+ WD Red 4tb 5400rpm HDD x4
+ Phanteks Enthoo Pro series ATX Full Tower Case
+ EVGA SuperNOVA 750 G2, 80+ GOLD 750W,
+</code></pre></div></div>
+
+<p>With the years came some regrets, most derived from the build itself.</p>
+
+<p>Now the processors I picked are definitely good performers; however, having two beefy Xeons running 24/7 has its downsides. This is a system that will bump your electricity bill up a notch. Now, me being young and foolish at the time never really sat down and did the math. I will break it down for those reading at home.</p>
+
+<p>The average cost of power where I live is about 0.11/kWh (about the national average). Using this <a href="https://forums.servethehome.com/index.php?threads/xeon-26xx-v2-power-draw.22720/">site</a> for estimating power consumption, we can estimate my power consumption to be around 120w-130w idle. For the most part, it never reaches a very high load unless I’m doing something very compute-intensive which is rare. So let’s just call it on average 140Wh to round things out.</p>
+
+<p>So that means every day we consume 3.360 kWh a day. Or 100.8 kWh a month, adding about ~$11 a month to my electricity bill. Since inception that would be about $264 dollars of electricity, I would’ve paid for running this system in my apartment.</p>
+
+<p>As a plus, It is a ‘future-proofed’ system that I don’t foresee upgrading the CPUs anytime in the future. Unless something breaks. But I would recommend a more sane spec with just a single Xeon for the newbie who wants to get into the world of homelabing.</p>
+
+<p>Staying within the realm of power, the EVGA PSU was a good choice. It’s an age-old rule of thumb to never skimp on the power supply. It’s important to get a good 80plus power supply to save money. Nowadays an 80plus PSUs are much cheaper and accessible. I’m not 100% sure if it’s true, but supposedly using a PSU that far exceeds what your system can consume will help preserve the life of the PSU since it’ll be far less under load than less capable PSUs. It makes <a href="https://www.ee.co.za/article/thermal-stress-capacitors-failure-prevention.html">sense</a> to me, but I’d take it with a grain of salt since the things most likely to fail in a PSU will still fail eventually no matter how much they’ve been used.</p>
+
+<p>Outside of that most choices for hardware are relatively easy. Once you’ve picked your CPU everything else falls in place. At first, I was apprehensive toward using used hardware, but for Processors, RAM, and even HDDs you can hardly tell. The bonus for used Xeons is there a huge over-saturation of them on the market. If you okay with not having the latest and greatest, you can acquire 2-3 generations old Xeons for less than $200. I believe I paid $250 for my two Xeons.</p>
+
+<p>I think Supermicro is still a good choice for motherboards. I recommend an enterprise motherboard instead of the consumer/extremist grade ones that come out from time to time. For motherboards, the more bells and whistles you have the more likely it is to fail. That’s why most server motherboards are stripped down to the bare essentials.</p>
+
+<p>As for the HyperVisor, I used the free version of ESXi, its relatively easy to set up and maintain. The webclient it provides is always useful (despite a few bugs here and there). I’ve also been thinking of adding a GPU for Machine learning and it seems like ESXi is still the best solution for GPU passthrough, so that’s a plus.</p>
+
+<p>Other options though are KVM, Proxmox, and Hyper-V. The ESXi free version has some limits on it (like no vCenter, 2 physical CPUs max, 8 vCPU/VM max), however, I feel like it isn’t a big deal for most non-commercial/enterprise users. Realistically, none of these options is a bad choice, it’s down to what you prefer.</p>
+
+<p>As a note, if you chose to use a dual-socket motherboard and a tower instead of a rack solution, be wary of the dimensions; it was a tight squeeze getting my motherboard in its case.</p>
+
+<p>That’s it for now.</p>
+
+  </div>
+</div>
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+        <li>
+          <i class="icon-github-circled"></i>
+        </li>
+      </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+        <li>
+          <i class="icon-linkedin-squared"></i>
+        </li>
+      </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+        <li>
+          <i class="icon-twitter-squared"></i>
+        </li>
+      </a></ul><nav class="navigation about-footer condensed">
+      <ul>
+        
+        <li>
+          <a href="/about">About Me</a>
+        </li>
+        
+        <li>
+          <a href="/bookmarks">Bookmarks</a>
+        </li>
+        
+        <li>
+          <a href="/feed.xml">Subscribe</a>
+        </li>
+        
+      </ul>
+    </nav><p class="about-footer condensed">&copy;
+      2021</p><div class="about-footer condensed">
+      <p>Dark Mode
+        <i class="icon-moon"></i>
+        <label class="switch">
+          <input type="checkbox" class="dark-mode-toggle">
+          <span class="slider round" onclick="toggleDarkMode()"></span>
+        </label>
+      </p>
+    </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

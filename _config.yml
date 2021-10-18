@@ -12,7 +12,6 @@ markdown: kramdown
 plainwhite:
   dark_mode: true
   search: true
-  #analytics_id: UA-156487363-1
   date_format: '%b %-d, %Y'
   name: Lee Vanrell
   portfolio_image: "assets/portfolio.png"

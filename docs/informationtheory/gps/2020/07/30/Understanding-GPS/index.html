@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
+<title>Understanding GPS</title>
+
+<script type="text/javascript" async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Understanding GPS | Lee Vanrell</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Understanding GPS" />
+<meta name="author" content="lee vanrell" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I wanted to make a brief post about GPS and how it works; hopefully, it will increase your knowledge as it has mine." />
+<meta property="og:description" content="I wanted to make a brief post about GPS and how it works; hopefully, it will increase your knowledge as it has mine." />
+<link rel="canonical" href="https://leevanrell.github.io/informationtheory/gps/2020/07/30/Understanding-GPS/" />
+<meta property="og:url" content="https://leevanrell.github.io/informationtheory/gps/2020/07/30/Understanding-GPS/" />
+<meta property="og:site_name" content="Lee Vanrell" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-30T19:23:36-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Understanding GPS" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"https://leevanrell.github.io/informationtheory/gps/2020/07/30/Understanding-GPS/","dateModified":"2020-07-30T19:23:36-05:00","datePublished":"2020-07-30T19:23:36-05:00","headline":"Understanding GPS","mainEntityOfPage":{"@type":"WebPage","@id":"https://leevanrell.github.io/informationtheory/gps/2020/07/30/Understanding-GPS/"},"author":{"@type":"Person","name":"lee vanrell"},"description":"I wanted to make a brief post about GPS and how it works; hopefully, it will increase your knowledge as it has mine.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+</head><body>
+  <main class="container"><section class="about">
+    <div class="about-header condensed">
+    <div class="about-title">
+    <a href="/">
+      
+      <img src="/assets/portfolio.png" alt="Lee Vanrell" />
+      
+    </a>
+    <h2 id="title">
+      <a href="/">Lee Vanrell</a>
+    </h2>
+    </div><p class="tagline">Software Engineer</p></div>
+    
+    <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+        <li>
+          <i class="icon-github-circled"></i>
+        </li>
+      </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+        <li>
+          <i class="icon-linkedin-squared"></i>
+        </li>
+      </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+        <li>
+          <i class="icon-twitter-squared"></i>
+        </li>
+      </a></ul><nav class="navigation about-footer condensed">
+      <ul>
+        
+        <li>
+          <a href="/about">About Me</a>
+        </li>
+        
+        <li>
+          <a href="/bookmarks">Bookmarks</a>
+        </li>
+        
+        <li>
+          <a href="/feed.xml">Subscribe</a>
+        </li>
+        
+      </ul>
+    </nav><p class="about-footer condensed">&copy;
+      2021</p><div class="about-footer condensed">
+      <p>Dark Mode
+        <i class="icon-moon"></i>
+        <label class="switch">
+          <input type="checkbox" class="dark-mode-toggle">
+          <span class="slider round" onclick="toggleDarkMode()"></span>
+        </label>
+      </p>
+    </div>
+</section><section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/informationtheory/gps/2020/07/30/Understanding-GPS/">
+    <h2 class="post-title">Understanding GPS</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Jul 30, 2020</div><ul class="post-categories"><li>InformationTheory</li><li>GPS</li></ul></div>
+  <div class="post">
+    <p>I wanted to make a brief post about GPS and how it works; hopefully, it will increase your knowledge as it has mine.</p>
+
+<p>Now, I know what you’re thinking, “Well, Lee I know how GPS works, you use three satellite’s signal to triangulate your position”. No. Well yeah, but hold on.</p>
+
+<p>Maybe the more informed would say, “GPS satellites use atomic clocks and transmit their time down to the earth. A receiver would then receive this signal and synchronize it to step in sequence with the clock. Using the time drift between the three or however many satellites visible, a receiver can approximate your location using the drift between your receiver’s clock and each of the onboard clock of the satellite”. Ya’ll go fuck off to your fancy universities and talk about how the world is caving in on itself because communism failed thirty years ago in front of a greco roman painting. No one likes you.</p>
+
+<p>But what I’d like to do is get more into the nitty-gritty waves and bits of GPS to understand it. Anyone can have a surface level understanding of a topic but until the open it, and work on it, the information they know or think they know can be flawed. With that watch me make a fool of myself.</p>
+
+<p>So lets first talk about the waveform, for this section I will be heavily leaning on <a href="https://gnss-sdr.org/docs/tutorials/gnss-signals/]">this post</a> for information if you’d like to read that instead be my guest.</p>
+
+<p>Here is the formula for generating a GPS signal (at least in the L1 band but we’re gonna keep things simple).</p>
+
+\[\begin{equation} s^{\text{(GPS L1)}}_{T}(t)=e_{L1I}(t) + j e_{L1Q}(t)~, [1] \end{equation}\]
+
+<p>All this formula says is that your signal, your signal being a complex value (i.e composed of both a real and imaginary value), at time t is equal to the functions \(e_{L1I}(t)\) and \(e_{L1Q}(t)\). These functions are further described below.</p>
+
+\[\begin{equation} e_{L1I}(t) = \sum_{l=-\infty}^{\infty} D_{\text{NAV}}\Big[ [l]_{204600}\Big] \oplus C_{\text{P(Y)}} \Big[ |l|_{L_{\text{P(Y)}}} \Big] p(t -  lT_{c,\text{P(Y)}})~, [2]\end{equation}\]
+
+\[\begin{equation} e_{L1Q}(t) = \sum_{l=-\infty}^{\infty} D_{\text{NAV}}\Big[ [l]_{20460}  \Big]  \oplus   C_{\text{C/A}}  \Big[ |l|_{1023} \Big] p(t - lT_{c,\text{C/A}})~,[] 3]\end{equation}\]
+
+<p>Here is where the real meat and potatoes of GPS is. Just to emphasize how great these three lines are lemme just rant for a second.</p>
+
+<p>In the world today there are about 3.6 billion GNSS devices in use. The GPS generates about $1.4 trillion dollars (2017) in economic benefits since it was made (thats capitalist speak for GPS == mad dosh). The loss of GPS would result in about $1 billion dollars per <strong>day</strong>. There isn’t an industry in the world that doesn’t rely on GPS in some way. For something so hugely instrumental in our global economic infrastructure here it is discribed before you in effectively three lines. Three fucking lines. They have more impact in the world in an hour than I will in my lifetime. And it keeps me up at night. Back on topic.</p>
+
+<p>Let us break down each formula and understand what’s happening. Not everyone was born with a degree in mathematics so it can pretty scary to see all these greek symbols. I’m told mathematicians were often burned at the stake in the 1950s because of their formulas and postulates.</p>
+
+<p>Alright, formula one essentially breaks down the GPS baseband signal in terms of complex values (in-phase and quadrature/real and complex values). Equation two generates the I component while Equation three generates the Q component. If you’re confused about what I&amp;Q values are, a picture’s worth a thousand words, so a gif is like a million.</p>
+
+<p style="text-align: center;"><img src="/assets/img/gps-101/IQ_modulator.gif" alt="IQ 101" /></p>
+
+<p>Both equations are functionally equivalent except for one very large difference which we’ll come to later. For now, we’ll fixate on function three. \(D_{\text{NAV}}\) is the navigation message sequence,  \(C_{\text{C/A}}\) is the Coarse Code or Gold Code sequence. The signal \(p(t)\) is a rectangular pulse starting a t=0 and lasting the duration of the chip period. Honestly \(p(t)\) isn’t really that important</p>
+
+<p>The Coarse code is a pseudorandom sequence that is generated with two linear feedback shift registers. The coarse code is then xor’d with the navigation code ‘spreading’ the data out. The code below effectively models the C/A generator for a GPS satellite.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">#https://natronics.github.io/blag/2014/GPS-prn/
+</span><span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="n">register</span><span class="p">,</span> <span class="n">feedback</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="s">"""GPS Shift Register
+    
+    :param list feedback: which positions to use as feedback (1 indexed)
+    :param list output: which positions are output (1 indexed)
+    :returns output of shift register:
+    
+    """</span>
+    
+    <span class="c1"># calculate output
+</span>    <span class="n">out</span> <span class="o">=</span> <span class="p">[</span><span class="n">register</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">output</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+    <span class="c1"># modulo 2 add feedback
+</span>    <span class="n">fb</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">register</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">feedback</span><span class="p">])</span> <span class="o">%</span> <span class="mi">2</span>
+    
+    <span class="c1"># shift to the right
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">register</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))):</span>
+        <span class="n">register</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">register</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+    <span class="c1"># put feedback in position 1
+</span>    <span class="n">register</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">fb</span>
+    
+    <span class="k">return</span> <span class="n">out</span>
+
+<span class="n">G1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">10</span>
+<span class="n">G2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">10</span>
+
+<span class="n">ca</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># stuff output in here
+</span>
+<span class="c1"># create sequence
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1023</span><span class="p">):</span>
+    <span class="n">g1</span> <span class="o">=</span> <span class="n">shift</span><span class="p">(</span><span class="n">G1</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+    <span class="n">g2</span> <span class="o">=</span> <span class="n">shift</span><span class="p">(</span><span class="n">G2</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span> <span class="c1"># &lt;- sat chosen here from table
+</span>    
+    <span class="c1"># modulo 2 add and append to the code
+</span>    <span class="n">ca</span><span class="p">.</span><span class="n">append</span><span class="p">((</span><span class="n">g1</span> <span class="o">+</span> <span class="n">g2</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># return C/A code!
+</span><span class="k">print</span><span class="p">(</span><span class="n">ca</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>After the code is generated it is then xor’d with the navigation data, spreading the signal out. Each bit for the nav code is \(0.02s\) in length while each bit for the C/A is about \(1 / 10.23 \mu s\). So to cover or spread a navigation bit the entire C/A sequence is xor’d with a single navigation bit two hundred times, resulting in a chip sequence (chips are bits after they’ve been spread) 204600 chips in length. Python for the programically minded.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nav_bit</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">chip_sequence</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">):</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1023</span><span class="p">):</span>
+		<span class="n">x</span> <span class="o">=</span> <span class="n">ca</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="n">nav_bit</span>
+		<span class="n">chip_sequence</span><span class="p">.</span><span class="n">append</span>
+</code></pre></div></div>
+
+<p>The chip_sequence array is essentially a GPS signal, at least from the civilian perspective, we will talk about why in a minute. For now let’s move on to why we spread the signal.</p>
+
+<p>First each satellite is talking constinuously on the same band. To share the same medium at the same time and frequncy, we must multiplex the signal in some way. Normally what transmitters do it either Time Division Multiplexing, where you transmit and then let someone else transmit on the same frequency, or Frequency Division Multiplexing, where you transmit at one frequency and everyone else transmits at other frequency, but these methodologies don’t fit our requirements. So, what GPS instead uses is called CDMA, Code Division Multiple Access. What happens is the signal power is actually ‘spread’ by the spreading code (go figure), so instead of having a loud, small signal, we have a very quiet, wide signal. GPS operates near the noise floor partly because of the huge spreading factor and because each GPS satellite uses full-earth omnidirectional antennas (newer satellites are being equipped with directional antennas to provide a GPS ‘spotlight’).</p>
+<p style="text-align: center;"><img src="/assets/img/gps-101/spread_signal.png" alt="IQ 101" /></p>
+<p>The reason it widens in bandwidth is because we’re changing bits around faster resulting in our frequency varying more and more. Now using more bandwidth sounds like we’re making the problem worse instead of better, but what we can do here is give each satellite a C/A code that is orthogonal to all the other satellite’s C/A. What this means is that at time t, each and every satellite is transmitting at a different frequency in the band, so they’re not stepping on each other’s transmission.
+If you look back at our code, the second LFSR uses bits [2,6] to determine it’s output,
+but this varies satellite to satellite so that each PRN is unique (the lookup table for each satellite’s LFSR configuration can be found <a href="https://www.gps.gov/technical/icwg/IS-GPS-200K.pdf">here</a> at pg. 5).</p>
+
+<p>Second, the spreading code allows our receiver to do is synchronize with the satellite’s onboard clock. Because the GPS signal repeates the same sequence 200 times per navigation bit, it allows the receiver to blindly be able to determine which satellite it is and determine what information it is sending by brute force. Refering back to the equation two, the function \(C_{\text{P(Y)}}\) generates a precision code that’s only allowed for military use. The timing on the Precision code is much smaller, allowing for a higher fidelity synchronization and thus a better location fix. Since the P(Y) code is exclusively used for the military, equation two and subsequently the I component for GPS is dead to us, meaning we can simplify formula down to just this:</p>
+
+\[\begin{equation} s^{\text{(GPS L1)}}_{T}(t)= 0 + j\sum_{l=-\infty}^{\infty} D_{\text{NAV}}\Big[ [l]_{20460}  \Big]  \oplus   C_{\text{C/A}}  \Big[ |l|_{1023} \Big] p(t - lT_{c,\text{C/A}})~ \end{equation}\]
+
+<p>So hopefully now we understand the C/A code, let’s talk a little about the navigation data. The navigation message includes several pieces of data:</p>
+<ul>
+  <li>Orbit parameters (aka ‘broadcast ephemeris’), which is basically the satellite’s location in space.</li>
+  <li>Time and clock bias parameters, useful for correcting clock errors at the receiver</li>
+  <li>Almanac Data, contains the overal status and location of GPS constellation</li>
+  <li>Satellite halth status</li>
+  <li>Some other odds and ends.</li>
+</ul>
+
+<p>The data like the almanac is useful for receivers because it can store that information for a warm start, so it estimate the satellite’s position and acquire’s them faster when trying to get a lock. But all we need is the ephemeris data from multiple satellites to figure out our position.</p>
+
+<p>So let’s tie this all together. When we synchronize with a satellite, we’re synthetically reproducing the satellite’s signal internally in the receiver. We receiving the actual GPS signal, then looking at the delta between the two. This delta allows us to figure out our distance from the GPS satellite. Combining the ephemeris data along with the delta/distance from multiple satellites allows us to triangulate our position (sorta like in CSI).</p>
+
+<p>And that’s all there is to it. Are you smarter? I am.</p>
+
+<p>Fin.</p>
+
+  </div>
+</div>
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+        <li>
+          <i class="icon-github-circled"></i>
+        </li>
+      </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+        <li>
+          <i class="icon-linkedin-squared"></i>
+        </li>
+      </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+        <li>
+          <i class="icon-twitter-squared"></i>
+        </li>
+      </a></ul><nav class="navigation about-footer condensed">
+      <ul>
+        
+        <li>
+          <a href="/about">About Me</a>
+        </li>
+        
+        <li>
+          <a href="/bookmarks">Bookmarks</a>
+        </li>
+        
+        <li>
+          <a href="/feed.xml">Subscribe</a>
+        </li>
+        
+      </ul>
+    </nav><p class="about-footer condensed">&copy;
+      2021</p><div class="about-footer condensed">
+      <p>Dark Mode
+        <i class="icon-moon"></i>
+        <label class="switch">
+          <input type="checkbox" class="dark-mode-toggle">
+          <span class="slider round" onclick="toggleDarkMode()"></span>
+        </label>
+      </p>
+    </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

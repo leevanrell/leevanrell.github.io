@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
+<title>Turning GPT-2 into Alex Jones</title>
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Turning GPT-2 into Alex Jones | Lee Vanrell</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Turning GPT-2 into Alex Jones" />
+<meta name="author" content="lee vanrell" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This post is me riding the coattails of the GPT-2 hype train. Now for those that don’t know, GPT-2 is a machine learning model that is very effective at text generation. It can maintain context over a long period of text making it more ‘human’ than previous algorithms." />
+<meta property="og:description" content="This post is me riding the coattails of the GPT-2 hype train. Now for those that don’t know, GPT-2 is a machine learning model that is very effective at text generation. It can maintain context over a long period of text making it more ‘human’ than previous algorithms." />
+<link rel="canonical" href="https://leevanrell.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/" />
+<meta property="og:url" content="https://leevanrell.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/" />
+<meta property="og:site_name" content="Lee Vanrell" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-01-24T20:02:32-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Turning GPT-2 into Alex Jones" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"https://leevanrell.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/","dateModified":"2020-01-24T20:02:32-06:00","datePublished":"2020-01-24T20:02:32-06:00","headline":"Turning GPT-2 into Alex Jones","mainEntityOfPage":{"@type":"WebPage","@id":"https://leevanrell.github.io/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/"},"author":{"@type":"Person","name":"lee vanrell"},"description":"This post is me riding the coattails of the GPT-2 hype train. Now for those that don’t know, GPT-2 is a machine learning model that is very effective at text generation. It can maintain context over a long period of text making it more ‘human’ than previous algorithms.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+</head><body>
+  <main class="container"><section class="about">
+    <div class="about-header condensed">
+    <div class="about-title">
+    <a href="/">
+      
+      <img src="/assets/portfolio.png" alt="Lee Vanrell" />
+      
+    </a>
+    <h2 id="title">
+      <a href="/">Lee Vanrell</a>
+    </h2>
+    </div><p class="tagline">Software Engineer</p></div>
+    
+    <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+        <li>
+          <i class="icon-github-circled"></i>
+        </li>
+      </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+        <li>
+          <i class="icon-linkedin-squared"></i>
+        </li>
+      </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+        <li>
+          <i class="icon-twitter-squared"></i>
+        </li>
+      </a></ul><nav class="navigation about-footer condensed">
+      <ul>
+        
+        <li>
+          <a href="/about">About Me</a>
+        </li>
+        
+        <li>
+          <a href="/bookmarks">Bookmarks</a>
+        </li>
+        
+        <li>
+          <a href="/feed.xml">Subscribe</a>
+        </li>
+        
+      </ul>
+    </nav><p class="about-footer condensed">&copy;
+      2021</p><div class="about-footer condensed">
+      <p>Dark Mode
+        <i class="icon-moon"></i>
+        <label class="switch">
+          <input type="checkbox" class="dark-mode-toggle">
+          <span class="slider round" onclick="toggleDarkMode()"></span>
+        </label>
+      </p>
+    </div>
+</section><section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/">
+    <h2 class="post-title">Turning GPT-2 into Alex Jones</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Jan 24, 2020</div><ul class="post-categories"><li>Python</li><li>GPT-2</li></ul></div>
+  <div class="post">
+    <p>This post is me riding the coattails of the GPT-2 hype train. 
+Now for those that don’t know, GPT-2 is a machine learning model that is very effective at text generation. It can maintain context over a long period of text making it more ‘human’ than previous algorithms.</p>
+
+<p>For those that are interested read <a href="https://towardsdatascience.com/transformers-141e32e69591">this</a> article on transformers
+and of course openai’s <a href="https://openai.com/blog/better-language-models/">site</a></p>
+
+<p>Now for the memes. To get GPT-2 talking like Alex Jones, we need text and a lot of it. Unfortunately, Alex Jones was largely purged from social media in 2019 so we’ll have to get creative. First, <a href="https://en.wikiquote.org/wiki/Alex_Jones">wikiquotes</a> was a decent starting point. I used python w/ requests and bs4 to scrape the data (your smart, do it yourself).</p>
+
+<p>I’ve looked for transcripts of the Alex Jones show to no avail. But what I did find was Alex Jones’s archived <a href="https://webrecorder.io/ola_norsk/twitter---alex-jones/list/twitter-profiles/b1/20180818015205/https://twitter.com/realalexjones">twitter</a> on webrecorder.io. Not sure what kind of wizardry those guys are running for this web app, but I couldn’t get the HTML of his twitter feed for the life of me. So instead I just selected all text and wrote it to a file. Genius. There was some manual formatting I did to group them into tweets and then clean up the actual contents, but once that’s done it was somewhat useable for my purposes.</p>
+
+<p>Now that we’ve collected around 900 lines of the good stuff we can train a model. Here’s the code I used (stolen from some medium post, probably):</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python3
+</span>
+<span class="kn">import</span> <span class="nn">gpt_2_simple</span> <span class="k">as</span> <span class="n">gpt2</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">model_name</span> <span class="o">=</span> <span class="s">"124M"</span>
+<span class="c1"># model is saved into current directory under /models/124M/
+</span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">"models"</span><span class="p">,</span> <span class="n">model_name</span><span class="p">)):</span>
+	<span class="n">gpt2</span><span class="p">.</span><span class="n">download_gpt2</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">)</span>   
+
+<span class="n">file_name</span> <span class="o">=</span> <span class="s">"./src/alex_jones.txt"</span>
+
+<span class="n">sess</span> <span class="o">=</span> <span class="n">gpt2</span><span class="p">.</span><span class="n">start_tf_sess</span><span class="p">()</span>
+<span class="n">gpt2</span><span class="p">.</span><span class="n">finetune</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span>
+              <span class="n">file_name</span><span class="p">,</span>
+              <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+			  <span class="n">run_name</span><span class="o">=</span><span class="s">'run2'</span><span class="p">,</span>
+              <span class="n">steps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+			  <span class="n">save_every</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+			  <span class="n">print_every</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+			  <span class="n">sample_every</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+			  <span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.0001</span>
+<span class="p">)</span>
+
+<span class="n">gpt2</span><span class="p">.</span><span class="n">generate_to_file</span><span class="p">(</span><span class="n">sess</span><span class="p">)</span>
+
+
+</code></pre></div></div>
+
+<p>I’ve let this train in my homelab for a few hours while I slept, and checked back when I thought it was ready.</p>
+
+<p>Here are some of the results:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Organizer: Planned Parenthood Ships Guns To The US  View all other
+
+Open book censorship represents a poison pill for the people and a soulless dollop of
+propaganda for the corporate media. #FreeInfowars #1A
+
+These people are the future. They're such zombies that you can  not only read the news,
+but look at these people! They're so freaking fastidious they have time organs  in their 
+knees that they can hardly walk! They have no awareness of what's going on  and go "OOH 
+O_O O_O"O Oh my gosh! That's evil! The Alex Jones Show, "HILLARY CLINTON IS A GOD DAMN 
+DEMON", June 2016.
+
+I'm like a gigantic pumpkinhead, sitting in a  park, and I'm thinking "Man, this is gonna
+be a really bad day.  It just so happens, is gonna be really bad. I'm thinking ABOUT 
+WHATEVER  I'm thinking about today. Yeah, I'm thinking
+
+A vocal minority of Trump hating registered voters has called off an election for fear of
+repercussions from his supporters.     #Trump2020 #MAGA #1a #USA
+
+Video: left wing extremists targeting DC political events with machetes this weekend  
+
+The coordinated corporate attack on Infowars has exposed a deceptic by any measure, but
+the silencing of the truth is even more apparent.
+
+Now you need to find a way to stop the Chinese from harvesting our blood.
+
+The Rise Of Alex Jones As A Fake News Crikey, Tune in M F 11am 3pm central at:   &lt;&lt; 
+#RealNews #WednesdayWisdom #1a #ThursdayMotivation   #FreeInfowars
+
+</code></pre></div></div>
+
+<p>These are just a few of the hundreds of little gems GPT-2 spat out for us. There were a few artifacts that I didn’t like from the outputs; so in the alex_jones.txt, I went back and cleaned it up a bit more. The rest of the text files are relatively unmodified if you’d like to do the scrubbing yourself. Unlike GPT-2, all the code, output, and finetuning text I used can all be found <a href="https://github.com/leevanrell/make-alex-great-again">here</a>. Have fun. And don’t let the globalists win.</p>
+
+
+  </div>
+</div>
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+        <li>
+          <i class="icon-github-circled"></i>
+        </li>
+      </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+        <li>
+          <i class="icon-linkedin-squared"></i>
+        </li>
+      </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+        <li>
+          <i class="icon-twitter-squared"></i>
+        </li>
+      </a></ul><nav class="navigation about-footer condensed">
+      <ul>
+        
+        <li>
+          <a href="/about">About Me</a>
+        </li>
+        
+        <li>
+          <a href="/bookmarks">Bookmarks</a>
+        </li>
+        
+        <li>
+          <a href="/feed.xml">Subscribe</a>
+        </li>
+        
+      </ul>
+    </nav><p class="about-footer condensed">&copy;
+      2021</p><div class="about-footer condensed">
+      <p>Dark Mode
+        <i class="icon-moon"></i>
+        <label class="switch">
+          <input type="checkbox" class="dark-mode-toggle">
+          <span class="slider round" onclick="toggleDarkMode()"></span>
+        </label>
+      </p>
+    </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

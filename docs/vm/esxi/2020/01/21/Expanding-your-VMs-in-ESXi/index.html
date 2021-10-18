@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
+<title>Expanding your VMs in ESXi</title>
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Expanding your VMs in ESXi | Lee Vanrell</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Expanding your VMs in ESXi" />
+<meta name="author" content="lee vanrell" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This was pesky enough that I thought it merited a small post. I recently ran out of media on my Ubuntu VM on my ESXi v6.5 homelab. And went on a small adventure trying to figure out what to slap in the terminal to get more space. So hopefully this might save someone else more time." />
+<meta property="og:description" content="This was pesky enough that I thought it merited a small post. I recently ran out of media on my Ubuntu VM on my ESXi v6.5 homelab. And went on a small adventure trying to figure out what to slap in the terminal to get more space. So hopefully this might save someone else more time." />
+<link rel="canonical" href="https://leevanrell.github.io/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/" />
+<meta property="og:url" content="https://leevanrell.github.io/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/" />
+<meta property="og:site_name" content="Lee Vanrell" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-01-21T18:10:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Expanding your VMs in ESXi" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"https://leevanrell.github.io/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/","dateModified":"2020-01-21T18:10:00-06:00","datePublished":"2020-01-21T18:10:00-06:00","headline":"Expanding your VMs in ESXi","mainEntityOfPage":{"@type":"WebPage","@id":"https://leevanrell.github.io/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/"},"author":{"@type":"Person","name":"lee vanrell"},"description":"This was pesky enough that I thought it merited a small post. I recently ran out of media on my Ubuntu VM on my ESXi v6.5 homelab. And went on a small adventure trying to figure out what to slap in the terminal to get more space. So hopefully this might save someone else more time.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+</head><body>
+  <main class="container"><section class="about">
+    <div class="about-header condensed">
+    <div class="about-title">
+    <a href="/">
+      
+      <img src="/assets/portfolio.png" alt="Lee Vanrell" />
+      
+    </a>
+    <h2 id="title">
+      <a href="/">Lee Vanrell</a>
+    </h2>
+    </div><p class="tagline">Software Engineer</p></div>
+    
+    <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+        <li>
+          <i class="icon-github-circled"></i>
+        </li>
+      </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+        <li>
+          <i class="icon-linkedin-squared"></i>
+        </li>
+      </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+        <li>
+          <i class="icon-twitter-squared"></i>
+        </li>
+      </a></ul><nav class="navigation about-footer condensed">
+      <ul>
+        
+        <li>
+          <a href="/about">About Me</a>
+        </li>
+        
+        <li>
+          <a href="/bookmarks">Bookmarks</a>
+        </li>
+        
+        <li>
+          <a href="/feed.xml">Subscribe</a>
+        </li>
+        
+      </ul>
+    </nav><p class="about-footer condensed">&copy;
+      2021</p><div class="about-footer condensed">
+      <p>Dark Mode
+        <i class="icon-moon"></i>
+        <label class="switch">
+          <input type="checkbox" class="dark-mode-toggle">
+          <span class="slider round" onclick="toggleDarkMode()"></span>
+        </label>
+      </p>
+    </div>
+</section><section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/">
+    <h2 class="post-title">Expanding your VMs in ESXi</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Jan 21, 2020</div><ul class="post-categories"><li>VM</li><li>ESXi</li></ul></div>
+  <div class="post">
+    <p>This was pesky enough that I thought it merited a small post. I recently ran out of media on my Ubuntu VM on my ESXi v6.5 homelab. And went on a small adventure trying to figure out what to slap in the terminal to get more space. So hopefully this might save someone else more time.</p>
+
+<p>First, go to the VM whose HDD you’d like to expand and click edit settings.
+Then click the Hard disk option and enter your desired HDD size (make sure the VM is shut down for this).</p>
+
+<p><img src="/assets/img/esxi_vm_hdd.png" alt="ESXi Menu" /></p>
+
+<p>Then boot your VM and click the GUI option or ssh in. Make sure GParted is installed with:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ sudo apt install gparted
+</code></pre></div></div>
+
+<p>Start GParted and click the /dev/sda1 partition then click the Resize/Move button. Drag the partition to the right to consume the unallocated partition.</p>
+
+<p><img src="/assets/img/esxi_vm_gparted.png" alt="GParted Menu" /></p>
+
+<p>Normally, this is all you’d have to do for a regular linux machine, however, it uses logical volumes that have to be extended as well.</p>
+
+<p>Run</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ sudo fdisk -l
+</code></pre></div></div>
+
+<p>It should display something like this:</p>
+
+<p><img src="/assets/img/esxi_vm_cmd_1.png" alt="fdisk output" /></p>
+
+<p>The second entry, ubuntu–vg-root, is the volume we’re concerned with. The name will vary from machine to machine but it should still something like name–vg-root at end. You can ignore the swap partition.</p>
+
+<p>Next run:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ sudo lvresize /dev/mapper/ubuntu--vg-root -L +100g 
+~ sudo resize2fs /dev/mapper/vg0-slash
+</code></pre></div></div>
+
+<p>Be sure to modify /dev/mapper/ubuntu–vg-root to match your fdisk -l output.
+This extends your partition by 100g, insert however much you need. You can use 100%FREE instead of +100g and it should consume all available space; however, I couldn’t get it working for me.</p>
+
+<p>That’s it!</p>
+
+  </div>
+</div>
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+        <li>
+          <i class="icon-github-circled"></i>
+        </li>
+      </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+        <li>
+          <i class="icon-linkedin-squared"></i>
+        </li>
+      </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+        <li>
+          <i class="icon-twitter-squared"></i>
+        </li>
+      </a></ul><nav class="navigation about-footer condensed">
+      <ul>
+        
+        <li>
+          <a href="/about">About Me</a>
+        </li>
+        
+        <li>
+          <a href="/bookmarks">Bookmarks</a>
+        </li>
+        
+        <li>
+          <a href="/feed.xml">Subscribe</a>
+        </li>
+        
+      </ul>
+    </nav><p class="about-footer condensed">&copy;
+      2021</p><div class="about-footer condensed">
+      <p>Dark Mode
+        <i class="icon-moon"></i>
+        <label class="switch">
+          <input type="checkbox" class="dark-mode-toggle">
+          <span class="slider round" onclick="toggleDarkMode()"></span>
+        </label>
+      </p>
+    </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

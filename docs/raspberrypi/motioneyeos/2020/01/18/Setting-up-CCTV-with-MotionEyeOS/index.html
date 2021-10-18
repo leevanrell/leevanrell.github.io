@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
+<title>Setting up CCTV with MotionEyeOS </title>
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Setting up CCTV with MotionEyeOS | Lee Vanrell</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Setting up CCTV with MotionEyeOS" />
+<meta name="author" content="lee vanrell" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I’ve also decided I need a CCTV-like capability to monitor my door at all times while I’m at my desk." />
+<meta property="og:description" content="Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I’ve also decided I need a CCTV-like capability to monitor my door at all times while I’m at my desk." />
+<link rel="canonical" href="https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/" />
+<meta property="og:url" content="https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/" />
+<meta property="og:site_name" content="Lee Vanrell" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-01-18T19:22:12-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Setting up CCTV with MotionEyeOS" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/","dateModified":"2020-01-18T19:22:12-06:00","datePublished":"2020-01-18T19:22:12-06:00","headline":"Setting up CCTV with MotionEyeOS","mainEntityOfPage":{"@type":"WebPage","@id":"https://leevanrell.github.io/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/"},"author":{"@type":"Person","name":"lee vanrell"},"description":"Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I’ve also decided I need a CCTV-like capability to monitor my door at all times while I’m at my desk.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+</head><body>
+  <main class="container"><section class="about">
+    <div class="about-header condensed">
+    <div class="about-title">
+    <a href="/">
+      
+      <img src="/assets/portfolio.png" alt="Lee Vanrell" />
+      
+    </a>
+    <h2 id="title">
+      <a href="/">Lee Vanrell</a>
+    </h2>
+    </div><p class="tagline">Software Engineer</p></div>
+    
+    <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+        <li>
+          <i class="icon-github-circled"></i>
+        </li>
+      </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+        <li>
+          <i class="icon-linkedin-squared"></i>
+        </li>
+      </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+        <li>
+          <i class="icon-twitter-squared"></i>
+        </li>
+      </a></ul><nav class="navigation about-footer condensed">
+      <ul>
+        
+        <li>
+          <a href="/about">About Me</a>
+        </li>
+        
+        <li>
+          <a href="/bookmarks">Bookmarks</a>
+        </li>
+        
+        <li>
+          <a href="/feed.xml">Subscribe</a>
+        </li>
+        
+      </ul>
+    </nav><p class="about-footer condensed">&copy;
+      2021</p><div class="about-footer condensed">
+      <p>Dark Mode
+        <i class="icon-moon"></i>
+        <label class="switch">
+          <input type="checkbox" class="dark-mode-toggle">
+          <span class="slider round" onclick="toggleDarkMode()"></span>
+        </label>
+      </p>
+    </div>
+</section><section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/">
+    <h2 class="post-title">Setting up CCTV with MotionEyeOS </h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Jan 18, 2020</div><ul class="post-categories"><li>RaspberryPi</li><li>MotionEyeOS</li></ul></div>
+  <div class="post">
+    <p>Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I’ve also decided I need a CCTV-like capability to monitor my door at all times while I’m at my desk.</p>
+
+<p>Assuming you already have MotionEye set up on a pi (if you don’t you can look at my previous post <a href="/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/">here</a>), you’ll only need to set up a Pi 3 with the latest rasbian image. I used a Pi 3 and the <a href="https://amzn.to/2R7u5j6">official 7-in screen</a>.</p>
+
+<p>Once you have a raspberry pi 3 running and on a network go ahead and update it with</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ sudo apt update -y &amp;&amp; sudo apt upgrade -y
+</code></pre></div></div>
+
+<p>Then install unclutter with:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ sudo apt install unclutter
+</code></pre></div></div>
+<p>This is to hide the mouse-cursor, recommended, but not required</p>
+
+<p>Now onto the bread and butter. Make sure that you have the streaming functionality enabled, otherwise it won’t work. To display the MotionEyeOS stream, we’ll make chromium load on startup and open to the MotionEye’s streaming page. Write the following to /home/pi/.config/lxsession/LXDE-pi/autostart.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@xset s off
+@xset -dpms
+@xset s noblank
+@chromium-browser --kiosk http://{MOTIONEYE'S IP}}:8081
+@unclutter -idle 0
+</code></pre></div></div>
+
+<p>If you need to rotate the display write</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lcd_display=2
+</code></pre></div></div>
+<p>into /boot/config.txt, 2 rotates it by 180 degrees.</p>
+
+<p>And that’s it! Reboot to ensure everything is working.</p>
+
+<p><img src="/assets/img/cctv.jpg" alt="MotionEye Config" /></p>
+
+  </div>
+</div>
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://github.com/leevanrell" target="_blank">
+        <li>
+          <i class="icon-github-circled"></i>
+        </li>
+      </a><a href="https://www.linkedin.com/in/leevanrell" target="_blank">
+        <li>
+          <i class="icon-linkedin-squared"></i>
+        </li>
+      </a><a href="https://twitter.com/lee_vanrell" target="_blank">
+        <li>
+          <i class="icon-twitter-squared"></i>
+        </li>
+      </a></ul><nav class="navigation about-footer condensed">
+      <ul>
+        
+        <li>
+          <a href="/about">About Me</a>
+        </li>
+        
+        <li>
+          <a href="/bookmarks">Bookmarks</a>
+        </li>
+        
+        <li>
+          <a href="/feed.xml">Subscribe</a>
+        </li>
+        
+      </ul>
+    </nav><p class="about-footer condensed">&copy;
+      2021</p><div class="about-footer condensed">
+      <p>Dark Mode
+        <i class="icon-moon"></i>
+        <label class="switch">
+          <input type="checkbox" class="dark-mode-toggle">
+          <span class="slider round" onclick="toggleDarkMode()"></span>
+        </label>
+      </p>
+    </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+--- --- @import "plain";
+
+  {
+  % if site.plainwhite.search %
+}
+
+@import "search";
+
+  {
+  % endif %
+}
+
+  {
+  %- if site.plainwhite.dark_mode -%
+}
+
+@import "toggle";
+@import "dark";
+
+  {
+  %- endif -%
+}
+
+
+// @import "base";
+// @import "print";
+// @import "responsive";
+// @import "mixins";
+// @import "skins/{{ site.theme_skin}}";
+
+@import "includes/cv/header";
+@import "includes/cv/career-profile";
+@import "includes/cv/contact";
+@import "includes/cv/languages";
+@import "includes/cv/education";
+@import "includes/cv/skills";
+@import "includes/cv/experience";
+@import "includes/cv/publications";
+@import "includes/cv/projects";
+@import "includes/cv/volunteering";
