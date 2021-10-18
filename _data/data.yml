@@ -21,19 +21,24 @@ skills:
   - category: Languages
     skill:
       - Python3.8+
-      - C/C++11
+      - C
+      - C++11
       - Bash
+      - Go
   - category: DevOps
     skill:
       - Docker
       - gitlab-ci
+      - conan
   - category: Devtools
     skill:
       - Ubuntu
       - RHEL
       - git
-      - conan
+      - VScode
       - pybind11
+      - GNUradio
+      - SWIG
 
 # Profile
 profile: |

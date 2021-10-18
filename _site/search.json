@@ -13,6 +13,18 @@
     } ,
   
     {
+      "title"    : "Understanding GPS",
+      "title-lower"    : "understanding gps",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "InformationTheoryGPS",
+      "tags"     : "",
+      "url"      : "/informationtheory/gps/2020/07/30/Understanding-GPS/",
+      "date"     : "2020-07-30 19:23:36 -0500",
+      "content"     : "I wanted to make a brief post about GPS and how it works; hopefully, it will increase your knowledge as it has mine.Now, I know what you’re thinking, “Well, Lee I know how GPS works, you use three ..."
+    } ,
+  
+    {
       "title"    : "Reverse Engineering Convolutional Codes",
       "title-lower"    : "reverse engineering convolutional codes",
       "sub-titile" : "",
@@ -22,6 +34,30 @@
       "url"      : "/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/",
       "date"     : "2020-07-18 17:03:36 -0500",
       "content"     : "I’ve recently been reading through Daniel Estevez’s blog because I wanted to learn more about reverse engineering signals. If your unfamiliar, Daniel Estevez is the code owner/maintainer/big boi of..."
+    } ,
+  
+    {
+      "title"    : "Reverse Engineering Convolutional Codes",
+      "title-lower"    : "reverse engineering convolutional codes",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "InformationTheory",
+      "tags"     : "",
+      "url"      : "/informationtheory/2020/07/18/Reverse-Engineering-Convolutional-Codes/",
+      "date"     : "2020-07-18 17:03:36 -0500",
+      "content"     : "I’ve recently been reading through Daniel Estevez’s blog because I wanted to learn more about reverse engineering signals. If your unfamiliar, Daniel Estevez is the code owner/maintainer/big boi of..."
+    } ,
+  
+    {
+      "title"    : "Surviving in an offline environment",
+      "title-lower"    : "surviving in an offline environment",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Debianapt",
+      "tags"     : "",
+      "url"      : "/debian/apt/2020/06/06/surviving-in-an-offline-environment/",
+      "date"     : "2020-06-06 18:03:36 -0500",
+      "content"     : "Have you ever been so fucked that you had to work on a box that didn’t have internet? Then this post is for you!The simplest solution is to setup a squeeky clean vm and use apt to get the .debs you..."
     } ,
   
     {
@@ -49,6 +85,18 @@
     } ,
   
     {
+      "title"    : "Just another Pihole guide",
+      "title-lower"    : "just another pihole guide",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "RaspberryPiPiHole",
+      "tags"     : "",
+      "url"      : "/raspberrypi/pihole/2020/02/10/Just-another-pihole-guide/",
+      "date"     : "2020-02-10 19:31:11 -0600",
+      "content"     : "Here’s a quick how-to for setting up a Pihole server at home.First, you need to setup a VM/raspberrypi to host the Pihole. I decided to just run Pihole off a VM on my ESXi server I already had.The ..."
+    } ,
+  
+    {
       "title"    : "How to configure your IoT GPS modules",
       "title-lower"    : "how to configure your iot gps modules",
       "sub-titile" : "",
@@ -58,6 +106,30 @@
       "url"      : "/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/",
       "date"     : "2020-02-09 14:02:45 -0600",
       "content"     : "A few years ago, I had a project that required me to collect GPS along with the db of cell towers, so I could triangulate their location. I went down a rabbit hole trying to figure out how to confi..."
+    } ,
+  
+    {
+      "title"    : "How to configure your IoT GPS modules",
+      "title-lower"    : "how to configure your iot gps modules",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "IoTAdafruit",
+      "tags"     : "",
+      "url"      : "/iot/adafruit/2020/02/09/How-to-configure-your-IoT-gps-module/",
+      "date"     : "2020-02-09 14:02:45 -0600",
+      "content"     : "A few years ago, I had a project that required me to collect GPS along with the db of cell towers, so I could triangulate their location. I went down a rabbit hole trying to figure out how to confi..."
+    } ,
+  
+    {
+      "title"    : "Intro to Software Defined Radio: Part I",
+      "title-lower"    : "intro to software defined radio: part i",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "SDRgnuradio",
+      "tags"     : "",
+      "url"      : "/sdr/gnuradio/2020/02/03/Intro-to-Software-Defined-Radio/",
+      "date"     : "2020-02-03 19:30:24 -0600",
+      "content"     : "For the past 4 years or so I’ve tinkered with Software Defined Radios (SDR), but until recently my knowledge of them was fairly limited. So, today I hope to impart some of my wisdom onto you.First,..."
     } ,
   
     {
@@ -85,6 +157,18 @@
     } ,
   
     {
+      "title"    : "How to Setup a Homelab: Making a Parts List",
+      "title-lower"    : "how to setup a homelab: making a parts list",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "HomelabESXi",
+      "tags"     : "",
+      "url"      : "/homelab/esxi/2020/02/02/How-to-setup-a-homelab/",
+      "date"     : "2020-02-02 17:12:38 -0600",
+      "content"     : "A few years ago, I built my first homelab server; I remember it being a bit of a daunting task and decided it might be helpful to share a few insights.I used r/homelabs as a resource to assemble th..."
+    } ,
+  
+    {
       "title"    : "MagicMirror Build",
       "title-lower"    : "magicmirror build",
       "sub-titile" : "",
@@ -94,6 +178,30 @@
       "url"      : "/python/raspberrypi/2020/01/30/MagicMirror-build/",
       "date"     : "2020-01-30 19:10:12 -0600",
       "content"     : "Here’s a little project I’ve worked on a few weeks ago. It’s a semi-intelligent magic mirror I put together. It was relatively cheap to put together since I got the monitor for free and already had..."
+    } ,
+  
+    {
+      "title"    : "MagicMirror Build",
+      "title-lower"    : "magicmirror build",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "PythonRaspberryPi",
+      "tags"     : "",
+      "url"      : "/python/raspberrypi/2020/01/30/MagicMirror-build/",
+      "date"     : "2020-01-30 19:10:12 -0600",
+      "content"     : "Here’s a little project I’ve worked on a few weeks ago. It’s a semi-intelligent magic mirror I put together. It was relatively cheap to put together since I got the monitor for free and already had..."
+    } ,
+  
+    {
+      "title"    : "Turning GPT-2 into Alex Jones",
+      "title-lower"    : "turning gpt-2 into alex jones",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "PythonGPT-2",
+      "tags"     : "",
+      "url"      : "/python/gpt-2/2020/01/24/Turning-GPT-2-into-Alex-Jones/",
+      "date"     : "2020-01-24 20:02:32 -0600",
+      "content"     : "This post is me riding the coattails of the GPT-2 hype train. Now for those that don’t know, GPT-2 is a machine learning model that is very effective at text generation. It can maintain context ove..."
     } ,
   
     {
@@ -121,6 +229,30 @@
     } ,
   
     {
+      "title"    : "Expanding your VMs in ESXi",
+      "title-lower"    : "expanding your vms in esxi",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "VMESXi",
+      "tags"     : "",
+      "url"      : "/vm/esxi/2020/01/21/Expanding-your-VMs-in-ESXi/",
+      "date"     : "2020-01-21 18:10:00 -0600",
+      "content"     : "This was pesky enough that I thought it merited a small post. I recently ran out of media on my Ubuntu VM on my ESXi v6.5 homelab. And went on a small adventure trying to figure out what to slap in..."
+    } ,
+  
+    {
+      "title"    : "Capital Gains vs. Dividends vs. Critical Thought",
+      "title-lower"    : "capital gains vs. dividends vs. critical thought",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Investing",
+      "tags"     : "",
+      "url"      : "/investing/2020/01/20/Capital-Gains-vs-Dividends-vs-Critical-Thought/",
+      "date"     : "2020-01-20 19:50:12 -0600",
+      "content"     : "I’ve seen a recent trend on youtube where people post about the success of their dividend portfolio and the ‘power blue-chip dividend stocks’. These videos fucking annoy me.So let’s do a really qui..."
+    } ,
+  
+    {
       "title"    : "Capital Gains vs. Dividends vs. Critical Thought",
       "title-lower"    : "capital gains vs. dividends vs. critical thought",
       "sub-titile" : "",
@@ -145,6 +277,18 @@
     } ,
   
     {
+      "title"    : "Setting up CCTV with MotionEyeOS ",
+      "title-lower"    : "setting up cctv with motioneyeos ",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "RaspberryPiMotionEyeOS",
+      "tags"     : "",
+      "url"      : "/raspberrypi/motioneyeos/2020/01/18/Setting-up-CCTV-with-MotionEyeOS/",
+      "date"     : "2020-01-18 19:22:12 -0600",
+      "content"     : "Recently, my paranoia of home invasion has reached a climax; So in addition to setting up a MotionEye cam pointed at my door, I’ve also decided I need a CCTV-like capability to monitor my door at a..."
+    } ,
+  
+    {
       "title"    : "Setting a MotionEyeOS Webcam",
       "title-lower"    : "setting a motioneyeos webcam",
       "sub-titile" : "",
@@ -154,6 +298,30 @@
       "url"      : "/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/",
       "date"     : "2020-01-15 20:12:12 -0600",
       "content"     : "This guide is for anyone who wants to set up a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbo..."
+    } ,
+  
+    {
+      "title"    : "Setting a MotionEyeOS Webcam",
+      "title-lower"    : "setting a motioneyeos webcam",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "RaspberryPiMotionEyeOS",
+      "tags"     : "",
+      "url"      : "/raspberrypi/motioneyeos/2020/01/15/MotionEyeOS-setup-guide/",
+      "date"     : "2020-01-15 20:12:12 -0600",
+      "content"     : "This guide is for anyone who wants to set up a MotionEye cam. You’ll need a raspberry pi (I recommend a pi 3b or better, but you can get away with a 2), a ~gb sd card, raspberry pi camera and ribbo..."
+    } ,
+  
+    {
+      "title"    : "What I did in 2019",
+      "title-lower"    : "what i did in 2019",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Me",
+      "tags"     : "",
+      "url"      : "/me/2020/01/14/What-I-did-in-2019/",
+      "date"     : "2020-01-14 20:00:00 -0600",
+      "content"     : "I know this is probably coming a little late compared to some. But that’s just who I am.I just graduated in December of 2018. So the first quarter of 2018 was filled with applications and anxiety. ..."
     } ,
   
     {
