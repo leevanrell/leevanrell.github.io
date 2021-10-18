@@ -418,15 +418,11 @@ footer {
 }
 
 .header-sub-cv {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
-  margin-top: 20px;
-  // text-transform: uppercase;
 }
 
 .cv-meta-text {
-  font-size: 16px;
-  font-weight: 500;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -435,23 +431,4 @@ footer {
 
 .cv-body-text {
   font-size: 14px;
-}
-
-.cv-skills-row {
-  text-align: center;
-  // vertical-align: text-top;
-  // vertical-align: text-top;
-
-  .cv-skill-entry {
-    width: 150px;
-    display: inline-block;
-    vertical-align: text-top;
-
-    .header-sub-cv {
-      // vertical-align: text-top;
-
-    }
-
-  }
-
 }

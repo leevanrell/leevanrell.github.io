@@ -1,0 +1,84 @@
+name: Lee Vanrell
+
+contact:
+  email: leegvanrell@gmail.com
+  github: leevanrell
+  linkedin: linkedin.com/in/leevanrell/
+  phone: (+1) 256 714 9134
+  twitter: lee_vanrell
+  website: leevanrell.com
+
+education:
+  - degree: Bachelors of Software Engineering
+    time: 2015 August - 2018 December
+    university: Auburn University
+    awards:
+      - title: Recipient of Auburn Presidential Scholarship
+        date: August 2015
+      - Recipient of CyberCorps: Scholarship for Service
+        date: August 2017
+skills:
+  - category: Languages
+    skill:
+      - Python3.8+
+      - C/C++11
+      - Bash
+  - category: DevOps
+    skill:
+      - Docker
+      - gitlab-ci
+  - category: Devtools
+    skill:
+      - Ubuntu
+      - RHEL
+      - git
+      - conan
+      - pybind11
+
+# Profile
+profile: |
+  Software Engineer with background in Software Defined Radios and Cybersecurity.
+
+# Experience
+experience:
+  - role: Software Engineer
+    time: November 2020 - Present
+    company: Shift5
+    details:
+      - bullet: Responsible for designing and building data pipelines to collect, enrich, and alert on malicious serial data.
+      - bullet: Implemented parsers based off of Interface Control Documents (ICDs) to convert binary serial data protocols to engineering units.
+      - bullet: Developed command line tools to enable rapid testing and data extraction on deployments.
+      - bullet: Provisioned and managed Hardware-in-the-loop (HIL) resources.
+      - bullet: Integration between core data pipelining and hardware engineering for ingesting data from sensors.
+      - bullet: Interfaced with external APIs like ELK and Splunk to visualize data.
+      - bullet: Helped develop automated CI/CD pipeline to run regression tests of customer deployments in a local HIL environment.
+      - bullet: Deployed hardware/software tech stack on customer platforms out in the field.
+      - bullet: Optimized existing python3 code base to allow for higher throughput in data pipeline.
+      - bullet: Developed methodology to take signal captures of serial data and replay them back across the bus using commercial-off-the-shelf (COTS) signal generators.
+    technologies_used: |
+      Python3, Docker, Splunk, Conan, C++
+  - role: Software Engineer
+    time: Feburary 2020 - November 2020
+    company: Trideum Corporation
+    details:
+      - bullet: Created RF tools with GNURadio and Software Defined Radios (SDR) to collect and reverse engineer unknown RF Waveforms.
+      - bullet: Designed and implemented a software stack to emulate a Satellite communications to stimulate Satellite transceivers.
+    technologies_used: |
+      C++, Python3, GNUradio, RHEL
+  - role: Junior Software Engineer
+    time: Feburary 2019 - February 2020
+    company: Auburn University
+    details:
+      - bullet: Developed a base image for a Cyber/RF threat platform using debian-installer and preseed images.
+      - bullet: Implemented and managed dev resources like git/svn, pip repositories, DHCP, PXE.
+      - bullet: Created a tool to interact with a 1553 data recorder via a C api, then enriched the data and stored in ELK stack for visualizations.
+    technologies_used: |
+      C++, Python3, GNUradio
+  - role: Undergraduate Research Student
+    time: June 2017 - December 2018
+    company: Auburn University
+    details:
+      - bullet: Led a team of undergrad and graduate students to conduct a open-source vulnerability assessment against Army Systems.
+      - bullet: Conducted research in rogue cellphone detection. Used a raspberry pi equipped with a SIM unit and GPS unit to detect and log cell tower data. The data was piped to a server with a Cassandra Database andvisualized with a NodeJS server with Google Maps API.
+    technologies_used: |
+      Python3, NodeJS, SQLite3,

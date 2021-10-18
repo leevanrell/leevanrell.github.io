@@ -1,0 +1,26 @@
+{% assign experience = site.data.data.experience %}
+{% if experience %}
+<section class="experience">
+    <h2 class="header-cv">Experience</h2>
+    {% for exp in experience %}
+        <div class="experience-item">
+            <div class="header-sub-cv">
+                {{exp.role}}
+            </div>
+            <div class="cv-meta-text">
+                {{exp.company}} 
+                <span class="time">{{exp.time}}</span>
+            </div> 
+            <div class="details">
+                <ul>
+                {%for bullet in exp.details %}
+                    <li>{{bullet.bullet}}</li>
+                {%endfor%}
+                </ul>
+            </div>
+            <p class="technologies">Technologies Used: {{exp.technologies_used}}</p>
+        </div>
+       
+    {% endfor %}
+</section>
+{% endif %}

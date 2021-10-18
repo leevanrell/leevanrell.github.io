@@ -2,6 +2,7 @@ author: lee vanrell
 baseurl: ''
 description: 'Software Engineer attempts to write a blog.  Focused on programming,
   3d printing, arduino''s, sdr, and more. '
+description_long: 'yeet'
 show_excerpts: true
 email: leegvanrell@gmail.com
 exclude: [.editorconfig, .git, .jekyll-cache, Gemfile, Gemfile.lock, LICENSE.md, README.md, node_modules]
